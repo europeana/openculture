@@ -1,13 +1,12 @@
 var globals = require('/ui/common/globals');
 var css = require('/ui/common/css');
 
-function fn(identifier,cnt) {
+function fn(identifier,cnt,typ) {
 	
 	var self = Titanium.UI.createWindow({
     	navBarHidden: true,
     	backgroundColor:"#fff"
 	});
-	
 	var table;
 	var searchtitle = "";
 	var Currenttitle = "";
@@ -20,7 +19,7 @@ function fn(identifier,cnt) {
 	})
 	var b99 = Titanium.UI.createButtonBar({
 //	    labels:['Search', 'Personal Museum','clear','me','pin'],
-	    labels:['Search', 'Personal Museum', 'Help'],
+	    labels:['Search', 'Your Favourites', 'Help'],
 	    backgroundColor:'#000000',
 	    top:50,
 	    style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
@@ -56,7 +55,7 @@ function fn(identifier,cnt) {
 	})
 	var b9emp = Titanium.UI.createButton({
 		image : '',
-		width:230
+		width:145
 	})
 	var blogo = Titanium.UI.createButton({
 		image : "/images/small-logo.png"
@@ -88,10 +87,10 @@ function fn(identifier,cnt) {
 		autocapitalization : false,
 		width : 200,
 		borderRadius : 5,
-		backgroundColor : "#333333",
+		backgroundColor : "#fff",
 		borderColor : "#777777",
 		borderWidth : 1,
-		color : "#fff",
+		color : "#777777",
 		value : " Search",
 		font : {
 			fontFamily : "SinhalaSangamMN",
@@ -100,7 +99,10 @@ function fn(identifier,cnt) {
 	})
 	
 	topbar.add(search);
-
+//alert("b");
+	search.addEventListener("click", function() {
+		search.value='';
+	});
 	search.addEventListener("return", function() {
 		winclose();
 		require("/helpers/LocalStorage").setString("search-string",search.getValue());
@@ -109,7 +111,7 @@ function fn(identifier,cnt) {
         require("/helpers/LocalStorage").setString("type-string","");
         Titanium.App.fireEvent("app:search2",{});
 	});
-	
+//alert("c");	
 	var b2 = Titanium.UI.createButton({
 		image : "/images/glyphicons_012_heart.png",
 		left:20
@@ -124,7 +126,7 @@ function fn(identifier,cnt) {
 		}
 		return false;
 	}
-	
+//alert("d");	
 	var like = function() {
 		if (isfav(identifier) == false) {
 			var newitem = require("/helpers/LocalStorage").getObject("search")[cnt];
@@ -132,11 +134,11 @@ function fn(identifier,cnt) {
 			if (!personal || personal == null) personal = [];
 			personal.push(newitem);
 			require("/helpers/LocalStorage").setObject("personal",personal);
-			alert("Added to your personal Museum");
+			alert("favourited");
 		}
 	}
 	b2.addEventListener("click",like);
-	
+//alert("e");	
 	var currentlink = "";
 	var addcomment = function(e) {
 		var v = Ti.UI.createWindow({
@@ -148,35 +150,35 @@ function fn(identifier,cnt) {
 		var v2 = Ti.UI.createView({
 			width : Ti.UI.FILL,
 			height : Ti.UI.FILL,
-			backgroundColor : "#000000"
+			backgroundColor : "#fff"
 		});
 		v2.add(Ti.UI.createLabel({
 			text : 'Post a comment',
 			top:15,left:25,height:50,width:300,
 			font : {
 				fontSize : 32,
-				fontFamily : "STHeitiTC-Medium"
+				fontFamily : "arial"
 			},
-			color : "#ffffff"
+			color : "#777"
 		}))
 		var srch = Ti.UI.createTextArea({
 			top:60,left:25,height:200,width:500,
 			font : {
 				fontSize : 32,
-				fontFamily : "STHeitiTC-Medium"
+				fontFamily : "arial"
 			},
-			backgroundColor : '#ffffff'
+			backgroundColor : '#ffffff',color:'#777',borderColor:'#777',borderWidth:1
 		});
 		v2.add(srch);
 		var addlink_btn = Ti.UI.createButton({
 			top:60,right:25,height:50,width:250,
 			font : {
 				fontSize : 32,
-				fontFamily : "STHeitiTC-Medium"
+				fontFamily : "arial"
 			},
-			color : "#000000",
+			color : "#777",
 			title : 'Post Comment',
-			backgroundColor : '#000000'
+			backgroundColor : '#fff'
 		});
 		v2.add(addlink_btn);
 		var addlinkfn = function() {
@@ -187,6 +189,7 @@ function fn(identifier,cnt) {
 				type : "comment",
 				comment : srch.value
 			};
+//alert("f");			
 			ajax.getdata({
 				url : "http://jon651.glimworm.com/europeana/eu.php",
 				data : _data,
@@ -202,7 +205,7 @@ function fn(identifier,cnt) {
 				}
 			});
 			
-			
+//alert("g");			
 		};
 		addlink_btn.addEventListener('click',addlinkfn);
 		var bgc = Ti.UI.createButton({
@@ -237,7 +240,7 @@ function fn(identifier,cnt) {
 
 
 	};
-	
+//alert("h");	
 	var currentlink = "";
 	var POPWEBSMALL = function(URI) {
 		
@@ -372,7 +375,7 @@ function fn(identifier,cnt) {
 		var fullthingy = "http://nl.wikipedia.org/wiki/Special:Search?search="+Ti.Network.encodeURIComponent(searchtitle)+"&go=Go";
 		
 		//alert(searchtitlez);
-		
+//alert("i");		
 		var URL = e.url;
 		if (!URL || URL == "") URL = fullthingy;
 		
@@ -466,25 +469,28 @@ function fn(identifier,cnt) {
 		var v2 = Ti.UI.createView({
 			width : Ti.UI.FILL,
 			height : Ti.UI.FILL,
-			backgroundColor : "#000000"
+			backgroundColor : "#fff"
 		});
 		v2.add(Ti.UI.createLabel({
 			text : 'Describe this link',
 			top:15,left:25,height:50,width:300,
 			font : {
 				fontSize : 32,
-				fontFamily : "STHeitiTC-Medium"
+				fontFamily : "arial"
 			},
-			color : "#ffffff"
+			color : "#777"
 		}));
 		
 		var srch = Ti.UI.createTextField({
 			top:57,left:26,height:50,width:490,
 			font : {
 				fontSize : 32,
-				fontFamily : "STHeitiTC-Medium"
+				fontFamily : "arial"
 			},
-			backgroundColor : '#ffffff'
+			backgroundColor : '#fff',
+			color:'#777',
+			borderColor : "#777",
+			borderWidth : 1
 		});
 		v2.add(srch);
 		v2.add(Ti.UI.createLabel({
@@ -492,9 +498,9 @@ function fn(identifier,cnt) {
 			top:140,left:25,height:50,width:600,
 			font : {
 				fontSize : 32,
-				fontFamily : "STHeitiTC-Medium"
+				fontFamily : "arial"
 			},
-			color : "#ffffff"
+			color : "#777"
 		}));
 		
 		var vals = ['What','Where','When','Who','General link'];
@@ -504,16 +510,16 @@ function fn(identifier,cnt) {
 			TYP = xval;
 			for (var i=0; i < valarray.length; i++) {
 				if (valarray[i].xval == xval) {
-					valarray[i].color = "#000000"
-					valarray[i].backgroundColor = "#ffffff"
+					valarray[i].color = "#fff"
+					valarray[i].backgroundColor = "#777"
 					
 				} else {
-					valarray[i].color = "#ffffff"
-					valarray[i].backgroundColor = "#000000"
+					valarray[i].color = "#777"
+					valarray[i].backgroundColor = "#fff"
 				}
 			}
 		}
-		
+//alert("j");		
 		bggoo.addEventListener('click',function(e){
 			//alert("a");
 			search.value = "http://www.google.nl";
@@ -543,13 +549,13 @@ function fn(identifier,cnt) {
 			var lbl = Ti.UI.createLabel({
 				top:0,left:(i*150+13),height:50, width : 145,
 				textAlign:'center',
-				color : "#cccccc",
+				color : "#777",
 				borderRadius : 10,
-				borderColor : "#333333",
+				borderColor : "#777",
 				borderWidth : 1,
 				font : {
 					fontSize : 24,
-					fontFamily : "STHeitiTC-Medium"
+					fontFamily : "arial"
 				},
 				text : " "+vals[i]+" ",
 				xi : i,
@@ -571,11 +577,11 @@ function fn(identifier,cnt) {
 			top:57,right:40,height:50,width:227,
 			font : {
 				fontSize : 32,
-				fontFamily : "STHeitiTC-Medium"
+				fontFamily : "arial"
 			},
-			color : "#000000",
+			color : "#777",
 			title : 'Add Link',
-			backgroundColor : '#000000'
+			backgroundColor : '#fff'
 		});
 		v2.add(addlink_btn);
 		var addlinkfn = function() {
@@ -590,6 +596,7 @@ function fn(identifier,cnt) {
 				type : TYP,
 				comment : srch.value
 			};
+//alert("k");			
 			ajax.getdata({
 				url : "http://jon651.glimworm.com/europeana/eu.php",
 				data : _data,
@@ -730,47 +737,47 @@ function fn(identifier,cnt) {
 	_data.identifier = identifier;
 	_data.action = "json-get";
 	
-	
+//alert("l");	
 	ajax.getdata({
 		url : "http://jon651.glimworm.com/europeana/eu.php?action=json-get&identifier="+identifier,
 		fn : function(e) {
 			Ti.API.info(e);
-			searchtitle = e.data["title"];
+			searchtitle = e.data[0].title;
 			Ti.API.debug(e);
 			var img = Titanium.UI.createImageView({
 				left:0,top:40,height:200,right:0,
 				backgroundColor:"#fff",
-				image : e.data["image"]	//.thumbsrc
+				image : e.data[0].img	//.thumbsrc
 			});
-
+			
 			var txt = Titanium.UI.createLabel({
 				top:20,
 				height : 'auto',
 				font : {
 					fontSize : 16,
-					fontFamily : "STHeitiTC-Medium"
+					fontFamily : "arial"
 				},
-				text : e.data["title"]+"\n"+e.data["description"],	//.description
+				text : e.data[0].title+"\n"+e.data[0].description,	//.description
 				enableZoomControls :true
 			});		
-			
 			botbar.title = e.data.provider;
 			var view = Titanium.UI.createView({
 				top:44,left:0,bottom:40,width:600
 			});
-			var view2 = Titanium.UI.createView({
-				top:160,left:600,bottom:40,right:0,height:400
+			var view22 = Titanium.UI.createView({
+				top:50,right:5,left:600,width:420, height:650,
+				borderColor:'#777',borderRadius:5,borderWidth:1
 			});
-			var view3 = Titanium.UI.createView({
-				top:44,left:600,bottom:40,right:0,backgroundColor:"#000000"
+			var view2 = Titanium.UI.createView({
+				top:0,left:0,bottom:40,right:0,height:570
 			});
 			var view4 = Titanium.UI.createView({
-				top:620,left:600,bottom:40,right:0,backgroundColor:"#000000"
+				top:570,left:0,bottom:0,right:0,backgroundColor:"#fff"
 			});
 			
 			table = Ti.UI.createTableView({
-				backgroundColor : "#000000",
-				separatorColor : "#000000"
+				backgroundColor : "#fff",
+				separatorColor : "#fff"
 			});
 			view2.add(table);
 			
@@ -794,10 +801,9 @@ function fn(identifier,cnt) {
 				
 				var secv1 = Ti.UI.createView({
 						height : 30,
-						backgroundColor : "#333333"
+						backgroundColor : "#eee"
 				});
 				secv1.add(Ti.UI.createLabel({
-					color : "#ffffff",
 					height : Ti.UI.SIZE,
 					textAlign: "left",
 					width:425,
@@ -805,9 +811,9 @@ function fn(identifier,cnt) {
 					top:7,
 					font : {
 						fontSize : 16,
-						fontFamily : "STHeitiTC-Medium"
+						fontFamily : "arial"
 					},
-					color : "#ffffff",
+					color : "#777",
 					text : 'ABOUT'
 				}));
 				var sec1 = Ti.UI.createTableViewSection({
@@ -818,7 +824,7 @@ function fn(identifier,cnt) {
 					layout:'vertical'
 				});
 				var rowv1 = Ti.UI.createView({
-					backgroundColor : "#000000",
+					backgroundColor : "#fff",
 					height : Ti.UI.SIZE,
 					top:10, bottom:10,
 					width:425,
@@ -826,14 +832,14 @@ function fn(identifier,cnt) {
 				});
 				var lblrow1=Ti.UI.createLabel({
 					text:Currenttitle,
-					color:"#fff",
+					color:"#777",
 					font : {
 						fontSize : 20,
-						fontFamily : "STHeitiTC-Medium",
+						fontFamily : "arial",
 						fontStyle : 'bold'
 					},
 					height:Ti.UI.SIZE,
-					left:20,right:10,top:0
+					left:17,right:10,top:0
 				});
 				
 				var lblrow2=Ti.UI.createLabel({
@@ -841,10 +847,10 @@ function fn(identifier,cnt) {
 					color:"#fff",
 					font : {
 						fontSize : 16,
-						fontFamily : "STHeitiTC-Medium"
+						fontFamily : "arial"
 					},
 					height:Ti.UI.SIZE,
-					left:20,right:15,top:5
+					left:17,right:15,top:5
 				});
 				
 				var lblrow3=Ti.UI.createLabel({
@@ -852,7 +858,7 @@ function fn(identifier,cnt) {
 					color:"#fff",
 					font : {
 						fontSize : 16,
-						fontFamily : "STHeitiTC-Medium"
+						fontFamily : "arial"
 					},
 					height:Ti.UI.SIZE,
 					left:17,right:15,top:5
@@ -874,7 +880,7 @@ function fn(identifier,cnt) {
 						layout:'vertical'
 					});
 					var rowv1 = Ti.UI.createView({
-						backgroundColor : "#000000",
+						backgroundColor : "#fff",
 						height : Ti.UI.SIZE,
 						top:10, bottom:10,
 						width:425,
@@ -889,10 +895,10 @@ function fn(identifier,cnt) {
 					});
 					var lblrow4 = Ti.UI.createLabel({
 						text:button.title,
-						color:"#fff",
+						color:"#777",
 						font : {
 							fontSize : 16,
-							fontFamily : "STHeitiTC-Medium"
+							fontFamily : "arial"
 						},
 						left:10,top:8
 					});
@@ -909,10 +915,10 @@ function fn(identifier,cnt) {
 				for (var i=0; i < vals.length; i++) {
 					var secv = Ti.UI.createView({
 						height : 30,
-						backgroundColor : "#333333"
+						backgroundColor : "#eee"
 					});
 					secv.add(Ti.UI.createLabel({
-						color : "#ffffff",
+						color : "#777",
 						height : Ti.UI.SIZE,
 						textAlign: "left",
 						width:425,
@@ -920,9 +926,9 @@ function fn(identifier,cnt) {
 						top:7,
 						font : {
 							fontSize : 16,
-							fontFamily : "STHeitiTC-Medium"
+							fontFamily : "arial"
 						},
-						color : "#ffffff",
+						color : "#777",
 						text : vals[i].toUpperCase()
 					}));
 					var sec = Ti.UI.createTableViewSection({
@@ -936,14 +942,14 @@ function fn(identifier,cnt) {
 								xurl : links[l].url
 							});
 							var rv = Ti.UI.createView({
-								backgroundColor : "#000000",
+								backgroundColor : "#fff",
 								height : Ti.UI.SIZE,
 								top:10, bottom:10,
 								width:425
 							});
 							row.add(rv);
 							rv.add(Ti.UI.createLabel({
-								color : "#ffffff",
+								color : "#777",
 								height : Ti.UI.SIZE,
 								textAlign: "left",
 								width:425,
@@ -951,7 +957,7 @@ function fn(identifier,cnt) {
 								font : {
 									fontSize : 16,
 									fontWeight: "bold",
-									fontFamily : "STHeitiTC-Medium"
+									fontFamily : "arial"
 								},
 								text : (links[l].comment != "") ? links[l].comment : links[l].url								
 							}));
@@ -970,8 +976,9 @@ function fn(identifier,cnt) {
 				}
 				table.setData(rows);
 			}
-			Currenttitle=e.data["title"];
-			Currenttitle1=e.data["description"];
+
+			Currenttitle=e.data[0].title;
+			Currenttitle1=e.data[0].description;
 			Currenttitle2=e.data["creator"];
 			ExtraButtons = e.data1.buts;
 			updateLinks(e.data1.links);
@@ -979,107 +986,73 @@ function fn(identifier,cnt) {
 				updateLinks(e.links);
 			}
 			table.addEventListener("updateLinks",updateLinksFn);
-
+			
 			self.add(view);
-			self.add(view3);
-			self.add(view4);
-			var btn121 = Ti.UI.createImageView({
-				width:24,
-				left:60,
-				top:10,
-				height:24,
-				image: "images/glyphicons_012_heart.png"
-			});
-			var btn122 = Ti.UI.createImageView({
-				width:24,
-				left:157,
-				top:10,
-				height:24,
-				image: "images/glyphicons_050_link.png"				
-			});
-			var btn123 = Ti.UI.createImageView({
-				width:24,
-				left:240,
-				top:10,
-				height:24,
-				image: "images/glyphicons_151_edit.png"
-				
-			});
-			
-			var btn124 = Ti.UI.createImageView({
-				left:344,
-				top:12,
-				image: "images/glyphicons_326_sharet.png"
-			});
-			
+			view22.add(view4);
 			var lbl121 = Ti.UI.createLabel({
-				color : "#ffffff",
+				color : "#777",
 				height : Ti.UI.SIZE,
 				textAlign: "left",
 				width:300,
-				left:30,
-				top:55,
+				left:73,
+				top:35,
 				font : {
 					fontSize : 16,
 					fontWeight: "bold",
-					fontFamily : "STHeitiTC-Medium"
+					fontFamily : "arial"
 				},
-				text : "FAVOURITE"
+				text : "Favourite / "
 				
 			});
 			var lbl122 = Ti.UI.createLabel({
-				color : "#ffffff",
+				color : "#777",
 				height : Ti.UI.SIZE,
 				textAlign: "left",
 				width:300,
-				left:145,
-				top:55,
+				left:163,
+				top:35,
 				font : {
 					fontSize : 16,
 					fontWeight: "bold",
-					fontFamily : "STHeitiTC-Medium"
+					fontFamily : "arial"
 				},
-				text : "WWW"
+				text : "Link / "
 				
 			});
 			var lbl123 = Ti.UI.createLabel({
-				color : "#ffffff",
+				color : "#777",
 				height : Ti.UI.SIZE,
 				textAlign: "left",
 				width:300,
-				left:210,
-				top:55,
+				left:215,
+				top:35,
 				font : {
 					fontSize : 16,
 					fontWeight: "bold",
-					fontFamily : "STHeitiTC-Medium"
+					fontFamily : "arial"
 				},
-				text : "COMMENT"
+				text : "Comment / "
 				
 			});
 			var lbl124 = Ti.UI.createLabel({
-				color : "#ffffff",
+				color : "#777",
 				height : Ti.UI.SIZE,
 				textAlign: "center",
 				width:100,
-				left:305,
-				top:55,
+				left:280,
+				top:35,
 				font : {
 					fontSize : 16,
 					fontWeight: "bold",
-					fontFamily : "STHeitiTC-Medium"
+					fontFamily : "arial"
 				},
-				text : "SHARE"
+				text : "Share"
 				
 			});
 			view4.add(lbl121);
 			view4.add(lbl122);
 			view4.add(lbl123);
 			view4.add(lbl124);
-			view4.add(btn121);
-			view4.add(btn122);
-			view4.add(btn123);
-			view4.add(btn124);
 			
 			var poper = function(){
 				var self = Titanium.UI.createOptionDialog({
@@ -1103,94 +1076,25 @@ function fn(identifier,cnt) {
 			    return self;
 			};
 			
-			btn121.addEventListener("click",like);
-			btn122.addEventListener("click",addlink);
-			btn123.addEventListener("click",addcomment);
-			btn124.addEventListener("click",function(e){
+			lbl121.addEventListener("click",like);
+			lbl122.addEventListener("click",addlink);
+			lbl123.addEventListener("click",addcomment);
+			lbl124.addEventListener("click",function(e){
 				//winclose();
 				//Titanium.App.fireEvent("redisplay-personal",{});
 				poper();
 			});
 			
-			var secthing = Ti.UI.createView({
-					height : 30,
-					backgroundColor : "#333333",
-					top:0,left:0,width:425
-			});
-			secthing.add(Ti.UI.createLabel({
-					font : {
-						fontSize : 16,
-						fontFamily : "STHeitiTC-Medium"
-					},
-					color : "#ffffff",
-					text : "INSTRUCTIONS",
-					left:10
-			}));
-			view3.add(Ti.UI.createLabel({
-					font : {
-						fontSize : 16,
-						fontFamily : "STHeitiTC-Medium"
-					},
-					color : "#ffffff",
-					//text : "Weclome to the Muse- Your Personal Mobile Museurm powered by the Rijksmuseum API and Glimworm IT Search and browse the Rijksmuseum collection quickly. Collect related links from Wikipedia and the web. Post comments about the art for others to read. Add art works to your personal museum.",
-					text : "* Search and browse the Rijksmuseum collection.\n* Collect related links from Wikipedia and the web.\n* Post comments about the art for others to read.\n* Add art works to your personal museum.",
-					top:40, left:10, right:10, width:425, textAlign:"left"
-			}));
-			
-			var popDemo = function(KEY){
-				var xhtml = "<html><head><style type='text/css'>body{background-color:black;margin:0;}iframe{margin:0;}</style></head><body><iframe width='100%' height='100%' src='"+KEY+"' frameborder='0' allowfullscreen></iframe></body></html>";
-				
-				var xview = Titanium.UI.createWindow({
-					width : '80%',
-					height : '80%',
-					top: '10%',
-					left: '10%',
-					backgroundColor: 'transparent'
-				});
-				
-				var xhtmlview = Titanium.UI.createWebView({
-					width:'95%',
-					height:'95%',
-					html: xhtml
-				});
-				
-				var ximg = Titanium.UI.createImageView({
-					width:25,
-					height:25,
-					top:5,
-					left:10,
-					image:'/images/close.png'
-				});
-				
-				xview.add(xhtmlview);
-				xview.add(ximg);
-				xview.open();
-				
-				ximg.addEventListener('click',function(){
-					xview.close();
-				});
-			};
-			
-			var demobut = Ti.UI.createButton({
-					title: 'View Demo',
-					right:10, width:100, height:20, backgroundColor: "#333333", color:"#000000", borderRadius: 0
-			});
-			secthing.add(demobut);
-			demobut.addEventListener('click',function(e){
-				popDemo("http://www.youtube.com/embed/hjHdBTDzlrI");
-				//Titanium.Platform.openURL('http://mobilemuseum.eu');
-			});
-			view3.add(secthing);
-			
-			self.add(view2);
+			view22.add(view2);
+			self.add(view22);
 			
 			var html = "";
 			html += "<html><head></head><body TOPMARGIN='0' LEFTMARGIN='0' MARGINHEIGHT='0' MARGINWIDTH='0' style='background-color:#000;'>";
 //			html += "<img src='"+ e.data["image"]+"' style='border:0;padding:0;margin:0;' width='100%'>";
-			html += "<img src='"+ e.data["image"]+"' style='border:0;padding:0;margin:0;'>";
+			html += "<img src='"+ e.data[0].img+"' style='border:0;padding:0;margin:0;'>";
 			html += "</body></html>";
 			
-			html = "<img src='"+ e.data["image"]+"' style='border:0;padding:0;margin:0;' width='100%'>";
+			html = "<img src='"+ e.data[0].img+"' style='border:0;padding:0;margin:0;' width='100%'>";
 			
 
 			// self.add(Titanium.UI.createWebView({
@@ -1211,8 +1115,10 @@ function fn(identifier,cnt) {
 			    // contentHeight:'auto'
 			// });
 
+			
 			var wv = Titanium.UI.createWebView({
-				left:0,top:0, 
+				left:0,top:0,bottom:8,right:5,
+				borderRadius:5,
 				width:  Ti.UI.FILL,
 				height : Ti.UI.FILL,
 				scalesPageToFit:true,
@@ -1238,10 +1144,10 @@ function fn(identifier,cnt) {
 				for (var i=0; i < path.length; i++) { matched.push(true) }
 				
 				
-				var lbl0h = Titanium.UI.createLabel({text:" How You Are Connected to "+e.data.title ,backgroundColor:"#333",color:"#fff",left:0,right:0,height:50,top:0,font : {fontFamily : "STHeitiTC-Medium"}});
+				var lbl0h = Titanium.UI.createLabel({text:" How You Are Connected to "+e.data.title ,backgroundColor:"#333",color:"#fff",left:0,right:0,height:50,top:0,font : {fontFamily : "arial"}});
 				view0.add(lbl0h);
 				
-				var lbl0 = Titanium.UI.createLabel({text:"You",height:40,top:5,font : {fontSize:20, fontFamily : "STHeitiTC-Medium"}});
+				var lbl0 = Titanium.UI.createLabel({text:"You",height:40,top:5,font : {fontSize:20, fontFamily : "arial"}});
 				lbl0.addEventListener("click",function(e) {
 					ARR = [];
 					displayPath(ARR);
@@ -1251,7 +1157,7 @@ function fn(identifier,cnt) {
 				
 				
 				for (var i=0; i < ARR.length; i++) {
-					view0.add(Titanium.UI.createLabel({text:ARR[i],height:20,top:5,font : {fontFamily : "STHeitiTC-Medium"}}));
+					view0.add(Titanium.UI.createLabel({text:ARR[i],height:20,top:5,font : {fontFamily : "arial"}}));
 					for (var j=0; j < path.length; j++) { if (path[j][i] != ARR[i]) matched[j] = false; }
 				}
 		
@@ -1269,7 +1175,7 @@ function fn(identifier,cnt) {
 				
 				
 				for (var i=0; i < list.length; i++) {
-					var lbl = Titanium.UI.createLabel({color : "#00f",text:list[i],height:20,top:5,font : {fontFamily : "STHeitiTC-Medium"}});
+					var lbl = Titanium.UI.createLabel({color : "#00f",text:list[i],height:20,top:5,font : {fontFamily : "arial"}});
 					lbl.addEventListener("click",function(e) {
 						ARR.push(e.source.text);
 						displayPath(ARR);
@@ -1278,7 +1184,7 @@ function fn(identifier,cnt) {
 				}
 				view0.add(Titanium.UI.createImageView({image:"/images/icon_arrow_green_down_15x18.gif",height:20,width:20}));
 				view0.add(Titanium.UI.createLabel({text:"("+(shortest - ARR.length)+")"}));
-				view0.add(Titanium.UI.createLabel({text:e.data.title,height:20,top:5,font : {fontFamily : "STHeitiTC-Medium"}}));
+				view0.add(Titanium.UI.createLabel({text:e.data.title,height:20,top:5,font : {fontFamily : "arial"}}));
 				if (view2.children && view2.children.length > 0) {
 					view2.remove(view2.children[0]);
 				}
@@ -1291,7 +1197,7 @@ function fn(identifier,cnt) {
 				// height : 20,
 				// text : "AUTO SUGGESTIONS FROM METADATA",
 				// color : "#00f",
-				// font : {fontFamily : "STHeitiTC-Medium"}
+				// font : {fontFamily : "arial"}
 			// })
 			// view.add(txt);
 			
@@ -1310,7 +1216,7 @@ function fn(identifier,cnt) {
 						bottom:10,
 						height : 20,
 						text : node + " / " + nodenum,
-						font : {fontFamily : "STHeitiTC-Medium"}
+						font : {fontFamily : "arial"}
 					})
 					view.add(txt);
 					
@@ -1326,7 +1232,7 @@ function fn(identifier,cnt) {
 								bottom:40,
 								height : 150,
 								text : e1.data.txt,
-								font : {fontFamily : "STHeitiTC-Medium"}
+								font : {fontFamily : "arial"}
 							})
 //							view2.add(txt1);
 							path = e1.data.arr1;
@@ -1348,7 +1254,7 @@ function fn(identifier,cnt) {
 						bottom:10,
 						height : 20,
 						text : s,
-						font : {fontFamily : "STHeitiTC-Medium"}
+						font : {fontFamily : "arial"}
 					})
 					view.add(txt);
 					
@@ -1357,7 +1263,7 @@ function fn(identifier,cnt) {
 						bottom:10,
 						height : 20,
 						text : s,
-						font : {fontFamily : "STHeitiTC-Medium"}
+						font : {fontFamily : "arial"}
 					})
 					view.add(txt);
 					
@@ -1389,7 +1295,9 @@ function fn(identifier,cnt) {
 	
 	var uuid = require("/ui/common/globals").getuuid();
 	
-	globals.openmodalfull(self);		
+	globals.openmodalfull(self);	
+	//setTimeout(globals.openmodalfull(self),5000);
+	//alert(self);	
 	
 }
 

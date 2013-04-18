@@ -3,14 +3,14 @@ var css = require('/ui/common/css');
 
 function fn(type,cnt) {
 	
-	var preview = function(identifier,cnt) {
+	var preview = function(identifier,cnt,typ) {
 //		var winClass = require("/ui/common/PreviewWindow");
 		var winClass = require("/ui/common/PlayWindow");
-		var preview_win = new winClass(identifier,cnt);
+		var preview_win = new winClass(identifier,cnt,typ);
 	}
 
 	var click = function(e) {
-		preview.call(this,e.source.xindent,e.source.xcnt);
+		preview.call(this,e.source.xindent,e.source.xcnt,e.source.xtyp);
 	}
 	
 	if (type == 2) {
@@ -37,7 +37,9 @@ function fn(type,cnt) {
 				image: item.enclosure,
 				xcnt : cnt,
 				xguid : item.guid,
-				xindent: item.id
+				xindent: item.id,
+				xtyp: item.type,
+				borderColor:'#777',borderWidth:1
 			})
 			var img = Titanium.UI.createWebView({
 				left:0,top:0,
@@ -46,7 +48,9 @@ function fn(type,cnt) {
 				html : "<html><head></head><body TOPMARGIN='0' LEFTMARGIN='0' MARGINHEIGHT='0' MARGINWIDTH='0'><img src='"+item.enclosure+"' style='border:0;padding:0;margin:0;' width='350'></body></html>",
 				xcnt : cnt,
 				xguid : item.guid,
-				xindent: item.id
+				xindent: item.id,
+				xtyp: item.type,
+				borderColor:'#777',borderWidth:1
 			})
 
 			img.addEventListener("click",click);
@@ -75,7 +79,7 @@ function fn(type,cnt) {
 				//text : "A"+item.title,
 				text : item.title,
 				font : {
-					fontFamily : "STHeitiTC-Medium"
+					fontFamily : "arial"
 				}
 			});
 			
@@ -123,7 +127,10 @@ function fn(type,cnt) {
 				height:250,
 				html : "<html><head></head><body TOPMARGIN='0' LEFTMARGIN='0' MARGINHEIGHT='0' MARGINWIDTH='0'><img src='"+item.enclosure+"' style='border:0;padding:0;margin:0;' width='250'></body></html>",
 				xcnt : cnt,
-				xguid : item.guid
+				xguid : item.guid,
+				xindent: item.id,
+				xtyp: item.type,
+				borderColor:'#777',borderWidth:1
 			})
 			
 			
@@ -145,7 +152,7 @@ function fn(type,cnt) {
 				//text : "B"+item.title,
 				text : item.title,
 				font : {
-					fontFamily : "STHeitiTC-Medium"
+					fontFamily : "arial"
 				}
 			});
 			

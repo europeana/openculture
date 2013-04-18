@@ -19,7 +19,7 @@ function fn() {
 	var mainview = Titanium.UI.createScrollView({
 		contentHeight:'auto',
 		contentWidth:'auto',
-		top:40,left:0,right:0,height:710,backgroundColor:"#000000"
+		top:40,left:0,right:0,height:710,backgroundColor:"#fff"
 	});
 
 	var mainview2 = Titanium.UI.createView({
@@ -67,7 +67,7 @@ function fn() {
 				// height : 'auto',
 				// font : {
 					// fontSize : 16,
-					// fontFamily : "STHeitiTC-Medium"
+					// fontFamily : "arial"
 				// }
 			// })
 			// row.add(lbl);
@@ -94,7 +94,7 @@ function fn() {
 				height : 'auto',
 				font : {
 					fontSize : 16,
-					fontFamily : "STHeitiTC-Medium"
+					fontFamily : "arial"
 				}
 			})
 			row.add(lbl);
@@ -118,15 +118,15 @@ function fn() {
 		contentWidth:'auto',
 		zIndex:999,
 		xopen : false,
-		top:40,left:-200,width:190,height:710,backgroundColor:"#000"
+		top:40,left:-200,width:190,height:710,backgroundColor:"#fff"
 	});
 	var tabR = Titanium.UI.createTableView({
 		height : 'auto',
 		left:0, right:0,top:0,
-		color : "#fff",
-		backgroundColor : "#000",
-		separatorColor :"#333",
-		borderColor:'#333',
+		color : "#777",
+		backgroundColor : "#fff",
+		separatorColor :"#777",
+		borderColor:'#777',
 		borderWidth:1
 	});
 	mainviewR.add(tabR);
@@ -140,18 +140,18 @@ function fn() {
 		for (var i=0; i < places.length; i++) {
 			var row = Titanium.UI.createTableViewRow({
 				xlink : places[i],
-				backgroundColor:"#000",
-				color : "#fff",
+				backgroundColor:"#fff",
+				color : "#777",
 				height : 64,
 			})
 			var lbl = Titanium.UI.createLabel({
 				text : places[i],
 				xlink : places[i],
-				color : "#fff",
+				color : "#777",
 				height : 'auto',
 				font : {
 					fontSize : 16,
-					fontFamily : "STHeitiTC-Medium"
+					fontFamily : "arial"
 				}
 			})
 			row.add(lbl);
@@ -199,15 +199,14 @@ function fn() {
 	})
 	var b2emp = Titanium.UI.createButton({
 		image : '',
-		width:230
+		width:145
 	})
 	var b1muse = Titanium.UI.createButton({
 		image : 'images/small-logo.png'
 	})
 	
 	var bb1 = Titanium.UI.createButtonBar({
-//	    labels:['Search', 'Personal Museum','clear','me','pin'],
-	    labels:['Search', 'Personal Museum', 'Help'],
+	    labels:['Search', 'Your Favourites', 'Help'],
 	    backgroundColor:'#000000',
 	    top:50,
 	    style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
@@ -254,10 +253,10 @@ function fn() {
 		autocapitalization : false,
 		width : 200,
 		borderRadius : 5,
-		backgroundColor : "#333333",
+		backgroundColor : "#fff",
 		borderColor : "#777777",
 		borderWidth : 1,
-		color : "#fff",
+		color : "#777",
 		value : " Search",
 		font : {
 			fontFamily : "SinhalaSangamMN",
@@ -507,53 +506,26 @@ function fn() {
 		win_displaySearchForce = x;
 		
 		var xview = Ti.UI.createView({
-			top:0,left:0,height:Ti.UI.FILL,width:Ti.UI.FILL,backgroundColor:"#676767"
+			top:0,left:0,height:Ti.UI.FILL,width:Ti.UI.FILL,backgroundColor:"#fff"
 		});
 		x.add(xview);
-		
-		var xlbl = Ti.UI.createLabel({
-			left:206,top:255,text:'SEARCH',color:'#ffffff',
-			font : {
-				fontFamily : "SinhalaSangamMN",
-				fontSize : 50
-			}
-		});
-		xview.add(xlbl);
-		var xlbl1 = Ti.UI.createLabel({
-			left:405,top:320,text:'Powered by the Rijksmuseum Api',color:'#333333',
-			font : {
-				fontFamily : "SinhalaSangamMN",
-				fontSize : 24
-			}
-		});
-		xview.add(xlbl1);
-		
 		var ximg = Ti.UI.createImageView({
-			top:-10,
-			left:281,
+			top:60,
+			left:37,
 			image:'/images/logo.png',
 			width:562,
 			height : 236
 		});
 		xview.add(ximg);
 		
-		// var ximg = Ti.UI.createImageView({
-			// top:400,
-			// left:195,
-			// image:'/images/logo.png',
-			// width:562,
-			// height : 236
-		// });
-		// xview.add(ximg);
-		
 		
 		var xsearch = Titanium.UI.createTextField({
-			right : 206,
-			top : 260,
-			height : 50,
+			right : 37,
+			top : 246,
+			height : 54,
 			autocorrect : false,
 			autocapitalization : false,
-			width : 428,
+			width : 800,
 			borderRadius : 5,
 			backgroundColor : "#ffffff",
 			borderColor : "#777777",
@@ -561,14 +533,32 @@ function fn() {
 			color : "#676767",
 			value : "",
 			font : {
-				fontFamily : "SinhalaSangamMN",
+				fontFamily : "arial",
 				fontSize : 30
 			}
 		});
 		xview.add(xsearch);
+		var ximg1 = Ti.UI.createImageView({
+			 top:228,
+			 right:24,
+			 image:'/images/srch-but.png'
+		});
+		xview.add(ximg1);
 		var srchval = search.value;
 		//alert(srchval);
 		xsearch.value = srchval;
+		xsearch.addEventListener("click", function() {
+		//x.addEventListener('click',function(e) {
+		//	x.close();
+			//var valsrch = xsearch.value();
+			x.close();
+			lock_displaySearchForce = false;
+			require("/helpers/LocalStorage").setString("search-string",xsearch.value);
+			require("/helpers/LocalStorage").setString("yr-string","");
+			require("/helpers/LocalStorage").setString("place-string","");
+			require("/helpers/LocalStorage").setString("type-string","");
+			search2.call(this);
+		});
 		xsearch.addEventListener("return", function() {
 		//x.addEventListener('click',function(e) {
 		//	x.close();
