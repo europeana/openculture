@@ -13,6 +13,7 @@ function fn(identifier,cnt,typ) {
 	var Currenttitle1 = "";
 	var Currenttitle2 = "";
 	var ExtraButtons = [];
+	var ExtraMeta = [];
 	var docTitle = "";
 	var b1 = Titanium.UI.createButton({
 		image : "/images/glyphicons_212_down_arrow.png"
@@ -869,7 +870,43 @@ function fn(identifier,cnt,typ) {
 				row1.add(rowv1);
 				sec1.add(row1);
 				rows.push(sec1);
-				
+				for (var i=0; i<ExtraMeta.length; i++){
+					var button = ExtraMeta[i];
+					var row1 = Ti.UI.createTableViewRow({
+						height:Ti.UI.SIZE,
+						layout:'vertical'
+					});
+					var rowv1 = Ti.UI.createView({
+						backgroundColor : "#fff",
+						height : Ti.UI.SIZE,
+						top:10, bottom:10,
+						width:425,
+						layout: 'vertical'
+					});
+					var lblrow5 = Ti.UI.createLabel({
+						text:button.label,
+						color:"#777",
+						font : {
+							fontSize : 16,
+							fontWeight: "bold",
+							fontFamily : "arial"
+						},
+						left:10,top:8
+					});
+					var lblrow4 = Ti.UI.createLabel({
+						text:button.value,
+						color:"#777",
+						font : {
+							fontSize : 16,
+							fontFamily : "arial"
+						},
+						left:10,top:8
+					});
+					rowv1.add(lblrow5);
+					rowv1.add(lblrow4);
+					row1.add(rowv1);
+					sec1.add(row1);
+				}
 				for (var i=0; i < ExtraButtons.length; i++) {
 					var button = ExtraButtons[i];
 					//button.title
@@ -981,6 +1018,7 @@ function fn(identifier,cnt,typ) {
 			Currenttitle1=e.data[0].description;
 			Currenttitle2=e.data["creator"];
 			ExtraButtons = e.data1.buts;
+			ExtraMeta = e.data1.meta;
 			updateLinks(e.data1.links);
 			var updateLinksFn = function(e) {
 				updateLinks(e.links);
