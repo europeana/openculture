@@ -1128,31 +1128,9 @@ function fn(identifier,cnt,typ) {
 			
 			var html = "";
 			html += "<html><head></head><body TOPMARGIN='0' LEFTMARGIN='0' MARGINHEIGHT='0' MARGINWIDTH='0' style='background-color:#000;'>";
-//			html += "<img src='"+ e.data["image"]+"' style='border:0;padding:0;margin:0;' width='100%'>";
 			html += "<img src='"+ e.data[0].img+"' style='border:0;padding:0;margin:0;'>";
 			html += "</body></html>";
-			
 			html = "<img src='"+ e.data[0].img+"' style='border:0;padding:0;margin:0;' width='100%'>";
-			
-
-			// self.add(Titanium.UI.createWebView({
-				// left:514,bottom:40,right:0, height:200, url : "http://www.wikipedia.com"
-			// }));
-			
-			
-			// view.add(img);
-			// img.addEventListener("click", winclose);
-// 			
-			// view.add(txt);
-			
-			// var wv0 = Ti.UI.createScrollView({
-				// left:0,top:0, 
-				// width:  Ti.UI.FILL,
-				// height : Ti.UI.FILL,
-			    // contentWidth:'auto',
-			    // contentHeight:'auto'
-			// });
-
 			
 			var wv = Titanium.UI.createWebView({
 				left:0,top:0,bottom:8,right:5,
@@ -1174,9 +1152,7 @@ function fn(identifier,cnt,typ) {
 			}
 			var displayPath = function(ARR) {
 				var view0 = Titanium.UI.createView({
-					top:00,bottom:200,left:0,right:0, layout : 'vertical',
-					borderColor:'#333'
-//					borderRadius:20
+					top:00,bottom:200,left:0,right:0, layout : 'vertical'
 				});
 				var matched = [];
 				for (var i=0; i < path.length; i++) { matched.push(true) }
