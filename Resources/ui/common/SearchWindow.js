@@ -21,7 +21,7 @@ function fn() {
 	var mainview = Titanium.UI.createScrollView({
 		contentHeight:'auto',
 		contentWidth:'auto',
-		top:40,left:0,right:0,height:710,backgroundColor:"#fff"
+		top:40,left:0,right:0,height:710,backgroundColor:"#000000"
 	});
 
 	mainview.addEventListener('scrollEnd', function(e) {
@@ -143,7 +143,7 @@ function fn() {
 		contentWidth:'auto',
 		zIndex:999,
 		xopen : false,
-		top:40,left:-200,width:190,height:710,backgroundColor:"#fff"
+		top:40,left:-200,width:190,height:710,backgroundColor:"#000"
 	});
 	var tabR = Titanium.UI.createTableView({
 		height : 'auto',
@@ -165,7 +165,7 @@ function fn() {
 		for (var i=0; i < places.length; i++) {
 			var row = Titanium.UI.createTableViewRow({
 				xlink : places[i],
-				backgroundColor:"#fff",
+				backgroundColor:"#000",
 				color : "#777",
 				height : 64,
 			})
@@ -556,26 +556,24 @@ function fn() {
 		win_displaySearchForce = x;
 		
 		var xview = Ti.UI.createView({
-			top:0,left:0,height:Ti.UI.FILL,width:Ti.UI.FILL,backgroundColor:"#fff"
+			top:0,left:0,height:Ti.UI.FILL,width:Ti.UI.FILL,backgroundColor:"#777"
 		});
 		x.add(xview);
 		var ximg = Ti.UI.createImageView({
-			top:60,
-			left:37,
-			image:'/images/splash-icon.png',
-			width:368,
-			height : 200
+			top:10,
+			left:300,
+			image:'/images/eu/europeana-logo-white.png',
+			width:300
 		});
 		xview.add(ximg);
 		
 		
 		var xsearch = Titanium.UI.createTextField({
-			right : 37,
 			top : 246,
 			height : 54,
 			autocorrect : false,
 			autocapitalization : false,
-			width : 800,
+			width : 860,
 			borderRadius : 5,
 			backgroundColor : "#ffffff",
 			borderColor : "#777777",
@@ -590,18 +588,126 @@ function fn() {
 			}
 		});
 		xview.add(xsearch);
-		var ximg1 = Ti.UI.createImageView({
-			 top:228,
-			 right:24,
-			 image:'/images/srch-but.png'
+		// var ximg1 = Ti.UI.createImageView({
+			 // top:228,
+			 // right:24,
+			 // image:'/images/srch-but.png'
+		// });
+		// xview.add(ximg1);
+		var ximg_left = Ti.UI.createImageView({
+			 top:428,
+			 left:10,
+			 width : 50,
+			 zIndex : 99,
+			 image:'/images/eu/arrow-left.png'
 		});
-		xview.add(ximg1);
-		
+		xview.add(ximg_left);
+		var ximg_right = Ti.UI.createImageView({
+			 top:428,
+			 right:10,
+			 width : 50,
+			 zIndex : 99,
+			 image:'/images/eu/arrow-right.png'
+		});
+		xview.add(ximg_right);		
 		xview.add(Ti.UI.createLabel({
 			text : require("/helpers/LocalStorage").getObject("search-message"),
-			top:250,
-			left:66
+			top:320,
+			color : "#ffffff"
 		}));
+		
+		var search_views = [];
+		var featured_items = [{ img : "featured-maps.jpg", txt : "maps"}, { img : "featured-art.jpg", txt : "art"},{ img : "featured-past.jpg", txt: "past"},{ img :"featured-nature.jpg", txt : "nature"}]
+		
+		var num_items = featured_items.length;
+		var search_square_x3 = null;
+		
+		for (var i=0; i < num_items; i++) {
+
+			if (search_square_x3 != null && (i%3) == 0) {
+				search_views.push(search_square_x3);
+				search_square_x3 = null;
+			}
+			if (search_square_x3 == null) {
+				search_square_x3 = Ti.UI.createView({
+					width:870,
+					height:300,
+					layout : 'horizontal'
+				});
+			} 
+			var search_square = Ti.UI.createView({
+				width:280,
+				height:280,
+				right : 5,
+				left : 5
+			});
+			var ximg2 = Ti.UI.createImageView({
+				 image:"http://jon651.glimworm.com/europeana/featured_items/"+featured_items[i].img
+			});
+			search_square.add(ximg2);
+			
+			var square_underlay = Ti.UI.createView({
+				bottom : 0, height : 50, backgroundColor : "#333", opacity : 0.75,
+				width : Ti.UI.FILL
+			});
+			
+			var square_text = Ti.UI.createLabel({
+				text : featured_items[i].txt,
+				color : "#fff",
+				bottom : 0, height : 50
+			});
+			search_square.add(square_underlay);
+			search_square.add(square_text);
+			
+			
+			search_square_x3.add(search_square);
+		}
+		if (search_square_x3 != null) {
+			search_views.push(search_square_x3);
+		}
+		
+
+		var normal_searches_view = Ti.UI.createScrollableView({
+			views : search_views,
+			pagingControlColor : "#777",
+			backgroundColor : "#777",
+			pagingControlHeight : 20,
+			top:350,
+			showPagingControl:true,
+			height : 320
+		});
+		
+		xview.add(normal_searches_view);
+		var show_correct_navigation_arrows = function() {
+			if (normal_searches_view.currentPage > 0) {
+				ximg_left.visible = true;
+			} else {
+				ximg_left.visible = false;
+			}
+			if (normal_searches_view.currentPage < (normal_searches_view.views.length-1)) {
+				ximg_right.visible = true;
+			} else {
+				ximg_right.visible = false;
+			}
+		}
+		var hide_correct_navigation_arrows = function() {
+			ximg_right.visible = false;
+			ximg_left.visible = false;
+		}
+		show_correct_navigation_arrows();
+		normal_searches_view.addEventListener('scrollEnd',show_correct_navigation_arrows);
+		normal_searches_view.addEventListener('scroll',hide_correct_navigation_arrows);
+		
+		navigation_arrow_right = function() {
+			ximg_right.visible = false;
+			normal_searches_view.scrollToView(normal_searches_view.currentPage+1);
+		}
+		ximg_right.addEventListener('click',navigation_arrow_right);
+		navigation_arrow_left = function() {
+			ximg_left.visible = false;
+			normal_searches_view.scrollToView(normal_searches_view.currentPage-1);
+		}
+		ximg_left.addEventListener('click',navigation_arrow_left);
 		
 		var perform_search = function() {
 			x.close();
@@ -626,7 +732,7 @@ function fn() {
 			// search2.call(this);
 		// });
 		xsearch.addEventListener("return", perform_search);
-		ximg1.addEventListener("click", perform_search);
+//		ximg1.addEventListener("click", perform_search);
 		
 //		x.addEventListener('click', close_displaySearchForce);
 		

@@ -5,7 +5,7 @@ function fn(identifier,cnt,typ) {
 	
 	var self = Titanium.UI.createWindow({
     	navBarHidden: true,
-    	backgroundColor:"#fff"
+    	backgroundColor:"#000"
 	});
 	var table;
 	var searchtitle = "";
@@ -774,7 +774,7 @@ function fn(identifier,cnt,typ) {
 			Ti.API.debug(e);
 			var img = Titanium.UI.createImageView({
 				left:0,top:40,height:200,right:0,
-				backgroundColor:"#fff",
+				backgroundColor:"#000",
 				image : e.data[0].img	//.thumbsrc
 			});
 			
@@ -804,8 +804,8 @@ function fn(identifier,cnt,typ) {
 			});
 			
 			table = Ti.UI.createTableView({
-				backgroundColor : "#fff",
-				separatorColor : "#fff"
+				backgroundColor : "#000",
+				separatorColor : "#000"
 			});
 			view2.add(table);
 			
@@ -829,7 +829,7 @@ function fn(identifier,cnt,typ) {
 				
 				var secv1 = Ti.UI.createView({
 						height : 30,
-						backgroundColor : "#eee"
+						backgroundColor : "#333"
 				});
 				secv1.add(Ti.UI.createLabel({
 					height : Ti.UI.SIZE,
@@ -841,7 +841,7 @@ function fn(identifier,cnt,typ) {
 						fontSize : 16,
 						fontFamily : "arial"
 					},
-					color : "#333",
+					color : "#fff",
 					text : 'ABOUT'
 				}));
 				var sec1 = Ti.UI.createTableViewSection({
@@ -852,7 +852,7 @@ function fn(identifier,cnt,typ) {
 					layout:'vertical'
 				});
 				var rowv1 = Ti.UI.createView({
-					backgroundColor : "#fff",
+					backgroundColor : "#000",
 					height : Ti.UI.SIZE,
 					top:10, bottom:10,
 					width:425,
@@ -860,7 +860,7 @@ function fn(identifier,cnt,typ) {
 				});
 				var lblrow1=Ti.UI.createLabel({
 					text:Currenttitle,
-					color:"#000",
+					color:"#fff",
 					font : {
 						fontSize : 18,
 						fontFamily : "arial",
@@ -872,7 +872,7 @@ function fn(identifier,cnt,typ) {
 				
 				var lblrow2=Ti.UI.createLabel({
 					text:Currenttitle1,
-					color:"#333",
+					color:"#fff",
 					font : {
 						fontSize : 14,
 						fontFamily : "arial"
@@ -883,7 +883,7 @@ function fn(identifier,cnt,typ) {
 				
 				var lblrow3=Ti.UI.createLabel({
 					text:Currenttitle2,
-					color:"#333",
+					color:"#fff",
 					font : {
 						fontSize : 14,
 						fontFamily : "arial"
@@ -906,7 +906,7 @@ function fn(identifier,cnt,typ) {
 						layout:'vertical'
 					});
 					var rowv1 = Ti.UI.createView({
-						backgroundColor : "#fff",
+						backgroundColor : "#000",
 						height : Ti.UI.SIZE,
 						borderWidth : BW,
 						top:4, bottom:4,
@@ -916,7 +916,7 @@ function fn(identifier,cnt,typ) {
 					var lblrow5 = Ti.UI.createLabel({
 						text:button.label,
 						height : Ti.UI.SIZE,
-						color:"#000",
+						color:"#fff",
 						borderWidth : BW,
 						font : {
 							fontSize : 14,
@@ -927,7 +927,7 @@ function fn(identifier,cnt,typ) {
 					var lblrow4 = Ti.UI.createLabel({
 						text:button.value,
 						height : Ti.UI.SIZE,
-						color:"#333",
+						color:"#fff",
 						borderWidth : BW,
 						font : {
 							fontSize : 14,
@@ -986,7 +986,7 @@ function fn(identifier,cnt,typ) {
 				for (var i=0; i < vals.length; i++) {
 					var secv = Ti.UI.createView({
 						height : 30,
-						backgroundColor : "#eee"
+						backgroundColor : "#333"
 					});
 					secv.add(Ti.UI.createLabel({
 						color : "#777",
@@ -999,7 +999,7 @@ function fn(identifier,cnt,typ) {
 							fontSize : 16,
 							fontFamily : "arial"
 						},
-						color : "#777",
+						color : "#fff",
 						text : vals[i].toUpperCase()
 					}));
 					var sec = Ti.UI.createTableViewSection({
@@ -1013,14 +1013,14 @@ function fn(identifier,cnt,typ) {
 								xurl : links[l].url
 							});
 							var rv = Ti.UI.createView({
-								backgroundColor : "#fff",
+								backgroundColor : "#000",
 								height : Ti.UI.SIZE,
 								top:10, bottom:10,
 								width:425
 							});
 							row.add(rv);
 							rv.add(Ti.UI.createLabel({
-								color : "#777",
+								color : "#fff",
 								height : Ti.UI.SIZE,
 								textAlign: "left",
 								width:425,
