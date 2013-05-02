@@ -143,7 +143,7 @@ function fn() {
 		contentWidth:'auto',
 		zIndex:999,
 		xopen : false,
-		top:40,left:-200,width:190,height:710,backgroundColor:"#000"
+		top:40,left:-500,width:400,height:710,backgroundColor:"#000"
 	});
 	var tabR = Titanium.UI.createTableView({
 		height : 'auto',
@@ -156,32 +156,119 @@ function fn() {
 	});
 	mainviewR.add(tabR);
 	tabR.addEventListener("click", function(e) {
-		require("/helpers/LocalStorage").setString("type-string",e.row.xlink);
-		search2.call(this);
+		if (e.row.xlink == "remove-searchterm") {
+			var type = require("/helpers/LocalStorage").getString("type-string");
+			var type_parts = type.split("|");
+			var type = "";
+			for (var i=0; i < type_parts.length; i++) {
+				if (i == Number(e.row.xindex)) continue;
+				if (type != "") type += "|";
+				type += type_parts[i];
+			}
+			require("/helpers/LocalStorage").setString("type-string",type);
+			search2.call(this);
+		} else {
+			var type = require("/helpers/LocalStorage").getString("type-string");
+			if (type == null) type = "";
+			if (type != "") type += "|";
+			type += e.row.xlink;
+			
+			require("/helpers/LocalStorage").setString("type-string",type);
+			search2.call(this);
+		}
 	});
 	var refreshplaces = function(places) {
 		var rows = [];
+		var section = null;
 		
-		for (var i=0; i < places.length; i++) {
+		
+		
+		var type = require("/helpers/LocalStorage").getString("type-string");
+		var type_parts = type.split("|");
+		for (var i=0; i < type_parts.length; i++) {
 			var row = Titanium.UI.createTableViewRow({
-				xlink : places[i],
+				xlink : "remove-searchterm",
+				xindex : i,
+				xvisible : 1,
 				backgroundColor:"#000",
 				color : "#777",
 				height : 64,
 			})
 			var lbl = Titanium.UI.createLabel({
-				text : places[i],
-				xlink : places[i],
+				text : type_parts[i],
+				xlink : "remove-searchterm",
+				xindex : i,
 				color : "#777",
 				height : 'auto',
 				font : {
 					fontSize : 16,
 					fontFamily : "arial"
 				}
-			})
+			});
 			row.add(lbl);
 			rows.push(row);
 		}
+
+		
+		for (var i=0; i < places.length; i++) {
+			if (places[i].indexOf("#") == 0) {
+				if (section != null) rows.push(section);
+				var secv = Ti.UI.createView({
+					height : 30,
+					backgroundColor : "#333"
+				});
+				secv.add(Ti.UI.createLabel({
+					color : "#777",
+					height : Ti.UI.SIZE,
+					textAlign: "left",
+					width:425,
+					left:5,
+					top:7,
+					font : {
+						fontSize : 16,
+						fontFamily : "arial"
+					},
+					color : "#fff",
+					text : L(places[i].toUpperCase())
+				}));
+				section = Ti.UI.createTableViewSection({
+					headerView : secv
+				});
+				secv.addEventListener("click", function(e) {
+					Ti.API.debug(e);
+					Ti.API.debug(e.source);
+					Ti.API.debug(e.source.parent);
+					Ti.API.debug(e.source.parent.parent);
+				});
+			} else {
+				var place = places[i].split("|");
+				var row = Titanium.UI.createTableViewRow({
+					xlink : place[0],
+					xvisible : 1,
+					backgroundColor:"#000",
+					color : "#777",
+					height : 64,
+				})
+				var lbl = Titanium.UI.createLabel({
+					text : place[1],
+					xlink : place[0],
+					color : "#777",
+					height : 'auto',
+					font : {
+						fontSize : 16,
+						fontFamily : "arial"
+					}
+				});
+				row.add(lbl);
+
+				if (section == null) {
+					rows.push(row);
+				} else {
+					section.add(row);
+				}
+			}
+		}
+		if (section != null) rows.push(section);
 		tabR.setData(rows);	
 	}
 	refreshplaces("France Belgium".split(" "));	
@@ -210,7 +297,7 @@ function fn() {
 		} else {
 			mainviewL.xopen = false;
 			//mainviewL.animate({left:-200,duration:500,curve: Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT},function(e){});
-			mainviewR.animate({left:-200,duration:500,curve: Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT},function(e){});
+			mainviewR.animate({left:-500,duration:500,curve: Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT},function(e){});
 			
 		}
 		
@@ -303,19 +390,25 @@ function fn() {
 		var place = require("/helpers/LocalStorage").getString("place-string");
 		var type = require("/helpers/LocalStorage").getString("type-string");
 		lock_displaySearchForce = false;
-
+		
+		var type_parts = type.split("|");
+		type = "";
+		for (var i=0; i < type_parts.length; i++) {
+			type += type_parts[i];	
+		}
 
 		search.setValue(srch);
 		
 		var ajax = require("/helpers/ajax");
 		ajax.getdata({
-			url : "http://jon651.glimworm.com/europeana/eu.php?action=json-srch&srch="+srch+"&type="+type,
+			url : "http://jon651.glimworm.com/europeana/eu.php?action=json-srch&srch="+srch+"&type="+Ti.Network.encodeURIComponent(type),
 //			url : "http://jon651.glimworm.com/europeana/eu.php?action=json-srch-rijksmuseum&srch="+srch+"&type="+type,
 			fn : function(e) {
 				require("/helpers/LocalStorage").setObject("search",e.data.items);
 				require("/helpers/LocalStorage").setObject("types",e.data.types);
 				/*require("/helpers/LocalStorage").setObject("creators",e.data.creators);
 				require("/helpers/LocalStorage").setObject("dats",e.data.dats);*/
+				Ti.API.debug(e.data.url);
 				
 				Titanium.App.fireEvent("redisplay-search",{xfrom : 'search2'});
 			}
@@ -339,7 +432,7 @@ function fn() {
 		if (mainviewL.xopen == true) {
 			mainviewL.xopen = false;
 			//mainviewL.animate({left:-200,duration:500,curve: Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT},function(e){});
-			mainviewR.animate({left:-200,duration:500,curve: Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT},function(e){});
+			mainviewR.animate({left:-500,duration:500,curve: Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT},function(e){});
 		}
 
 		search2.call(this);
@@ -616,8 +709,37 @@ function fn() {
 			color : "#ffffff"
 		}));
 		
+		var perform_pre_determined_search = function() {
+			x.close();
+			lock_displaySearchForce = false;
+			var idx = 0;
+			require("/helpers/LocalStorage").setString("search-string","*:*");
+			require("/helpers/LocalStorage").setString("yr-string","");
+			require("/helpers/LocalStorage").setString("place-string","");
+			require("/helpers/LocalStorage").setString("type-string",featured_items[idx].query);
+			search2.call(this);
+			
+		}
+
+		var perform_search = function() {
+			x.close();
+			lock_displaySearchForce = false;
+			require("/helpers/LocalStorage").setString("search-string",xsearch.value);
+			require("/helpers/LocalStorage").setString("yr-string","");
+			require("/helpers/LocalStorage").setString("place-string","");
+			require("/helpers/LocalStorage").setString("type-string","");
+			search2.call(this);
+		}
+		
+		
+		
 		var search_views = [];
-		var featured_items = [{ img : "featured-maps.jpg", txt : "maps"}, { img : "featured-art.jpg", txt : "art"},{ img : "featured-past.jpg", txt: "past"},{ img :"featured-nature.jpg", txt : "nature"}]
+		var featured_items = [{ 
+				img : "featured-maps.jpg", 
+				txt : "Maps and Plans",
+				query : '&qf=DATA_PROVIDER:"Cat%C3%A1logo+Colectivo+de+la+Red+de+Bibliotecas+de+los+Archivos+Estatales"|&qf=DATA_PROVIDER:"Biblioteca+Virtual+del+Patrimonio+Bibliogr%C3%A1fico"|&qf=TYPE:IMAGE|&qf=DATA_PROVIDER:"Biblioteca+Virtual+del+Ministerio+de+Defensa" '
+			}, { 
+				img : "featured-art.jpg", txt : "Treasures of Art"},{ img : "featured-past.jpg", txt: "Treasures of the Past"},{ img :"featured-nature.jpg", txt : "Treasures of Nature"}]
 		
 		var num_items = featured_items.length;
 		var search_square_x3 = null;
@@ -658,8 +780,7 @@ function fn() {
 			});
 			search_square.add(square_underlay);
 			search_square.add(square_text);
-			
-			
+			search_square.addEventListener('click',perform_pre_determined_search);
 			search_square_x3.add(search_square);
 		}
 		if (search_square_x3 != null) {
@@ -708,16 +829,6 @@ function fn() {
 			normal_searches_view.scrollToView(normal_searches_view.currentPage-1);
 		}
 		ximg_left.addEventListener('click',navigation_arrow_left);
-		
-		var perform_search = function() {
-			x.close();
-			lock_displaySearchForce = false;
-			require("/helpers/LocalStorage").setString("search-string",xsearch.value);
-			require("/helpers/LocalStorage").setString("yr-string","");
-			require("/helpers/LocalStorage").setString("place-string","");
-			require("/helpers/LocalStorage").setString("type-string","");
-			search2.call(this);
-		}
 		
 		var srchval = search.value;
 		//alert(srchval);
