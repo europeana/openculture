@@ -150,7 +150,7 @@ function fn() {
 		left:0, right:0,top:0,
 		color : "#777",
 		backgroundColor : "#fff",
-		separatorColor :"#777",
+		separatorColor :"#000",
 		borderColor:'#777',
 		borderWidth:1
 	});
@@ -191,15 +191,17 @@ function fn() {
 				xindex : i,
 				xvisible : 1,
 				backgroundColor:"#000",
-				color : "#777",
-				height : 64,
+				color : "#ccc",
+				height : 32,
 			})
 			var lbl = Titanium.UI.createLabel({
 				text : type_parts[i],
 				xlink : "remove-searchterm",
 				xindex : i,
-				color : "#777",
+				color : "#ccc",
 				height : 'auto',
+				textAlign: "left",
+				left:5,
 				font : {
 					fontSize : 16,
 					fontFamily : "arial"
@@ -215,21 +217,21 @@ function fn() {
 				if (section != null) rows.push(section);
 				var secv = Ti.UI.createView({
 					height : 30,
-					backgroundColor : "#333"
+					backgroundColor : "#777"
 				});
 				secv.add(Ti.UI.createLabel({
-					color : "#777",
+					color : "#000",
 					height : Ti.UI.SIZE,
 					textAlign: "left",
 					width:425,
-					left:5,
+					left:15,
 					top:7,
 					font : {
 						fontSize : 16,
 						fontFamily : "arial"
 					},
 					color : "#fff",
-					text : L(places[i].toUpperCase())
+					text : L(places[i])
 				}));
 				section = Ti.UI.createTableViewSection({
 					headerView : secv
@@ -246,18 +248,23 @@ function fn() {
 					xlink : place[0],
 					xvisible : 1,
 					backgroundColor:"#000",
-					color : "#777",
-					height : 64,
+					color : "#000",
+					height : 32,
 				})
 				var lbl = Titanium.UI.createLabel({
 					text : place[1],
 					xlink : place[0],
 					color : "#777",
-					height : 'auto',
+					height : Ti.UI.SIZE,
+					textAlign: "left",
+					width:425,
+					left:15,
+					top:7,
 					font : {
 						fontSize : 16,
 						fontFamily : "arial"
-					}
+					},
+					color : "#777"
 				});
 				row.add(lbl);
 

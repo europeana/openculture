@@ -16,7 +16,7 @@ function fn(type,cnt) {
 	if (type == 2) {
 		var self = Titanium.UI.createView({
 			left:20,top:20,
-			width:350, height:190,backgroundColor : "transparent", borderColor : "#fff", borderWidth:0
+			width:350, height:190,backgroundColor : "transparent", borderColor : "#000", borderWidth:0
 		})
 		function clearthisA(e) {
 			try {
@@ -118,7 +118,8 @@ function fn(type,cnt) {
 			var rt = Titanium.UI.createView({
 				right:0,top:0,
 				width:100, height:200,
-				backgroundColor : "#666"
+				//backgroundColor : "#666"
+				backgroundColor : "#000"
 			})
 		
 			
@@ -127,15 +128,16 @@ function fn(type,cnt) {
 			    contentWidth:'auto',
 			    contentHeight:'auto',
 				width:350, height:50,
-				backgroundColor:"#ddd",
-				opacity:0.9
+				//backgroundColor:"#ddd",
+				backgroundColor:"#000",
+				opacity:0.7
 			})
 		
 			var txt1 = Titanium.UI.createLabel({
 				height:Ti.UI.SIZE,
 				width : 300,
 				left:20,
-				color : "#000",
+				color : "#fff",
 				//text : "A"+item.title,
 				text : item.title,
 				font : {
@@ -144,7 +146,7 @@ function fn(type,cnt) {
 			});
 			
 			var self2 = Titanium.UI.createView({
-				left:0,right:0,width:350, height:190,backgroundColor : "#ffffff"
+				left:0,right:0,width:350, height:190,backgroundColor : "#000"
 			})			
 			self2.add(img);
 //			self2.add(rt);
@@ -219,7 +221,8 @@ function fn(type,cnt) {
 				width:250,
 				height:250,
 				xinview : 0,
-				backgroundColor : "#eee",
+				//backgroundColor : "#eee",
+				backgroundColor : "#000",
 				image : '/images/10x10.gif',
 				defaultImage :  '/images/10x10.gif',
 //				image: item.enclosure,
@@ -228,7 +231,7 @@ function fn(type,cnt) {
 				xindent: item.id,
 				xtyp: item.type,
 				xguid : item.guid,
-				borderColor:'#777',borderWidth:0
+				borderColor:'#000',borderWidth:0
 			});
 			var offscreen = function() {
 //				img.borderWidth = 1;
@@ -277,15 +280,16 @@ function fn(type,cnt) {
 			    contentWidth:'auto',
 			    contentHeight:'auto',
 				width:250, height:50,
-				backgroundColor:"#ddd",
-				opacity:0.9
-//				opacity:0.7
+				///backgroundColor:"#ddd",
+				backgroundColor:"#000",
+//				opacity:0.9
+				opacity:0.7
 			})
 		
 			var txt1 = Titanium.UI.createLabel({
 				height:Ti.UI.SIZE,
 				width : 200,
-				color : "#000",
+				color : "#fff",
 				text : item.title,
 				font : {
 					fontFamily : "arial"
@@ -293,7 +297,7 @@ function fn(type,cnt) {
 			});
 			
 			var self2 = Titanium.UI.createView({
-				left:0,right:0,top:0,bottom:0,backgroundColor : "#ffffff", opacity:0
+				left:0,right:0,top:0,bottom:0,backgroundColor : "#000", opacity:0
 			})			
 			self2.add(img);
 			self2.add(txt);

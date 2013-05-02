@@ -6,7 +6,7 @@ function fn(type,item) {
 	if (type == 2) {
 		var self = Titanium.UI.createView({
 			left:20,top:20,
-			width:350, height:190,backgroundColor : "#ffffff"
+			width:350, height:190,backgroundColor : "#000"
 		})
 		
 		var img = Titanium.UI.createImageView({
@@ -59,7 +59,7 @@ function fn(type,item) {
 	} else {
 		var self = Titanium.UI.createView({
 			left:20,top:20,
-			width:250, height:120,backgroundColor : "#ffffff"
+			width:250, height:120,backgroundColor : "#000"
 		})
 		
 		var img = Titanium.UI.createImageView({

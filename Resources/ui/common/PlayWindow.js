@@ -794,7 +794,7 @@ function fn(identifier,cnt,typ) {
 			});
 			var view22 = Titanium.UI.createView({
 				top:50,right:5,left:600,width:420, height:650,
-				borderColor:'#777',borderRadius:5,borderWidth:1
+				borderColor:'#000',borderRadius:5,borderWidth:1
 			});
 			var view2 = Titanium.UI.createView({
 				top:0,left:0,bottom:40,right:0,height:570
@@ -829,7 +829,7 @@ function fn(identifier,cnt,typ) {
 				
 				var secv1 = Ti.UI.createView({
 						height : 30,
-						backgroundColor : "#333"
+						backgroundColor : "#777"
 				});
 				secv1.add(Ti.UI.createLabel({
 					height : Ti.UI.SIZE,
@@ -986,7 +986,7 @@ function fn(identifier,cnt,typ) {
 				for (var i=0; i < vals.length; i++) {
 					var secv = Ti.UI.createView({
 						height : 30,
-						backgroundColor : "#333"
+						backgroundColor : "#777"
 					});
 					secv.add(Ti.UI.createLabel({
 						color : "#777",
@@ -1166,7 +1166,7 @@ function fn(identifier,cnt,typ) {
 			self.add(view22);
 			
 			var html = "";
-			html += "<html><head></head><body TOPMARGIN='0' LEFTMARGIN='0' MARGINHEIGHT='0' MARGINWIDTH='0' style='background-color:#000;'>";
+			html += "<html><head><style>*{background-color:black;}</style></head><body TOPMARGIN='0' LEFTMARGIN='0' MARGINHEIGHT='0' MARGINWIDTH='0' style='background-color:#000;'>";
 //			html += "<img src='"+ e.data["image"]+"' style='border:0;padding:0;margin:0;' width='100%'>";
 			html += "<img src='"+ e.data[0].img+"' style='border:0;padding:0;margin:0;'>";
 			html += "</body></html>";

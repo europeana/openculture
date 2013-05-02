@@ -43,8 +43,8 @@
         <theme>default</theme>
     </mobileweb>
     <modules>
-        <module platform="commonjs" version="2.3.2">ti.cloud</module>
         <module platform="iphone" version="1.1">dk.napp.social</module>
-        <module platform="iphone" version="0.6.3">com.glimworm.gyro213</module>
+        <module platform="iphone" version="0.6.0">com.glimworm.gyro213</module>
+        <module platform="commonjs" version="2.3.1">ti.cloud</module>
     </modules>
 </ti:app>
