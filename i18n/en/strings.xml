@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="#DATA_PROVIDER">By Data Providor</string>
+	<string name="#LANGUAGE">By Language</string>
+	<string name="#YEAR">By Year</string>
+	<string name="#PROVIDER">By Providor</string>
+	<string name="#COUNTRY">By Country</string>
+	<string name="#RIGHTS">By Rights</string>
+	<string name="#TYPE">By Type</string>
+</resources>
