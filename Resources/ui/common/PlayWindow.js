@@ -3,11 +3,22 @@ var css = require('/ui/common/css');
 
 function fn(identifier,cnt,typ) {
 	
+	
+	function isfavourite (ident) {
+    var items = require("/helpers/LocalStorage").getObject("personal");
+    if (!items || items == null) return false;
+    for (var i=0; i <items.length; i++) {
+        if (ident == items[i].identifier) return true;
+    }
+    return false;
+}
+	
 	var self = Titanium.UI.createWindow({
     	navBarHidden: true,
     	backgroundColor:"#000"
 	});
 	var table;
+	var lbl122 = "";
 	var searchtitle = "";
 	var Currenttitle = "";
 	var Currenttitle1 = "";
@@ -127,6 +138,9 @@ function fn(identifier,cnt,typ) {
 			if (personal[i].identifier == identifier) {
 				return true;
 			}
+			if (personal[i].id == identifier) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -135,10 +149,10 @@ function fn(identifier,cnt,typ) {
 		if (isfav(identifier) == false) {
 			var newitem = require("/helpers/LocalStorage").getObject("search")[cnt];
 			var personal = require("/helpers/LocalStorage").getObject("personal");
+			lbl122.image = '/images/buttons/menu-favourite-active.png';
 			if (!personal || personal == null) personal = [];
 			personal.push(newitem);
 			require("/helpers/LocalStorage").setObject("personal",personal);
-			alert("favourited");
 		}
 	}
 	b2.addEventListener("click",like);
@@ -755,7 +769,7 @@ function fn(identifier,cnt,typ) {
 		borderTop:true,
 	    borderBottom:false
 	})	
-	self.add(botbar);
+	//self.add(botbar);
 
 	var path = null;
 	var endlabel = "";
@@ -790,17 +804,18 @@ function fn(identifier,cnt,typ) {
 			});		
 			botbar.title = e.data.provider;
 			var view = Titanium.UI.createView({
-				top:44,left:0,bottom:40,width:600
+				top:44,left:0,bottom:0,width:600
 			});
 			var view22 = Titanium.UI.createView({
-				top:50,right:5,left:600,width:420, height:650,
+				top:50,right:5,left:600,width:420, height:700,
 				borderColor:'#000',borderRadius:5,borderWidth:1
 			});
 			var view2 = Titanium.UI.createView({
-				top:0,left:0,bottom:40,right:0,height:570
+				top:0,left:0,bottom:0,right:0,height:630
 			});
 			var view4 = Titanium.UI.createView({
-				top:600,left:0,bottom:0,right:0,backgroundColor:"#000"
+				top:635,left:0,bottom:0,right:0,backgroundColor:"#000"
+				
 			});
 			
 			table = Ti.UI.createTableView({
@@ -862,7 +877,7 @@ function fn(identifier,cnt,typ) {
 					text:Currenttitle,
 					color:"#fff",
 					font : {
-						fontSize : 18,
+						fontSize : 24,
 						fontFamily : "arial",
 						fontStyle : 'bold'
 					},
@@ -874,8 +889,9 @@ function fn(identifier,cnt,typ) {
 					text:Currenttitle1,
 					color:"#fff",
 					font : {
-						fontSize : 14,
-						fontFamily : "arial"
+						fontSize : 12,
+						fontFamily : "arial",
+						fontWeight: "bold"
 					},
 					height:Ti.UI.SIZE,
 					left:17,right:15,top:5
@@ -919,13 +935,15 @@ function fn(identifier,cnt,typ) {
 						color:"#fff",
 						borderWidth : BW,
 						font : {
-							fontSize : 14,
-							fontFamily : "arial"
+							fontSize : 15,
+							fontFamily : "arial",
+							fontWeight: "bold"
 						},
 						left:17,top:0, width : 110
 					});
 					var lblrow4 = Ti.UI.createLabel({
 						text:button.value,
+						//html:"<b>"+button.value+"</b>",
 						height : Ti.UI.SIZE,
 						color:"#fff",
 						borderWidth : BW,
@@ -966,7 +984,7 @@ function fn(identifier,cnt,typ) {
 					});
 					var lblrow4 = Ti.UI.createLabel({
 						text:button.title,
-						color:"#777",
+						color:"#fff",
 						font : {
 							fontSize : 16,
 							fontFamily : "arial"
@@ -1061,7 +1079,7 @@ function fn(identifier,cnt,typ) {
 			
 			self.add(view);
 			view22.add(view4);
-			var lbl121 = Ti.UI.createLabel({
+			/*var lbl121 = Ti.UI.createLabel({
 				color : "#fff",
 				height : Ti.UI.SIZE,
 				textAlign: "left",
@@ -1124,9 +1142,34 @@ function fn(identifier,cnt,typ) {
 				},
 				text : "share"
 				
+			});*/
+			
+			var lbl121 = Ti.UI.createImageView({
+				image : "/images/buttons/menu-connect.png",
+				left : 50,
+				bottom:10
 			});
+			lbl122 = Ti.UI.createImageView({
+				image : "/images/buttons/menu-favourite.png",
+				left : 140,
+				bottom:10
+			});
+			if (isfav(identifier) == true){
+				lbl122.image = "/images/buttons/menu-favourite-active.png";
+			}
+			var lbl123 = Ti.UI.createImageView({
+				image : "/images/buttons/menu-comment.png",
+				left : 230,
+				bottom:10
+			});
+			var lbl124 = Ti.UI.createImageView({
+				image : "/images/buttons/menu-share.png",
+				left : 320,
+				bottom:10
+			});
+			
 			view4.add(lbl121);
-			view4.add(lbl122a);
+			//view4.add(lbl122a);
 			view4.add(lbl122);
 			view4.add(lbl123);
 			view4.add(lbl124);
@@ -1153,8 +1196,8 @@ function fn(identifier,cnt,typ) {
 			    return self;
 			};
 			
-			lbl121.addEventListener("click",like);
-			lbl122.addEventListener("click",addlink);
+			lbl121.addEventListener("click",addlink);
+			lbl122.addEventListener("click",like);
 			lbl123.addEventListener("click",addcomment);
 			lbl124.addEventListener("click",function(e){
 				//winclose();
@@ -1166,12 +1209,8 @@ function fn(identifier,cnt,typ) {
 			self.add(view22);
 			
 			var html = "";
-			html += "<html><head><style>*{background-color:black;}</style></head><body TOPMARGIN='0' LEFTMARGIN='0' MARGINHEIGHT='0' MARGINWIDTH='0' style='background-color:#000;'>";
-//			html += "<img src='"+ e.data["image"]+"' style='border:0;padding:0;margin:0;' width='100%'>";
-			html += "<img src='"+ e.data[0].img+"' style='border:0;padding:0;margin:0;'>";
-			html += "</body></html>";
 			
-			html = "<img src='"+ e.data[0].img+"' style='border:0;padding:0;margin:0;' width='100%'>";
+			html = "<img src='"+ e.data[0].img+"' style='background-color:black;border:0;padding:0;margin:0;' width='100%'>";
 			
 
 			// self.add(Titanium.UI.createWebView({
@@ -1200,7 +1239,8 @@ function fn(identifier,cnt,typ) {
 				height : Ti.UI.FILL,
 				scalesPageToFit:true,
 				touchEnabled : true,
-				html : html
+				html : html,
+				backgroundColor:'#000'
 			});
 			view.add(wv);
 			

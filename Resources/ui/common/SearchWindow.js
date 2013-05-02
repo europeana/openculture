@@ -213,7 +213,7 @@ function fn() {
 				color : "#ccc",
 				height : 'auto',
 				textAlign: "left",
-				left:5,
+				left:15,
 				font : {
 					fontSize : 16,
 					fontFamily : "arial"
@@ -230,7 +230,7 @@ function fn() {
 			xvisible : 1,
 			backgroundColor:"#000",
 			color : "#777",
-			height : 164,
+			height : 120,
 		})
 		var lbl = Titanium.UI.createLabel({
 			text : "refine",
@@ -246,10 +246,11 @@ function fn() {
 		});
 		row.add(lbl);
 		var extrasearch = Ti.UI.createTextField({
-			borderColor : "#fff",
+			borderColor : "#777",
 			left : 20, right : 20,
 			top : 40,
-			backgroundColor : "#666",
+			height:30,
+			backgroundColor : "#fff",
 			value : ""
 		});
 		row.add(extrasearch);
