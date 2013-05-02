@@ -5,7 +5,7 @@ function fn(identifier) {
 
 	var self = Titanium.UI.createWindow({
     	navBarHidden: true,
-    	backgroundColor:"#fff"
+    	backgroundColor:"#000"
 	});
 	
 	var b1 = Titanium.UI.createButton({
@@ -58,7 +58,7 @@ function fn(identifier) {
 			Titanium.API.info(e);
 			var img = Titanium.UI.createImageView({
 				left:0,top:40,height:200,right:0,
-				backgroundColor:"#fff",
+				backgroundColor:"#000",
 				image : e.data.thumbsrc
 			});
 

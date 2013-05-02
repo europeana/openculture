@@ -1,9 +1,8 @@
-#appname:Europeana
-#appid:com.glimworm.app.europeana
-#type:ipad
-#guid:134635cc-799f-4ada-9a81-70c18a085068
-#version:1.0
-#publisher:Deniz_Tezcan
-#url:http://glimworm.com
+#appname:europeana
+#publisher:jc
+#url:http://
 #image:appicon.png
+#appid:com.glimworm.app.europeana
 #desc:not specified
+#type:ipad
+#guid:ac98e36e-a052-4ead-bffd-b23a2f58d36f

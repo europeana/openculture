@@ -5,7 +5,7 @@ function fn(identifier,cnt,typ) {
 	
 	var self = Titanium.UI.createWindow({
     	navBarHidden: true,
-    	backgroundColor:"#fff"
+    	backgroundColor:"#000"
 	});
 	var table;
 	var searchtitle = "";
@@ -20,7 +20,7 @@ function fn(identifier,cnt,typ) {
 	})
 	var b99 = Titanium.UI.createButtonBar({
 //	    labels:['Search', 'Personal Museum','clear','me','pin'],
-	    labels:['Search', 'Your Favourites', 'Help'],
+	    labels:['Home','Search results', 'Your Favourites', 'Help'],
 	    backgroundColor:'#000000',
 	    top:50,
 	    style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
@@ -34,10 +34,13 @@ function fn(identifier,cnt,typ) {
 			winclose();			
 		}
 		if (tab == 1) {
+			winclose();			
+		}
+		if (tab == 2) {
 			winclose();	
 			Titanium.App.fireEvent("redisplay-personal",{});			
 		}
-		if (tab == 2) {
+		if (tab == 3) {
 			//require("/helpers/LocalStorage").setObject("personal",[]);
 			//Titanium.App.fireEvent("redisplay-personal",{});	
 			//winclose();	
@@ -144,6 +147,12 @@ function fn(identifier,cnt,typ) {
 	var addcomment = function(e) {
 		var v = Ti.UI.createWindow({
 		});
+		v.add(Ti.UI.createView({
+			width : Ti.UI.FILL,
+			height : Ti.UI.FILL,
+			backgroundColor : "#000",
+			opacity : 0.5
+		}));
 		var v1 = Ti.UI.createView({
 			width : '80%',
 			height : '80%'
@@ -155,31 +164,36 @@ function fn(identifier,cnt,typ) {
 		});
 		v2.add(Ti.UI.createLabel({
 			text : 'Post a comment',
-			top:15,left:25,height:50,width:300,
+			top:15,left:66,height:50,width:300,
 			font : {
-				fontSize : 32,
+				fontSize : 22,
 				fontFamily : "arial"
 			},
-			color : "#777"
-		}))
+			color : "#222"
+		}));
+		
 		var srch = Ti.UI.createTextArea({
-			top:60,left:25,height:200,width:500,
+			top:60,left:66,height:180,right:66,
+			hintText : "What do you want to say?",
+			borderRadius : 10,
 			font : {
-				fontSize : 32,
+				fontSize : 22,
 				fontFamily : "arial"
 			},
-			backgroundColor : '#ffffff',color:'#777',borderColor:'#777',borderWidth:1
+			backgroundColor : '#ffffff',color:'#777',borderColor:'#ccc',borderWidth:1
 		});
 		v2.add(srch);
-		var addlink_btn = Ti.UI.createButton({
-			top:60,right:25,height:50,width:250,
+		var addlink_btn = Ti.UI.createLabel({
+			top:250,right:66,height:50,width:150,
 			font : {
-				fontSize : 32,
+				fontSize : 22,
 				fontFamily : "arial"
 			},
-			color : "#777",
-			title : 'Post Comment',
-			backgroundColor : '#fff'
+			color : "#fff",
+			borderRadius : 10,
+			textAlign : 'center',
+			text : 'Send',
+			backgroundColor : '#5184CC'
 		});
 		v2.add(addlink_btn);
 		var addlinkfn = function() {
@@ -209,8 +223,12 @@ function fn(identifier,cnt,typ) {
 //alert("g");			
 		};
 		addlink_btn.addEventListener('click',addlinkfn);
+
+		var spacer0 = Ti.UI.createButton({
+			width:'750'
+		});
 		var bgc = Ti.UI.createButton({
-			title : 'X'
+			image:'/images/close1.png'
 		});
 		bgc.addEventListener('click',function(e){
 			v.close();
@@ -219,7 +237,7 @@ function fn(identifier,cnt,typ) {
 		
 		var bar = Titanium.UI.iOS.createToolbar({
 			top:0,right:0,left:0,height:40,
-			items : [bgc],
+			items : [spacer0,bgc],
 			barColor : "#000000",
 			borderTop:true,
 		    borderBottom:false
@@ -356,6 +374,7 @@ function fn(identifier,cnt,typ) {
 	}
 	
 	var addlink = function(e) {
+		if (!searchtitle || searchtitle == null) searchtitle = "";
 		var searchtitlea = searchtitle.replace(" ","_");
 		var searchtitleb = searchtitlea.replace(" ","_");
 		var searchtitlec = searchtitleb.replace(" ","_");
@@ -382,7 +401,7 @@ function fn(identifier,cnt,typ) {
 		
 		var vminus1 = Ti.UI.createWindow({
 			width : '100%',
-			height : '1000%',
+			height : '100%',
 			backgroundColor: "#000",
 			opacity: 0.7
 		});
@@ -473,35 +492,36 @@ function fn(identifier,cnt,typ) {
 			backgroundColor : "#fff"
 		});
 		v2.add(Ti.UI.createLabel({
-			text : 'Describe this link',
-			top:15,left:25,height:50,width:300,
+			text : "Final step, please describe the connection you're making",
+			top:140,left:66,height:50,width:650,
 			font : {
-				fontSize : 32,
+				fontSize : 22,
 				fontFamily : "arial"
 			},
-			color : "#777"
+			color : "#222"
 		}));
 		
 		var srch = Ti.UI.createTextField({
-			top:57,left:26,height:50,width:490,
+			top:190,left:66,height:50,width:605,
 			font : {
-				fontSize : 32,
+				fontSize : 24,
 				fontFamily : "arial"
 			},
+			paddingLeft : 20,
 			backgroundColor : '#fff',
 			color:'#777',
-			borderColor : "#777",
+			borderColor : "#ccc",
 			borderWidth : 1
 		});
 		v2.add(srch);
 		v2.add(Ti.UI.createLabel({
-			text : 'What does it describe?',
-			top:140,left:25,height:50,width:600,
+			text : 'Almost there, please select a category for your connection',
+			top:15,left:66,height:50,width:600,
 			font : {
-				fontSize : 32,
+				fontSize : 22,
 				fontFamily : "arial"
 			},
-			color : "#777"
+			color : "#222"
 		}));
 		
 		var vals = ['What','Where','When','Who','General link'];
@@ -512,11 +532,11 @@ function fn(identifier,cnt,typ) {
 			for (var i=0; i < valarray.length; i++) {
 				if (valarray[i].xval == xval) {
 					valarray[i].color = "#fff"
-					valarray[i].backgroundColor = "#777"
+					valarray[i].backgroundColor = "#5184CC"
 					
 				} else {
-					valarray[i].color = "#777"
-					valarray[i].backgroundColor = "#fff"
+					valarray[i].color = "#111"
+					valarray[i].backgroundColor = "#eee"
 				}
 			}
 		}
@@ -548,11 +568,12 @@ function fn(identifier,cnt,typ) {
 		}
 		for (var i=0; i < vals.length; i++) {
 			var lbl = Ti.UI.createLabel({
-				top:0,left:(i*150+13),height:50, width : 145,
+				top:0,left:(i*150+13),height:50, width : 150,
 				textAlign:'center',
-				color : "#777",
-				borderRadius : 10,
-				borderColor : "#777",
+				color : "#222",
+//				borderRadius : 10,
+				borderColor : "#ccc",
+				backgroundColor : "#eee",
 				borderWidth : 1,
 				font : {
 					fontSize : 24,
@@ -567,22 +588,23 @@ function fn(identifier,cnt,typ) {
 		}
 		
 		var sel = Ti.UI.createView({
-			top:190,left:15,height:100,width:810
+			top:57,left:55,height:100,width:810
 		});
 		
 		for (var i=0; i < valarray.length; i++) {
 			sel.add(valarray[i]);
 		}
 		v2.add(sel);
-		var addlink_btn = Ti.UI.createButton({
-			top:57,right:40,height:50,width:227,
+		var addlink_btn = Ti.UI.createLabel({
+			top:190,right:100,height:50,width:147,
 			font : {
-				fontSize : 32,
+				fontSize : 26,
 				fontFamily : "arial"
 			},
-			color : "#777",
-			title : 'Add Link',
-			backgroundColor : '#fff'
+			borderRadius : 0,
+			color : "#fff",
+			text : '  Add Link ',
+			backgroundColor : '#5184CC'
 		});
 		v2.add(addlink_btn);
 		var addlinkfn = function() {
@@ -643,13 +665,18 @@ function fn(identifier,cnt,typ) {
 		});
 		var bgemp2 = Ti.UI.createButton({
 			image : '',
-			width:11
+			width:7
 		});
 		var bgemp3 = Ti.UI.createButton({
 			image : '',
-			width:12
+			width:7
 		});
 		var bgemp4 = Ti.UI.createButton({
+			image : '',
+			width:30
+		});
+
+		var spacer = Ti.UI.createButton({
 			image : '',
 			width:20
 		});
@@ -677,7 +704,7 @@ function fn(identifier,cnt,typ) {
 		});
 		
 		var webover = Ti.UI.createImageView({
-			right:10,bottom:10,image:'/images/button_connect_large.png'
+			right:55,top:1, height : 38, width:100,image:'/images/button_connect_large.png'
 		});
 		
 		webover.addEventListener('click',function(e){
@@ -700,8 +727,8 @@ function fn(identifier,cnt,typ) {
 		v1.add(bar);
 		v1.add(vb);
 		vb.add(web);
-		vb.add(webover);
 		v0.add(v1);
+		v0.add(webover);
 		v.add(v0);
 		vminus1.open();
 		v.open();
@@ -747,7 +774,7 @@ function fn(identifier,cnt,typ) {
 			Ti.API.debug(e);
 			var img = Titanium.UI.createImageView({
 				left:0,top:40,height:200,right:0,
-				backgroundColor:"#fff",
+				backgroundColor:"#000",
 				image : e.data[0].img	//.thumbsrc
 			});
 			
@@ -773,12 +800,12 @@ function fn(identifier,cnt,typ) {
 				top:0,left:0,bottom:40,right:0,height:570
 			});
 			var view4 = Titanium.UI.createView({
-				top:570,left:0,bottom:0,right:0,backgroundColor:"#fff"
+				top:600,left:0,bottom:0,right:0,backgroundColor:"#000"
 			});
 			
 			table = Ti.UI.createTableView({
-				backgroundColor : "#fff",
-				separatorColor : "#fff"
+				backgroundColor : "#000",
+				separatorColor : "#000"
 			});
 			view2.add(table);
 			
@@ -802,7 +829,7 @@ function fn(identifier,cnt,typ) {
 				
 				var secv1 = Ti.UI.createView({
 						height : 30,
-						backgroundColor : "#eee"
+						backgroundColor : "#333"
 				});
 				secv1.add(Ti.UI.createLabel({
 					height : Ti.UI.SIZE,
@@ -814,7 +841,7 @@ function fn(identifier,cnt,typ) {
 						fontSize : 16,
 						fontFamily : "arial"
 					},
-					color : "#777",
+					color : "#fff",
 					text : 'ABOUT'
 				}));
 				var sec1 = Ti.UI.createTableViewSection({
@@ -825,7 +852,7 @@ function fn(identifier,cnt,typ) {
 					layout:'vertical'
 				});
 				var rowv1 = Ti.UI.createView({
-					backgroundColor : "#fff",
+					backgroundColor : "#000",
 					height : Ti.UI.SIZE,
 					top:10, bottom:10,
 					width:425,
@@ -833,9 +860,9 @@ function fn(identifier,cnt,typ) {
 				});
 				var lblrow1=Ti.UI.createLabel({
 					text:Currenttitle,
-					color:"#777",
+					color:"#fff",
 					font : {
-						fontSize : 20,
+						fontSize : 18,
 						fontFamily : "arial",
 						fontStyle : 'bold'
 					},
@@ -847,7 +874,7 @@ function fn(identifier,cnt,typ) {
 					text:Currenttitle1,
 					color:"#fff",
 					font : {
-						fontSize : 16,
+						fontSize : 14,
 						fontFamily : "arial"
 					},
 					height:Ti.UI.SIZE,
@@ -858,7 +885,7 @@ function fn(identifier,cnt,typ) {
 					text:Currenttitle2,
 					color:"#fff",
 					font : {
-						fontSize : 16,
+						fontSize : 14,
 						fontFamily : "arial"
 					},
 					height:Ti.UI.SIZE,
@@ -870,37 +897,44 @@ function fn(identifier,cnt,typ) {
 				row1.add(rowv1);
 				sec1.add(row1);
 				rows.push(sec1);
+				var BW = 0;
 				for (var i=0; i<ExtraMeta.length; i++){
 					var button = ExtraMeta[i];
 					var row1 = Ti.UI.createTableViewRow({
 						height:Ti.UI.SIZE,
+						borderWidth : BW,
 						layout:'vertical'
 					});
 					var rowv1 = Ti.UI.createView({
-						backgroundColor : "#fff",
+						backgroundColor : "#000",
 						height : Ti.UI.SIZE,
-						top:10, bottom:10,
+						borderWidth : BW,
+						top:4, bottom:4,
 						width:425,
-						layout: 'vertical'
+//						layout: 'vertical'
 					});
 					var lblrow5 = Ti.UI.createLabel({
 						text:button.label,
-						color:"#777",
+						height : Ti.UI.SIZE,
+						color:"#fff",
+						borderWidth : BW,
 						font : {
-							fontSize : 16,
-							fontWeight: "bold",
+							fontSize : 14,
 							fontFamily : "arial"
 						},
-						left:10,top:8
+						left:17,top:0, width : 110
 					});
 					var lblrow4 = Ti.UI.createLabel({
 						text:button.value,
-						color:"#777",
+						height : Ti.UI.SIZE,
+						color:"#fff",
+						borderWidth : BW,
 						font : {
-							fontSize : 16,
+							fontSize : 14,
 							fontFamily : "arial"
 						},
-						left:10,top:8
+						left:130,top:0, width : 270
+//						left:10,top:8
 					});
 					rowv1.add(lblrow5);
 					rowv1.add(lblrow4);
@@ -952,7 +986,7 @@ function fn(identifier,cnt,typ) {
 				for (var i=0; i < vals.length; i++) {
 					var secv = Ti.UI.createView({
 						height : 30,
-						backgroundColor : "#eee"
+						backgroundColor : "#333"
 					});
 					secv.add(Ti.UI.createLabel({
 						color : "#777",
@@ -965,7 +999,7 @@ function fn(identifier,cnt,typ) {
 							fontSize : 16,
 							fontFamily : "arial"
 						},
-						color : "#777",
+						color : "#fff",
 						text : vals[i].toUpperCase()
 					}));
 					var sec = Ti.UI.createTableViewSection({
@@ -979,14 +1013,14 @@ function fn(identifier,cnt,typ) {
 								xurl : links[l].url
 							});
 							var rv = Ti.UI.createView({
-								backgroundColor : "#fff",
+								backgroundColor : "#000",
 								height : Ti.UI.SIZE,
 								top:10, bottom:10,
 								width:425
 							});
 							row.add(rv);
 							rv.add(Ti.UI.createLabel({
-								color : "#777",
+								color : "#fff",
 								height : Ti.UI.SIZE,
 								textAlign: "left",
 								width:425,
@@ -1028,66 +1062,71 @@ function fn(identifier,cnt,typ) {
 			self.add(view);
 			view22.add(view4);
 			var lbl121 = Ti.UI.createLabel({
-				color : "#777",
+				color : "#fff",
 				height : Ti.UI.SIZE,
 				textAlign: "left",
-				width:300,
-				left:73,
-				top:35,
+				width: Ti.UI.SIZE,
+				left:130,
+				top:15,
 				font : {
-					fontSize : 16,
+					fontSize : 14,
 					fontWeight: "bold",
 					fontFamily : "arial"
 				},
-				text : "Favourite / "
+				text : "favourite"
 				
+			});
+			var lbl122a = Ti.UI.createImageView({
+				image : "/images/arrows.png",
+				left : 10,
+				top:15
 			});
 			var lbl122 = Ti.UI.createLabel({
-				color : "#777",
+				color : "#5183CA",
 				height : Ti.UI.SIZE,
 				textAlign: "left",
-				width:300,
-				left:163,
-				top:35,
+				width: Ti.UI.SIZE,
+				left:40,
+				top:15,
 				font : {
-					fontSize : 16,
+					fontSize : 14,
 					fontWeight: "bold",
 					fontFamily : "arial"
 				},
-				text : "Link / "
-				
+				text : "connect"
 			});
 			var lbl123 = Ti.UI.createLabel({
-				color : "#777",
+				color : "#fff",
 				height : Ti.UI.SIZE,
 				textAlign: "left",
-				width:300,
-				left:215,
-				top:35,
+				width: Ti.UI.SIZE,
+				left:225,
+				top:15,
 				font : {
-					fontSize : 16,
+					fontSize : 14,
 					fontWeight: "bold",
 					fontFamily : "arial"
 				},
-				text : "Comment / "
+				text : "comment"
 				
 			});
 			var lbl124 = Ti.UI.createLabel({
-				color : "#777",
+				color : "#fff",
 				height : Ti.UI.SIZE,
 				textAlign: "center",
-				width:100,
-				left:280,
-				top:35,
+				width: Ti.UI.SIZE,
+				left:320,
+				top:15,
 				font : {
-					fontSize : 16,
+					fontSize : 14,
 					fontWeight: "bold",
 					fontFamily : "arial"
 				},
-				text : "Share"
+				text : "share"
 				
 			});
 			view4.add(lbl121);
+			view4.add(lbl122a);
 			view4.add(lbl122);
 			view4.add(lbl123);
 			view4.add(lbl124);
@@ -1128,9 +1167,31 @@ function fn(identifier,cnt,typ) {
 			
 			var html = "";
 			html += "<html><head></head><body TOPMARGIN='0' LEFTMARGIN='0' MARGINHEIGHT='0' MARGINWIDTH='0' style='background-color:#000;'>";
+//			html += "<img src='"+ e.data["image"]+"' style='border:0;padding:0;margin:0;' width='100%'>";
 			html += "<img src='"+ e.data[0].img+"' style='border:0;padding:0;margin:0;'>";
 			html += "</body></html>";
+			
 			html = "<img src='"+ e.data[0].img+"' style='border:0;padding:0;margin:0;' width='100%'>";
+			
+
+			// self.add(Titanium.UI.createWebView({
+				// left:514,bottom:40,right:0, height:200, url : "http://www.wikipedia.com"
+			// }));
+			
+			
+			// view.add(img);
+			// img.addEventListener("click", winclose);
+// 			
+			// view.add(txt);
+			
+			// var wv0 = Ti.UI.createScrollView({
+				// left:0,top:0, 
+				// width:  Ti.UI.FILL,
+				// height : Ti.UI.FILL,
+			    // contentWidth:'auto',
+			    // contentHeight:'auto'
+			// });
+
 			
 			var wv = Titanium.UI.createWebView({
 				left:0,top:0,bottom:8,right:5,
@@ -1152,7 +1213,9 @@ function fn(identifier,cnt,typ) {
 			}
 			var displayPath = function(ARR) {
 				var view0 = Titanium.UI.createView({
-					top:00,bottom:200,left:0,right:0, layout : 'vertical'
+					top:00,bottom:200,left:0,right:0, layout : 'vertical',
+					borderColor:'#333'
+//					borderRadius:20
 				});
 				var matched = [];
 				for (var i=0; i < path.length; i++) { matched.push(true) }

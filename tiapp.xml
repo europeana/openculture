@@ -2,25 +2,19 @@
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <deployment-targets>
         <target device="mobileweb">false</target>
-        <target device="blackberry">false</target>
-        <target device="android">false</target>
         <target device="iphone">true</target>
         <target device="ipad">true</target>
+        <target device="android">false</target>
+        <target device="blackberry">false</target>
     </deployment-targets>
-    <sdk-version>3.0.2.GA</sdk-version>
-    <property name="acs-oauth-secret-development" type="string">Sv9KmzJbSHpIEuqt7D5BKH6EdXSCw226</property>
-    <property name="acs-oauth-key-development" type="string">ZFKDrnFTPlfSI29e8G9aCUnrwwz9iQnP</property>
-    <property name="acs-api-key-development" type="string">B2GxuPvIdh7ZLMwDkzx264eKIEkWKSen</property>
-    <property name="acs-oauth-secret-production" type="string">IWFDum30QlESSQxqSeK4vh5zVL9AFOKP</property>
-    <property name="acs-oauth-key-production" type="string">223AXJZtHFCr2vCnR7wSCNJL6RigEklT</property>
-    <property name="acs-api-key-production" type="string">Rsd9bDwfhzhU5EmxjMdyiRRYmC4PEW2l</property>
+    <sdk-version>2.1.4.GA</sdk-version>
     <id>com.glimworm.app.europeana</id>
-    <name>Europeana</name>
+    <name>europeana</name>
     <version>1.0</version>
-    <publisher>Deniz_Tezcan</publisher>
-    <url>http://glimworm.com</url>
-    <description>not specified</description>
-    <copyright>2012 by jc</copyright>
+    <publisher>jc</publisher>
+    <url>http://</url>
+    <description>not specified </description>
+    <copyright>2013 by jc</copyright>
     <icon>appicon.png</icon>
     <persistent-wifi>false</persistent-wifi>
     <prerendered-icon>true</prerendered-icon>
@@ -29,7 +23,7 @@
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
     <analytics>true</analytics>
-    <guid>bd5cbdf0-1417-4519-b49e-20af82558bdd</guid>
+    <guid>ac98e36e-a052-4ead-bffd-b23a2f58d36f</guid>
     <property name="ti.ui.defaultunit">system</property>
     <iphone>
         <orientations device="iphone">
@@ -49,7 +43,7 @@
         <theme>default</theme>
     </mobileweb>
     <modules>
-        <module platform="commonjs" version="2.3.0">ti.cloud</module>
+        <module platform="commonjs" version="2.3.2">ti.cloud</module>
         <module platform="iphone" version="1.1">dk.napp.social</module>
         <module platform="iphone" version="0.6.3">com.glimworm.gyro213</module>
     </modules>
