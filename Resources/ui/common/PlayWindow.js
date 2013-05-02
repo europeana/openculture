@@ -1005,7 +1005,7 @@ function fn(identifier,cnt,typ) {
 					var sec = Ti.UI.createTableViewSection({
 						headerView : secv
 					});
-					var cnt = 0;
+ 					var cnt = 0;
 					for (var l=0; l < links.length; l++) {
 						if (links[l].type == vals[i]) {
 							cnt++;

@@ -155,8 +155,20 @@ function fn() {
 		borderWidth:1
 	});
 	mainviewR.add(tabR);
+	
+	var addSearchTerm = function(ST) {
+		var type = require("/helpers/LocalStorage").getString("type-string");
+		if (type == null) type = "";
+		if (type != "") type += "|";
+		type += ST;
+		require("/helpers/LocalStorage").setString("type-string",type);
+		search2.call(this);
+	}
+	
 	tabR.addEventListener("click", function(e) {
-		if (e.row.xlink == "remove-searchterm") {
+		if (e.row.xlink == "xignore") {
+			return;
+		} if (e.row.xlink == "remove-searchterm") {
 			var type = require("/helpers/LocalStorage").getString("type-string");
 			var type_parts = type.split("|");
 			var type = "";
@@ -210,6 +222,46 @@ function fn() {
 			row.add(lbl);
 			rows.push(row);
 		}
+
+
+		var row = Titanium.UI.createTableViewRow({
+			xlink : "ignore",
+			xindex : i,
+			xvisible : 1,
+			backgroundColor:"#000",
+			color : "#777",
+			height : 164,
+		})
+		var lbl = Titanium.UI.createLabel({
+			text : "refine",
+			xlink : "ignore",
+			xindex : i,
+			color : "#777",
+			top : 10,
+			height : 'auto',
+			font : {
+				fontSize : 16,
+				fontFamily : "arial"
+			}
+		});
+		row.add(lbl);
+		var extrasearch = Ti.UI.createTextField({
+			borderColor : "#fff",
+			left : 20, right : 20,
+			top : 40,
+			backgroundColor : "#666",
+			value : ""
+		});
+		row.add(extrasearch);
+		var addExtraSearchTerm = function() {
+			var term = extrasearch.getValue();
+			if (term != "") {
+				term = "&qf="+Ti.Network.encodeURIComponent(term);
+				addSearchTerm(term);
+			}
+		}
+		extrasearch.addEventListener('return',addExtraSearchTerm);
+		rows.push(row);
 
 		
 		for (var i=0; i < places.length; i++) {
