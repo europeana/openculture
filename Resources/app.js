@@ -83,7 +83,12 @@ if (Ti.Platform.osname === 'ipad') {
 		}
 	});
 
+} else if (Ti.Platform.osname === 'mobileweb') {
+	var ApplicationWindow = require('/ui/ios/ApplicationWindow');
+	new ApplicationWindow().open();
+
 } else {
+
 	alert(Ti.Platform.osname + ' is not yet supported by this template');
 }
 

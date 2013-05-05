@@ -7,4 +7,5 @@
 	<string name="#COUNTRY">By Country</string>
 	<string name="#RIGHTS">By Rights</string>
 	<string name="#TYPE">By Type</string>
+	<string name="es">Spanish</string>
 </resources>

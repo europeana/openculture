@@ -145,16 +145,34 @@ function fn() {
 		xopen : false,
 		top:40,left:-500,width:400,height:710,backgroundColor:"#000"
 	});
+	var subviewWrapperR = Ti.UI.createScrollView({
+		contentHeight : 'auto'
+	});
+	var subviewR = Ti.UI.createView({
+		layout : 'vertical',
+		top : 0,
+		height : Ti.UI.SIZE
+	});
+	mainviewR.add(subviewR);
+
+	var mainviewR_close = function() {
+		if (mainviewL.xopen == true) {
+			mainviewL.xopen = false;
+			//mainviewL.animate({left:-200,duration:500,curve: Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT},function(e){});
+			mainviewR.animate({left:-500,duration:500,curve: Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT},function(e){});
+		}
+	}
+	
 	var tabR = Titanium.UI.createTableView({
 		height : 'auto',
-		left:0, right:0,top:0,
+		left:0, right:0,top:600,
 		color : "#777",
 		backgroundColor : "#fff",
 		separatorColor :"#000",
 		borderColor:'#777',
 		borderWidth:1
 	});
-	mainviewR.add(tabR);
+//	mainviewR.add(tabR);
 	
 	var addSearchTerm = function(ST) {
 		var type = require("/helpers/LocalStorage").getString("type-string");
@@ -165,6 +183,42 @@ function fn() {
 		search2.call(this);
 	}
 	
+
+	var tabRclickHandler = function(src) {
+		Ti.API.debug(src);
+		Ti.API.debug(src.xlink);
+		Ti.API.debug(src.xindex);
+		if (src.xlink == "xignore") {
+			return;
+		} if (src.xlink == "remove-searchterm") {
+			var type = require("/helpers/LocalStorage").getString("type-string");
+			var type_parts = type.split("|");
+			var type = "";
+			for (var i=0; i < type_parts.length; i++) {
+				if (i == Number(src.xindex)) continue;
+				if (type != "") type += "|";
+				type += type_parts[i];
+			}
+			require("/helpers/LocalStorage").setString("type-string",type);
+			mainviewR_close();
+			search2.call(this);
+		} else {
+			var type = require("/helpers/LocalStorage").getString("type-string");
+			if (type == null) type = "";
+			if (type != "") type += "|";
+			type += src.xlink;
+			
+			require("/helpers/LocalStorage").setString("type-string",type);
+			mainviewR_close();
+			search2.call(this);
+		}
+	};
+	var tabRclick = function(e) {
+		if (e && e.source) tabRclickHandler.call(this,e.source);
+	}
+	
+
+
 	tabR.addEventListener("click", function(e) {
 		if (e.row.xlink == "xignore") {
 			return;
@@ -189,13 +243,144 @@ function fn() {
 			search2.call(this);
 		}
 	});
-	var refreshplaces = function(places) {
+	var breadcrum_description = function(S) {
+		if (S.indexOf("&qf=") == 0 && S.indexOf(":") == -1) {
+			// &qf=searchterm
+			return S.substring(4);
+			
+		}
+		if (S.indexOf("&qf=") == 0) {
+			// &qf=searchterm:value
+			S_PARTS = S.substring(4).split(":",2);
+			return L("#"+S_PARTS[0])+" : "+Ti.Network.decodeURIComponent(S_PARTS[1]).replace(/\+/g," ") ;
+		}
+		return S;
+	}
+	
+	
+	var av = require('/ui/common/sidemenu/accordian_view');
+	var smh = require('/ui/common/sidemenu/SideMenuHelpers');
+	
+	var refreshplaces = function(places, totalResults) {
+
+		if (subviewR.children.length > 0) subviewR.remove(subviewR.children[0]);
+		var subviewR2 = Ti.UI.createView({
+			layout : 'vertical',
+			top : 0,
+			height : Ti.UI.SIZE
+			
+		});
+		subviewR.add(subviewR2);
+		
+		subviewR2.add(smh.H1("Matches For:"));
+
+		var START = 1;
+		
+		var type = require("/helpers/LocalStorage").getString("type-string");
+		if (!type || type == null) type = "";
+		var type_parts = type.split("|");
+		for (var i=0; i < type_parts.length; i++) {
+			if (type_parts[i].indexOf("&start=") > -1) {
+				START = Number(type_parts[i].substring(7));
+			} else {
+				var v = smh.matchingLine(breadcrum_description(type_parts[i]));
+				v.xlink = "remove-searchterm";
+				v.xindex = i;
+				v.addEventListener('click',tabRclick);
+				subviewR2.add(v);
+			}
+		}
+		
+		subviewR2.add(smh.spacer());
+		subviewR2.add(smh.H2("Results "+START+" - "+(START+100)+" of "+totalResults));
+		subviewR2.add(smh.spacer());
+		subviewR2.add(smh.H1("Refine you results:"));
+		var addmorekeywords = smh.sectionhead("Add more keywords");
+		addmorekeywords.fireEvent("open",{});
+		subviewR2.add(addmorekeywords);
+		
+
+		var extrasearch = Ti.UI.createTextField({});
+		subviewR2.add(smh.textbox(extrasearch));
+		var addExtraSearchTerm = function() {
+			var term = extrasearch.getValue();
+			if (term != "") {
+				term = "&qf="+Ti.Network.encodeURIComponent(term);
+				addSearchTerm(term);
+			}
+		}
+		extrasearch.addEventListener('return',addExtraSearchTerm);
+
+		subviewR2.add(smh.spacer());
+		
+		var content = function(obj) {
+			var xindex = Number(obj.xindex);
+
+			Ti.API.debug(sections[xindex]);
+			
+			var v0 = Ti.UI.createScrollView({
+				contentHeight : 'auto'
+			});
+
+			var v = Ti.UI.createView({
+				layout : 'vertical'
+			})
+			
+			for (var i=0; i < sections[xindex].items.length; i++) {
+				var lbl = smh.option(sections[xindex].items[i].xname);
+				lbl.xlink = sections[xindex].items[i].xlink;
+				lbl.xname = sections[xindex].items[i].xname;
+				lbl.addEventListener('click',tabRclick);
+				v.add(lbl);
+			}
+			v0.add(v);
+			return v0;
+		}
+
+		
+		var sections = [];
+		var section_index = -1;
+		
+		for (var i=0; i < places.length; i++) {
+			if (places[i].indexOf("#") == 0) {
+				section_index++;
+				sections[section_index] = {
+					items : []
+				}
+				var hv = smh.sectionhead(L(places[i]));
+				var v2 = av.createView({
+					headerview : hv,
+					xindex : section_index,
+					xname : places[i],
+					parameters : {
+						xindex : section_index,
+						xname : places[i]
+					},
+					content : content
+//					content : "section for "+places[i]
+				});
+				subviewR2.add(v2.view);
+			} else {
+				if (section_index > -1) {
+					var place = places[i].split("|");
+					var xlink = place[0];
+					var xname = place[1];
+					sections[section_index].items.push({
+						xlink : xlink,
+						xname : xname
+					});
+				}
+			}
+		}
+		
+		
 		var rows = [];
 		var section = null;
 		
 		
-		
+/*		
 		var type = require("/helpers/LocalStorage").getString("type-string");
+		if (!type || type == null) type = "";
 		var type_parts = type.split("|");
 		for (var i=0; i < type_parts.length; i++) {
 			var row = Titanium.UI.createTableViewRow({
@@ -207,7 +392,7 @@ function fn() {
 				height : 32,
 			})
 			var lbl = Titanium.UI.createLabel({
-				text : type_parts[i],
+				text : breadcrum_description(type_parts[i]),
 				xlink : "remove-searchterm",
 				xindex : i,
 				color : "#ccc",
@@ -222,7 +407,6 @@ function fn() {
 			row.add(lbl);
 			rows.push(row);
 		}
-
 
 		var row = Titanium.UI.createTableViewRow({
 			xlink : "ignore",
@@ -250,6 +434,7 @@ function fn() {
 			left : 20, right : 20,
 			top : 40,
 			height:30,
+			clearButtonMode : 1,
 			backgroundColor : "#fff",
 			value : ""
 		});
@@ -270,15 +455,18 @@ function fn() {
 				if (section != null) rows.push(section);
 				var secv = Ti.UI.createView({
 					height : 30,
-					backgroundColor : "#777"
+					backgroundColor : "#777",
+					xindex : rows.length
 				});
 				secv.add(Ti.UI.createLabel({
 					color : "#000",
 					height : Ti.UI.SIZE,
 					textAlign: "left",
 					width:425,
+					name : "sec"+rows.length,
 					left:15,
 					top:7,
+					xindex : rows.length,
 					font : {
 						fontSize : 16,
 						fontFamily : "arial"
@@ -290,16 +478,47 @@ function fn() {
 					headerView : secv
 				});
 				secv.addEventListener("click", function(e) {
-					Ti.API.debug(e);
-					Ti.API.debug(e.source);
-					Ti.API.debug(e.source.parent);
-					Ti.API.debug(e.source.parent.parent);
+					// Ti.API.debug(e);
+					// Ti.API.debug(e.source);
+					// Ti.API.debug(e.source.xindex);
+					// var idx = Number(e.source.xindex);
+					// var sec_index = tabR.getIndexByName("sec"+idx);
+					// Ti.API.debug("sec_index "+ sec_index);
+// 					
+// 					
+					// var data = tabR.data;
+					// var sec = data[idx];
+					// Ti.API.debug(sec);
+					// var rows = sec.getRows(); 
+					// Ti.API.debug(rows);
+					// for (var i=0; i < rows.length; i++) {
+						// if (rows[i].xvisible == 1) {
+							// rows[i].xvisible = 0;
+							// rows[i].hight = 5;
+							// rows[i].setVisible(false);
+							// Ti.API.debug(i+") set to 5 ("+rows[i].xname+")");
+							// Ti.API.debug(i+") set to 5 ("+rows[i].name+")");
+							// var row_index = tabR.getIndexByName(rows[i].name);
+							// Ti.API.debug(i+") set to 5 ["+row_index+"]");
+							// tabR.deleteRow(row_index);
+						// } else {
+							// rows[i].xvisible = 1;							
+							// rows[i].hight = 50;
+							// rows[i].setVisible(true);
+							// Ti.API.debug(i+") set to 50 ("+rows[i].xname+")");
+							// Ti.API.debug(i+") set to 50 ("+rows[i].name+")");
+							// var row_index = tabR.getIndexByName(rows[i].name);
+							// Ti.API.debug(i+") set to 5 ["+row_index+"]");
+						// }
+					// }
 				});
 			} else {
 				var place = places[i].split("|");
 				var row = Titanium.UI.createTableViewRow({
 					xlink : place[0],
 					xvisible : 1,
+					xname : place[1],
+					name: 'row'+i,
 					backgroundColor:"#000",
 					color : "#000",
 					height : 32,
@@ -330,12 +549,19 @@ function fn() {
 		}
 		if (section != null) rows.push(section);
 		tabR.setData(rows);	
+*/
 	}
+
+
 	refreshplaces("France Belgium".split(" "));	
 	refreshplaces2 = function()  {
 		var items = require("/helpers/LocalStorage").getObject("types");
 		if (!items || items == null) items = [];
-		refreshplaces(items);	
+
+		var totalResults = require("/helpers/LocalStorage").getString("totalResults");
+		if (!totalResults || totalResults == null) totalResults = 0;
+
+		refreshplaces(items,Number(totalResults));	
 	}
 	
 	
@@ -368,18 +594,19 @@ function fn() {
 	var b1emp = Titanium.UI.createButton({
 		image : '',
 		width:15
-	})
+	});
 	var b2emp = Titanium.UI.createButton({
 		image : '',
 		width:145
-	})
+	});
 	var b1muse = Titanium.UI.createButton({
 		image : 'images/small-logo.png'
-	})
+	});
 	
-	var bb1 = Titanium.UI.createButtonBar({
+//	var bb1 = Titanium.UI.createButtonBar({
+	var bb1 = Ti.UI.iOS.createTabbedBar({
 	    labels:['Home','Search results', 'Your Favourites', 'Help'],
-	    backgroundColor:'#000000',
+		backgroundColor:'#333333',
 	    top:50,
 	    style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
 	    height:30,
@@ -387,14 +614,15 @@ function fn() {
 	});
 	var bbselect = function(e) {
 		var tab = e.index;
+		
 		if (tab == 0) {
-			Titanium.App.fireEvent("display-search-force",{});			
+			Titanium.App.fireEvent("display-search-force",{});
 		}
 		if (tab == 1) {
 			Titanium.App.fireEvent("redisplay-search",{});			
 		}
 		if (tab == 2) {
-			Titanium.App.fireEvent("redisplay-personal",{});			
+			Titanium.App.fireEvent("redisplay-personal",{});		
 		}
 		if (tab == 3) {
 			//require("/helpers/LocalStorage").setObject("personal",[]);
@@ -426,13 +654,15 @@ function fn() {
 		height : 30,
 		autocorrect : false,
 		autocapitalization : false,
+		clearButtonMode : 1,
+		paddingLeft : 20,
 		width : 200,
 		borderRadius : 5,
 		backgroundColor : "#fff",
 		borderColor : "#777777",
 		borderWidth : 1,
 		color : "#777",
-		value : " Search",
+		value : require("/helpers/LocalStorage").getString("search-string"),
 		font : {
 			fontFamily : "SinhalaSangamMN",
 			fontSize : 18
@@ -466,9 +696,12 @@ function fn() {
 			fn : function(e) {
 				require("/helpers/LocalStorage").setObject("search",e.data.items);
 				require("/helpers/LocalStorage").setObject("types",e.data.types);
+				require("/helpers/LocalStorage").setString("totalResults",e.data.totalResults);
 				/*require("/helpers/LocalStorage").setObject("creators",e.data.creators);
 				require("/helpers/LocalStorage").setObject("dats",e.data.dats);*/
-				Ti.API.debug(e.data.url);
+				//Ti.API.debug(e.data.url);
+				require("/helpers/LocalStorage").setObject("search-message",e.data.status_msg);
+				
 				
 				Titanium.App.fireEvent("redisplay-search",{xfrom : 'search2'});
 			}
@@ -613,10 +846,10 @@ function fn() {
 		refreshplaces2();
 		refreshleftlist2();
 		if (items.length == 0 || items.length == null) {
-			require("/helpers/LocalStorage").setObject("search-message","This search gives no results, please try another search term");
+//			require("/helpers/LocalStorage").setObject("search-message","This search gives no results, please try another search term");
 			Titanium.App.fireEvent("display-search-force",{});
 		} else {
-			require("/helpers/LocalStorage").setObject("search-message","");
+//			require("/helpers/LocalStorage").setObject("search-message","");
 			
 		}
 	};
@@ -726,6 +959,7 @@ function fn() {
 			height : 54,
 			autocorrect : false,
 			autocapitalization : false,
+			clearButtonMode : 1,
 			width : 860,
 			borderRadius : 5,
 			backgroundColor : "#ffffff",
@@ -769,11 +1003,13 @@ function fn() {
 			color : "#ffffff"
 		}));
 		
-		var perform_pre_determined_search = function() {
+		var perform_pre_determined_search = function(e) {
+			if (!e.source.xindex) return;
+			var idx = Number(e.source.xindex)-1;
+			
 			x.close();
 			lock_displaySearchForce = false;
-			var idx = 0;
-			require("/helpers/LocalStorage").setString("search-string","*:*");
+			require("/helpers/LocalStorage").setString("search-string","");
 			require("/helpers/LocalStorage").setString("yr-string","");
 			require("/helpers/LocalStorage").setString("place-string","");
 			require("/helpers/LocalStorage").setString("type-string",featured_items[idx].query);
@@ -794,10 +1030,15 @@ function fn() {
 		
 		
 		var search_views = [];
+
+		var featured_items_object = require("/helpers/LocalStorage").getObject("featured-items");
+		if (!featured_items_object || featured_items_object == null) featured_items_object = {items:[]};
+		featured_items = featured_items_object.items;
+
 		var featured_items = [{ 
 				img : "featured-maps.jpg", 
 				txt : "Maps and Plans",
-				query : '&qf=DATA_PROVIDER:"Cat%C3%A1logo+Colectivo+de+la+Red+de+Bibliotecas+de+los+Archivos+Estatales"|&qf=DATA_PROVIDER:"Biblioteca+Virtual+del+Patrimonio+Bibliogr%C3%A1fico"|&qf=TYPE:IMAGE|&qf=DATA_PROVIDER:"Biblioteca+Virtual+del+Ministerio+de+Defensa" '
+				query : '&qf=DATA_PROVIDER:"Cat%C3%A1logo+Colectivo+de+la+Red+de+Bibliotecas+de+los+Archivos+Estatales"|&qf=DATA_PROVIDER:"Biblioteca+Virtual+del+Patrimonio+Bibliogr%C3%A1fico"|&qf=TYPE:IMAGE|&qf=DATA_PROVIDER:"Biblioteca+Virtual+del+Ministerio+de+Defensa"'
 			}, { 
 				img : "featured-art.jpg", txt : "Treasures of Art"},{ img : "featured-past.jpg", txt: "Treasures of the Past"},{ img :"featured-nature.jpg", txt : "Treasures of Nature"}]
 		
@@ -836,11 +1077,12 @@ function fn() {
 			var square_text = Ti.UI.createLabel({
 				text : featured_items[i].txt,
 				color : "#fff",
+				xindex : i+1,
 				bottom : 0, height : 50
 			});
 			search_square.add(square_underlay);
 			search_square.add(square_text);
-			search_square.addEventListener('click',perform_pre_determined_search);
+			square_text.addEventListener('click',perform_pre_determined_search);
 			search_square_x3.add(search_square);
 		}
 		if (search_square_x3 != null) {
@@ -857,6 +1099,7 @@ function fn() {
 			showPagingControl:true,
 			height : 320
 		});
+
 		
 		xview.add(normal_searches_view);
 		var show_correct_navigation_arrows = function() {
@@ -893,6 +1136,7 @@ function fn() {
 		var srchval = search.value;
 		//alert(srchval);
 		xsearch.value = srchval;
+		
 		// xsearch.addEventListener("click", function() {
 			// x.close();
 			// lock_displaySearchForce = false;

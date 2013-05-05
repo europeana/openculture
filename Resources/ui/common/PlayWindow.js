@@ -114,7 +114,7 @@ function fn(identifier,cnt,typ) {
 	})
 	
 	topbar.add(search);
-//alert("b");
+
 	search.addEventListener("click", function() {
 		search.value='';
 	});
@@ -126,7 +126,7 @@ function fn(identifier,cnt,typ) {
         require("/helpers/LocalStorage").setString("type-string","");
         Titanium.App.fireEvent("app:search2",{});
 	});
-//alert("c");	
+
 	var b2 = Titanium.UI.createButton({
 		image : "/images/glyphicons_012_heart.png",
 		left:20
@@ -144,7 +144,18 @@ function fn(identifier,cnt,typ) {
 		}
 		return false;
 	}
-//alert("d");	
+	var removefav = function(identifier) {
+		var personal = require("/helpers/LocalStorage").getObject("personal");
+		if (!personal || personal == null) return;
+		for (var i=personal.length; i > 0; i--) {
+			var j= (i-1);
+			if (personal[j].identifier == identifier || personal[j].id == identifier) {
+				personal.splice(j,1);
+			}
+		}
+		require("/helpers/LocalStorage").setObject("personal",personal);
+	}
+
 	var like = function() {
 		if (isfav(identifier) == false) {
 			var newitem = require("/helpers/LocalStorage").getObject("search")[cnt];
@@ -153,10 +164,13 @@ function fn(identifier,cnt,typ) {
 			if (!personal || personal == null) personal = [];
 			personal.push(newitem);
 			require("/helpers/LocalStorage").setObject("personal",personal);
+		} else {
+			lbl122.image = '/images/buttons/menu-favourite.png';
+			removefav(identifier);		
 		}
 	}
 	b2.addEventListener("click",like);
-//alert("e");	
+
 	var currentlink = "";
 	var addcomment = function(e) {
 		var v = Ti.UI.createWindow({
