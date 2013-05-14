@@ -4,15 +4,17 @@ var css = require('/ui/common/css');
 function fn(identifier,cnt,typ) {
 	
 	
-	function isfavourite (ident) {
-    var items = require("/helpers/LocalStorage").getObject("personal");
-    if (!items || items == null) return false;
-    for (var i=0; i <items.length; i++) {
-        if (ident == items[i].identifier) return true;
-    }
-    return false;
-}
+	require("/helpers/flurry").log("display_item",{identifier : identifier });
 	
+	function isfavourite (ident) {
+	    var items = require("/helpers/LocalStorage").getObject("personal");
+	    if (!items || items == null) return false;
+	    for (var i=0; i <items.length; i++) {
+	        if (ident == items[i].identifier) return true;
+	    }
+	    return false;
+	}
+
 	var self = Titanium.UI.createWindow({
     	navBarHidden: true,
     	backgroundColor:"#000"
@@ -20,12 +22,26 @@ function fn(identifier,cnt,typ) {
 	var table;
 	var lbl122 = "";
 	var searchtitle = "";
+	var wikipediasearch = "";
+	var googlesearch = ""
 	var Currenttitle = "";
 	var Currenttitle1 = "";
 	var Currenttitle2 = "";
 	var ExtraButtons = [];
 	var ExtraMeta = [];
 	var docTitle = "";
+	var twitter_image = "";
+	var twitter_link = "";
+	var twitter_text = "";
+	var facebook_appid = "";
+
+	var button2 = "";
+	var button2_link = "";
+	var button3 = "";
+	var button3_link = "";
+
+
+	
 	var b1 = Titanium.UI.createButton({
 		image : "/images/glyphicons_212_down_arrow.png"
 	})
@@ -100,13 +116,14 @@ function fn(identifier,cnt,typ) {
 		height : 30,
 		autocorrect : false,
 		autocapitalization : false,
+		clearButtonMode : 1,
 		width : 200,
 		borderRadius : 5,
 		backgroundColor : "#fff",
 		borderColor : "#777777",
 		borderWidth : 1,
 		color : "#777777",
-		value : " Search",
+		value : require("/helpers/LocalStorage").getString("search-string"),
 		font : {
 			fontFamily : "SinhalaSangamMN",
 			fontSize : 18
@@ -164,15 +181,20 @@ function fn(identifier,cnt,typ) {
 			if (!personal || personal == null) personal = [];
 			personal.push(newitem);
 			require("/helpers/LocalStorage").setObject("personal",personal);
+			require("/helpers/flurry").log("like",{identifier : identifier });
+			
 		} else {
 			lbl122.image = '/images/buttons/menu-favourite.png';
 			removefav(identifier);		
+			require("/helpers/flurry").log("unlike",{identifier : identifier });
 		}
 	}
 	b2.addEventListener("click",like);
 
 	var currentlink = "";
 	var addcomment = function(e) {
+		require("/helpers/flurry").log("add_comment_openwindow",{identifier : identifier });
+
 		var v = Ti.UI.createWindow({
 		});
 		v.add(Ti.UI.createView({
@@ -200,8 +222,10 @@ function fn(identifier,cnt,typ) {
 			color : "#222"
 		}));
 		
+
+		
 		var srch = Ti.UI.createTextArea({
-			top:60,left:66,height:180,right:66,
+			top:60,left:66,height:150,right:66,
 			hintText : "What do you want to say?",
 			borderRadius : 10,
 			font : {
@@ -212,7 +236,7 @@ function fn(identifier,cnt,typ) {
 		});
 		v2.add(srch);
 		var addlink_btn = Ti.UI.createLabel({
-			top:250,right:66,height:50,width:150,
+			top:220,right:66,height:50,width:150,
 			font : {
 				fontSize : 22,
 				fontFamily : "arial"
@@ -224,6 +248,9 @@ function fn(identifier,cnt,typ) {
 			backgroundColor : '#5184CC'
 		});
 		v2.add(addlink_btn);
+		var closecomentwindow = function() {
+			v.close();
+		}
 		var addlinkfn = function() {
 			var _data = {
 				action : "json-addlink-rijksmuseum",
@@ -238,7 +265,7 @@ function fn(identifier,cnt,typ) {
 				data : _data,
 				fn : function(e1) {
 					Titanium.API.info(e1);
-					alert("post added");
+					require("/ui/common/growl/fn").growl("post added",closecomentwindow);
 					table.fireEvent("updateLinks",{links:e1.links});
 					showfront();
 				},
@@ -247,6 +274,7 @@ function fn(identifier,cnt,typ) {
 					alert("There was an error adding the link");
 				}
 			});
+			require("/helpers/flurry").log("add_comment_added",{identifier : identifier });
 			
 //alert("g");			
 		};
@@ -284,6 +312,7 @@ function fn(identifier,cnt,typ) {
 		v1.add(vb);
 		vb.add(v2);
 		v.open();
+		srch.focus();
 
 
 	};
@@ -402,6 +431,10 @@ function fn(identifier,cnt,typ) {
 	}
 	
 	var addlink = function(e) {
+
+		require("/helpers/flurry").log("add_link_openwindow",{identifier : identifier });
+
+
 		if (!searchtitle || searchtitle == null) searchtitle = "";
 		var searchtitlea = searchtitle.replace(" ","_");
 		var searchtitleb = searchtitlea.replace(" ","_");
@@ -421,6 +454,7 @@ function fn(identifier,cnt,typ) {
 		
 		
 		var fullthingy = "http://nl.wikipedia.org/wiki/Special:Search?search="+Ti.Network.encodeURIComponent(searchtitle)+"&go=Go";
+		var fullthingy = wikipediasearch;
 		
 		//alert(searchtitlez);
 //alert("i");		
@@ -496,12 +530,17 @@ function fn(identifier,cnt,typ) {
 			image : '',
 			width:2
 		});
+		
+		
+		
+		
+		
 		var bgyu = Ti.UI.createButton({
-			image : 'images/glyphicons_382_youtube1.png'
+			image : button2 	// 'images/glyphicons_382_youtube1.png'
 		});
 		
 		var bgfli = Ti.UI.createButton({
-			image : 'images/glyphicons_395_flickr.png'
+			image : button3		//	'images/glyphicons_395_flickr.png'
 		});
 		
 		var bgpin = Ti.UI.createButton({
@@ -571,17 +610,18 @@ function fn(identifier,cnt,typ) {
 //alert("j");		
 		bggoo.addEventListener('click',function(e){
 			//alert("a");
-			search.value = "http://www.google.nl";
+			search.value = googlesearch;
+			//"http://www.google.nl";
 			web.setUrl(search.value);
 		});
 		bgyu.addEventListener('click',function(e){
 			//alert("a");
-			search.value = "http://www.youtube.com/?nomobile=1";
+			search.value = button2_link;	//"http://www.youtube.com/?nomobile=1";
 			web.setUrl(search.value);
 		});
 		bgfli.addEventListener('click',function(e){
 			//alert("a");
-			search.value = "http://www.flickr.com";
+			search.value = button3_link;	//"http://www.flickr.com";
 			web.setUrl(search.value);
 		});
 		bgpin.addEventListener('click',function(e){
@@ -635,6 +675,10 @@ function fn(identifier,cnt,typ) {
 			backgroundColor : '#5184CC'
 		});
 		v2.add(addlink_btn);
+		var closelinkwindow = function() {
+			v.close();
+			vminus1.close();
+		}
 		var addlinkfn = function() {
 			if (TYP == null || TYP == "" || search.value == "") {
 				alert("You need to write a description and also indicate what it describes (WHAT,WHERE,WHEN,WHO,GENERAL) before adding the link");
@@ -654,7 +698,7 @@ function fn(identifier,cnt,typ) {
 				fn : function(e1) {
 					Titanium.API.info(e1);
 					table.fireEvent("updateLinks",{links:e1.links});
-					alert("link added");
+					require("/ui/common/growl/fn").growl("link added",closelinkwindow);
 					showfront();
 				},
 				err : function(e1) {
@@ -662,6 +706,7 @@ function fn(identifier,cnt,typ) {
 					alert("There was an error adding the link");
 				}
 			});
+			require("/helpers/flurry").log("add_link_added",{identifier : identifier });
 			
 			
 		};
@@ -711,7 +756,7 @@ function fn(identifier,cnt,typ) {
 		
 		var bar = Titanium.UI.iOS.createToolbar({
 			top:0,right:0,left:0,height:Ti.UI.SIZE,
-			items : [bgb,bgf,search,bgo,bgemp11,bgyu,bgemp1,bgpin,bgemp2,bggoo,bgemp3,bgfli,bgemp4,bgc],
+			items : [bgb,bgf,search,bgo,bgemp11,bgyu,bgemp1,bgfli,bgemp2,bggoo,bgemp3,bgpin,bgemp4,bgc],
 			barColor : "#000000",
 			borderTop:true,
 		    borderBottom:false
@@ -798,7 +843,18 @@ function fn(identifier,cnt,typ) {
 		url : "http://jon651.glimworm.com/europeana/eu.php?action=json-get&identifier="+identifier,
 		fn : function(e) {
 			Ti.API.info(e);
-			searchtitle = e.data[0].title;
+			searchtitle = e.data[0].ccsearchterm;
+			twitter_image = e.data[0].twitter_image;
+			twitter_link = e.data[0].twitter_link;
+			twitter_text = e.data[0].twitter_text;
+			wikipediasearch = e.data[0].ccwikipediasearch;
+			googlesearch = e.data[0].ccgooglesearch;
+			facebook_appid = e.data[0].facebook_appid;
+			button2 = e.data[0].button2;
+			button2_link = e.data[0].button2_link;
+			button3 = e.data[0].button3;
+			button3_link = e.data[0].button3_link;
+			
 			Ti.API.debug(e);
 			var img = Titanium.UI.createImageView({
 				left:0,top:40,height:200,right:0,
@@ -955,15 +1011,23 @@ function fn(identifier,cnt,typ) {
 						},
 						left:17,top:0, width : 110
 					});
+					var fam = "arial";
+					var txt = button.value;
+					var siz = 14;
+					if (txt.indexOf("§") == 0) {
+						txt = txt.substring(1);
+						fam = "icomoon";
+						siz = 18;
+					}
 					var lblrow4 = Ti.UI.createLabel({
-						text:button.value,
+						text: txt,
 						//html:"<b>"+button.value+"</b>",
 						height : Ti.UI.SIZE,
 						color:"#fff",
 						borderWidth : BW,
 						font : {
-							fontSize : 14,
-							fontFamily : "arial"
+							fontSize : siz,
+							fontFamily : fam
 						},
 						left:130,top:0, width : 270
 //						left:10,top:8
@@ -1093,6 +1157,7 @@ function fn(identifier,cnt,typ) {
 			
 			self.add(view);
 			view22.add(view4);
+			
 			/*var lbl121 = Ti.UI.createLabel({
 				color : "#fff",
 				height : Ti.UI.SIZE,
@@ -1198,10 +1263,10 @@ function fn(identifier,cnt,typ) {
 			    //alert("b");
 			   self.addEventListener('click',function(e) {
 			        if (e.index == 0) {
-			            require("/helpers/share").facebook("","","");
+						require("/helpers/social/share").facebook(twitter_text, twitter_image, twitter_link,false,facebook_appid);
 			        }
 			        else if (e.index == 1) {
-				        require("/helpers/share").tweet("","","");
+						require("/helpers/social/share").tweet(twitter_text, twitter_image, twitter_link, false);
 			        }
 			        else if (e.index == 2) {
 			        }
@@ -1411,7 +1476,7 @@ function fn(identifier,cnt,typ) {
 		}));
 		x.add(Ti.UI.createImageView({
 			top:0,left:0,height:Ti.UI.FILL,width:Ti.UI.FILL,
-			image : '/images/item-big.png'
+			image : '/images/eu/help-footer.png'
 		}));
 		x.addEventListener('click',function(e) {
 			x.close();

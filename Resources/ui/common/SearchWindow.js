@@ -13,7 +13,44 @@ function fn() {
 		tabBarHidden:true
 	});
 	
+	var setpage = function(P) {
+		require("/helpers/LocalStorage").setString("page",P);
+	}
+	var getpage = function() {
+		var page = require("/helpers/LocalStorage").getString("page");
+		if (!page || page == null || page == "") return 0;
+		try {
+			return Number(page);
+		} catch (E) {
+			return 0;
+		}
+	}
+	var PERPAGE = 100;
+	var TOTALRESULTS = 0;
 	
+	var add_spinner = function(view,top,left) {
+		
+		var activityIndicator = Ti.UI.createActivityIndicator({
+			color: '#ffffff',
+			message: 'Loading...',
+			style : Ti.UI.iPhone.ActivityIndicatorStyle.BIG,
+			height:'auto',
+			width:'auto'
+ 		});
+ 		if (top) activityIndicator.top = top;
+ 		if (left) activityIndicator.left = left;
+		
+		view.add(activityIndicator);
+		activityIndicator.show();
+		var endActivity = function(e) {
+			Ti.API.debug(this);
+			Ti.API.debug(e);
+			Ti.API.debug(e.source);
+			view.remove(activityIndicator);
+			view.removeEventListener("done-spinning",endActivity);
+		}
+		view.addEventListener("done-spinning",endActivity);
+	};
 	
 	var topview = Titanium.UI.createView({
 		top:0,left:0,right:0,height:40,backgroundColor:"#ff0000"
@@ -48,11 +85,9 @@ function fn() {
 	});
 
 	var mainview2 = Titanium.UI.createView({
-//		top:0,left:0,width:3200,height:3350,backgroundColor:"transparent", borderWidth:0, borderColor:"#fff",
 		top:0,left:0,
 		width:3200,
 		height : (420 * (MAXITEMS / 25)) + 20,
-//		height:Ti.UI.SIZE,
 		backgroundColor:"transparent", borderWidth:0, borderColor:"#fff",
 		layout:"horizontal"
 	});
@@ -143,7 +178,7 @@ function fn() {
 		contentWidth:'auto',
 		zIndex:999,
 		xopen : false,
-		top:40,left:-500,width:400,height:710,backgroundColor:"#000"
+		top:40,left:-500,width:400,height:710,backgroundColor:"#333"
 	});
 	var subviewWrapperR = Ti.UI.createScrollView({
 		contentHeight : 'auto'
@@ -162,7 +197,13 @@ function fn() {
 			mainviewR.animate({left:-500,duration:500,curve: Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT},function(e){});
 		}
 	}
-	
+	var mainviewR_open = function() {
+		if (mainviewL.xopen == false) {
+			mainviewL.xopen = true;
+			//mainviewL.animate({left:-200,duration:500,curve: Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT},function(e){});
+			mainviewR.animate({left:0,duration:500,curve: Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT},function(e){});
+		}
+	}	
 	var tabR = Titanium.UI.createTableView({
 		height : 'auto',
 		left:0, right:0,top:600,
@@ -180,6 +221,7 @@ function fn() {
 		if (type != "") type += "|";
 		type += ST;
 		require("/helpers/LocalStorage").setString("type-string",type);
+		mainviewR_close();
 		search2.call(this);
 	}
 	
@@ -190,7 +232,45 @@ function fn() {
 		Ti.API.debug(src.xindex);
 		if (src.xlink == "xignore") {
 			return;
-		} if (src.xlink == "remove-searchterm") {
+		} else if (src.xlink == "page-first") {
+			pg = 0;
+			//alert(pg);
+			setpage(pg);
+			mainviewR_close();
+			search2.call(this);
+
+		} else if (src.xlink == "page-next") {
+			var pg = getpage();
+			if (pg >= Math.floor(TOTALRESULTS/PERPAGE)) return;
+			pg++;
+			//alert(pg);
+			setpage(pg);
+			mainviewR_close();
+			search2.call(this);
+
+		} else if (src.xlink == "page-prev") {
+			var pg = getpage();
+			Ti.API.debug(pg);
+			if (pg < 1) return;
+			pg--;
+			Ti.API.debug(pg);
+			//alert(pg);
+			setpage(pg);
+			mainviewR_close();
+			search2.call(this);
+
+		} else if (src.xlink == "page-last") {
+			var pg = Math.floor(TOTALRESULTS/PERPAGE);
+			//alert(pg);
+			setpage(pg);
+			mainviewR_close();
+			search2.call(this);
+			
+		} else if (src.xlink == "remove-searchterm-main") {
+			require("/helpers/LocalStorage").setString("search-string","");
+			mainviewR_close();
+			search2.call(this);
+		} else if (src.xlink == "remove-searchterm") {
 			var type = require("/helpers/LocalStorage").getString("type-string");
 			var type_parts = type.split("|");
 			var type = "";
@@ -214,7 +294,7 @@ function fn() {
 		}
 	};
 	var tabRclick = function(e) {
-		if (e && e.source) tabRclickHandler.call(this,e.source);
+		if (e && e.source && e.source.xlink) tabRclickHandler.call(this,e.source);
 	}
 	
 
@@ -261,7 +341,10 @@ function fn() {
 	var av = require('/ui/common/sidemenu/accordian_view');
 	var smh = require('/ui/common/sidemenu/SideMenuHelpers');
 	
-	var refreshplaces = function(places, totalResults) {
+	var refreshplaces = function(places, totalResults, perpage) {
+		
+		TOTALRESULTS = totalResults;
+		PERPAGE = perpage;
 
 		if (subviewR.children.length > 0) subviewR.remove(subviewR.children[0]);
 		var subviewR2 = Ti.UI.createView({
@@ -274,6 +357,16 @@ function fn() {
 		
 		subviewR2.add(smh.H1("Matches For:"));
 
+
+		var srch = require("/helpers/LocalStorage").getString("search-string");
+		if (srch != "") {
+			var v = smh.matchingLine(srch,"remove-searchterm-main",0);
+			v.addEventListener('click',tabRclick);
+			subviewR2.add(v);
+		}
+
+
+
 		var START = 1;
 		
 		var type = require("/helpers/LocalStorage").getString("type-string");
@@ -282,17 +375,30 @@ function fn() {
 		for (var i=0; i < type_parts.length; i++) {
 			if (type_parts[i].indexOf("&start=") > -1) {
 				START = Number(type_parts[i].substring(7));
-			} else {
-				var v = smh.matchingLine(breadcrum_description(type_parts[i]));
-				v.xlink = "remove-searchterm";
-				v.xindex = i;
+			} else if (type_parts[i] != "") {
+				var v = smh.matchingLine(breadcrum_description(type_parts[i]),"remove-searchterm",i);
 				v.addEventListener('click',tabRclick);
 				subviewR2.add(v);
 			}
 		}
 		
-		subviewR2.add(smh.spacer());
-		subviewR2.add(smh.H2("Results "+START+" - "+(START+100)+" of "+totalResults));
+		
+		var PG = Number(getpage());
+		var MAXPG = Math.floor(Number(totalResults) / Number(PERPAGE));
+		//alert(Number(PERPAGE));
+		//alert(Number(totalResults));
+		//alert(MAXPG);
+
+		if (totalResults > 0) {
+			subviewR2.add(smh.spacer());
+			subviewR2.add(smh.H2("Results "+((PERPAGE * PG)+1)+" - "+Math.min(((PERPAGE * PG)+PERPAGE),totalResults)+" of "+totalResults));
+	
+			var pagination = smh.pagination(getpage()+1,MAXPG+1);
+			pagination.addEventListener('click',tabRclick);
+			subviewR2.add(pagination);
+		}
+
+		
 		subviewR2.add(smh.spacer());
 		subviewR2.add(smh.H1("Refine you results:"));
 		var addmorekeywords = smh.sectionhead("Add more keywords");
@@ -314,6 +420,7 @@ function fn() {
 		subviewR2.add(smh.spacer());
 		
 		var content = function(obj) {
+
 			var xindex = Number(obj.xindex);
 
 			Ti.API.debug(sections[xindex]);
@@ -324,12 +431,13 @@ function fn() {
 
 			var v = Ti.UI.createView({
 				layout : 'vertical'
-			})
+			});
 			
 			for (var i=0; i < sections[xindex].items.length; i++) {
-				var lbl = smh.option(sections[xindex].items[i].xname);
-				lbl.xlink = sections[xindex].items[i].xlink;
-				lbl.xname = sections[xindex].items[i].xname;
+				var lbl = smh.option(sections[xindex].items[i].xname,sections[xindex].items[i].xlink,sections[xindex].items[i].xname);
+				
+//				lbl.xlink = sections[xindex].items[i].xlink;
+//				lbl.xname = sections[xindex].items[i].xname;
 				lbl.addEventListener('click',tabRclick);
 				v.add(lbl);
 			}
@@ -347,7 +455,9 @@ function fn() {
 				sections[section_index] = {
 					items : []
 				}
-				var hv = smh.sectionhead(L(places[i]));
+				var SECHEADTEXT = L(places[i]);
+				if (SECHEADTEXT.indexOf("#") == 0 && SECHEADTEXT.length > 1) SECHEADTEXT = SECHEADTEXT.substring(1);
+				var hv = smh.sectionhead(SECHEADTEXT);
 				var v2 = av.createView({
 					headerview : hv,
 					xindex : section_index,
@@ -360,6 +470,7 @@ function fn() {
 //					content : "section for "+places[i]
 				});
 				subviewR2.add(v2.view);
+				subviewR2.add(smh.spacer());
 			} else {
 				if (section_index > -1) {
 					var place = places[i].split("|");
@@ -559,9 +670,12 @@ function fn() {
 		if (!items || items == null) items = [];
 
 		var totalResults = require("/helpers/LocalStorage").getString("totalResults");
-		if (!totalResults || totalResults == null) totalResults = 0;
+		if (!totalResults || totalResults == null || totalResults == "") totalResults = 0;
 
-		refreshplaces(items,Number(totalResults));	
+		var perpage = require("/helpers/LocalStorage").getString("perpage");
+		if (!perpage || perpage == null || perpage == "") perpage = 0;
+
+		refreshplaces(items,Number(totalResults),Number(perpage));	
 	}
 	
 	
@@ -571,7 +685,7 @@ function fn() {
 	mainview.add(mainview2)
 	
 	var b1 = Titanium.UI.createButton({
-		image : "/images/glyphicons_155_show_thumbnails.png"
+		image : "/images/eu/icon-menu.png"
 	})
 	var click = function(e) {
 		// var winClass = require("/ui/common/SearchOptionsWindow");
@@ -605,13 +719,28 @@ function fn() {
 	
 //	var bb1 = Titanium.UI.createButtonBar({
 	var bb1 = Ti.UI.iOS.createTabbedBar({
-	    labels:['Home','Search results', 'Your Favourites', 'Help'],
+//	    labels:['Home','Search results', 'Your Favourites', 'Help'],
+	    labels:['Home','Search results', 'Your Favourites'],
 		backgroundColor:'#333333',
 	    top:50,
 	    style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
 	    height:30,
 	    width:400
 	});
+	var bb1help = Ti.UI.createButtonBar({
+	    labels:['Help'],
+		backgroundColor:'#333333',
+	    top:50,
+	    style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
+	    height:30,
+	    width:50
+	});
+	var bbselect_help = function(e) {
+		var tab = e.index;
+		if (tab == 0) {
+			Titanium.App.fireEvent("display-main-help",{});
+		}
+	}
 	var bbselect = function(e) {
 		var tab = e.index;
 		
@@ -619,9 +748,11 @@ function fn() {
 			Titanium.App.fireEvent("display-search-force",{});
 		}
 		if (tab == 1) {
+			close_displaySearchForce();
 			Titanium.App.fireEvent("redisplay-search",{});			
 		}
 		if (tab == 2) {
+			close_displaySearchForce();
 			Titanium.App.fireEvent("redisplay-personal",{});		
 		}
 		if (tab == 3) {
@@ -635,6 +766,7 @@ function fn() {
 		// }
 	}
 	bb1.addEventListener("click",bbselect);
+	bb1help.addEventListener("click",bbselect_help);
 	
 	var bbb1 = Ti.UI.createButton({
 		image:'images/glyphicons_027_searcht.png'
@@ -642,7 +774,7 @@ function fn() {
 	
 	var topbar = Titanium.UI.iOS.createToolbar({
 		top:0,right:0,left:0,height:50,
-		items : [b1,bb1,b1emp,b1muse,b2emp,bbb1],
+		items : [b1,bb1,bb1help,b1emp,b1muse,b2emp,bbb1],
 		barColor : "#000000",
 		borderTop:false,
 	    borderBottom:true
@@ -679,6 +811,8 @@ function fn() {
 		var yr = require("/helpers/LocalStorage").getString("yr-string");
 		var place = require("/helpers/LocalStorage").getString("place-string");
 		var type = require("/helpers/LocalStorage").getString("type-string");
+		var query = require("/helpers/LocalStorage").getString("query-string");
+		var pg = getpage();
 		lock_displaySearchForce = false;
 		
 		var type_parts = type.split("|");
@@ -688,20 +822,25 @@ function fn() {
 		}
 
 		search.setValue(srch);
+
+		require("/helpers/flurry").log("search",{ "srch": srch, "typelength" : type_parts.length, "query" : query });
+
 		
 		var ajax = require("/helpers/ajax");
 		ajax.getdata({
-			url : "http://jon651.glimworm.com/europeana/eu.php?action=json-srch&srch="+srch+"&type="+Ti.Network.encodeURIComponent(type),
+			url : "http://jon651.glimworm.com/europeana/eu.php?action=json-srch&query="+query+"&page="+pg+"&srch="+srch+"&type="+Ti.Network.encodeURIComponent(type),
 //			url : "http://jon651.glimworm.com/europeana/eu.php?action=json-srch-rijksmuseum&srch="+srch+"&type="+type,
 			fn : function(e) {
 				require("/helpers/LocalStorage").setObject("search",e.data.items);
 				require("/helpers/LocalStorage").setObject("types",e.data.types);
 				require("/helpers/LocalStorage").setString("totalResults",e.data.totalResults);
+				require("/helpers/LocalStorage").setString("perpage",e.data.perpage);
 				/*require("/helpers/LocalStorage").setObject("creators",e.data.creators);
 				require("/helpers/LocalStorage").setObject("dats",e.data.dats);*/
 				//Ti.API.debug(e.data.url);
-				require("/helpers/LocalStorage").setObject("search-message",e.data.status_msg);
+				require("/helpers/LocalStorage").setString("search-message",e.data.status_msg);
 				
+				bb1.index = 1;
 				
 				Titanium.App.fireEvent("redisplay-search",{xfrom : 'search2'});
 			}
@@ -722,6 +861,7 @@ function fn() {
 		require("/helpers/LocalStorage").setString("yr-string","");
 		require("/helpers/LocalStorage").setString("place-string","");
 		require("/helpers/LocalStorage").setString("type-string","");
+		require("/helpers/LocalStorage").setString("page","0");
 		if (mainviewL.xopen == true) {
 			mainviewL.xopen = false;
 			//mainviewL.animate({left:-200,duration:500,curve: Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT},function(e){});
@@ -736,6 +876,7 @@ function fn() {
 		require("/helpers/LocalStorage").setString("yr-string","");
 		require("/helpers/LocalStorage").setString("place-string","");
 		require("/helpers/LocalStorage").setString("type-string","");
+		require("/helpers/LocalStorage").setString("page","0");
 		search2.call(this);
 	};
 	
@@ -795,6 +936,7 @@ function fn() {
 			curve: Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT
 		});
 		mainview2.animate(animation1);
+		add_spinner(mainview,100,300);
 		
 	}
 	function done() {
@@ -808,6 +950,7 @@ function fn() {
 		});
 		mainview2.animate(animation1);
 		mainview.scrollTo(0,0);
+		mainview.fireEvent("done-spinning");
 	}
 	function redisplaySearch2(e) {
 		if (!e.xfrom || e.xfrom != "search2") {
@@ -819,8 +962,11 @@ function fn() {
 		curr_event = "search";
 		close_displaySearchForce();
 		Titanium.App.fireEvent("clearall",{});
-		
+		b1.setEnabled(true);
+		bb1.index = 1;
 		done();
+		require("/helpers/flurry").log("displayresults",{ "from": e.xfrom });
+
 
 		var items = require("/helpers/LocalStorage").getObject("search");
 		if (!items || items == null) items = [];
@@ -846,10 +992,14 @@ function fn() {
 		refreshplaces2();
 		refreshleftlist2();
 		if (items.length == 0 || items.length == null) {
-//			require("/helpers/LocalStorage").setObject("search-message","This search gives no results, please try another search term");
-			Titanium.App.fireEvent("display-search-force",{});
+			if (require("/helpers/LocalStorage").getString("type-string") == "") {
+				Titanium.App.fireEvent("display-search-force",{});
+			} else {
+				require("/ui/common/growl/fn").growl(require("/helpers/LocalStorage").getString("search-message"),mainviewR_open);
+				require("/helpers/LocalStorage").setString("search-message","");
+			}
 		} else {
-//			require("/helpers/LocalStorage").setObject("search-message","");
+//			require("/helpers/LocalStorage").getString("search-message","");
 			
 		}
 	};
@@ -865,9 +1015,11 @@ function fn() {
 			return
 		};
 		
-		
+		mainviewR_close();
 		Titanium.App.fireEvent("clearall",{});
 		close_displaySearchForce();
+		b1.setEnabled(false);
+		require("/helpers/flurry").log("display_favourites",{ });
 		
 		done();
 	
@@ -907,7 +1059,7 @@ function fn() {
 		}));
 		x.add(Ti.UI.createImageView({
 			top:0,left:0,height:Ti.UI.FILL,width:Ti.UI.FILL,
-			image : '/images/Arrows-big.png'
+			image : '/images/eu/help-header.png'
 		}));
 		x.addEventListener('click',function(e) {
 			x.close();
@@ -935,6 +1087,10 @@ function fn() {
 			return;
 		}
 		lock_displaySearchForce = true;
+		bb1.index = 0;
+		mainviewR_close();
+		b1.setEnabled(false);
+
 		
 		var x = Ti.UI.createWindow({
 			top:40
@@ -946,8 +1102,8 @@ function fn() {
 		});
 		x.add(xview);
 		var ximg = Ti.UI.createImageView({
-			top:10,
-			left:300,
+			top:30,
+			left:340,
 			image:'/images/eu/europeana-logo-white.png',
 			width:300
 		});
@@ -966,7 +1122,7 @@ function fn() {
 			borderColor : "#777777",
 			paddingLeft : 20,
 			borderWidth : 1,
-			hintText : "search in over 25 million images, texts and videos",
+			hintText : "search a selection from our collections in Europeana",
 			color : "#676767",
 			value : "",
 			font : {
@@ -997,11 +1153,12 @@ function fn() {
 			 image:'/images/eu/arrow-right.png'
 		});
 		xview.add(ximg_right);		
-		xview.add(Ti.UI.createLabel({
-			text : require("/helpers/LocalStorage").getObject("search-message"),
-			top:320,
-			color : "#ffffff"
-		}));
+
+		// xview.add(Ti.UI.createLabel({
+			// text : require("/helpers/LocalStorage").getString("search-message"),
+			// top:320,
+			// color : "#ffffff"
+		// }));
 		
 		var perform_pre_determined_search = function(e) {
 			if (!e.source.xindex) return;
@@ -1012,7 +1169,9 @@ function fn() {
 			require("/helpers/LocalStorage").setString("search-string","");
 			require("/helpers/LocalStorage").setString("yr-string","");
 			require("/helpers/LocalStorage").setString("place-string","");
-			require("/helpers/LocalStorage").setString("type-string",featured_items[idx].query);
+			require("/helpers/LocalStorage").setString("page","0");
+			require("/helpers/LocalStorage").setString("type-string",require("/helpers/LocalStorage").getObject("featured-items").items[idx].query);
+			require("/helpers/LocalStorage").setString("query-string",require("/helpers/LocalStorage").getObject("featured-items").items[idx].query2);
 			search2.call(this);
 			
 		}
@@ -1023,24 +1182,81 @@ function fn() {
 			require("/helpers/LocalStorage").setString("search-string",xsearch.value);
 			require("/helpers/LocalStorage").setString("yr-string","");
 			require("/helpers/LocalStorage").setString("place-string","");
+			require("/helpers/LocalStorage").setString("page","0");
 			require("/helpers/LocalStorage").setString("type-string","");
+			require("/helpers/LocalStorage").setString("query-string","");
 			search2.call(this);
 		}
 		
 		
-		
-		var search_views = [];
+		var feature_view = Ti.UI.createView({
+			top:350,
+			height : 320
+		});
+		xview.add(feature_view);
 
+		add_spinner(feature_view);
+		
+		var ajax = require("/helpers/ajax");
+		ajax.getdata({
+			url : "http://jon651.glimworm.com/europeana/eu.php?action=get-featured",
+			index : 2,
+			fn : function(e) {
+				Ti.API.debug(e.data.items);
+				require("/helpers/LocalStorage").setObject("featured-items",{ items : e.data.items});
+				feature_view.fireEvent("done-spinning");
+				addFeaturedArticles.call(this,feature_view,perform_pre_determined_search,ximg_left,ximg_right);
+			}
+		})
+
+
+
+		// var featured_items = [{ 
+				// img : "featured-maps.jpg", 
+				// txt : "Maps and Plans",
+				// query : '&qf=DATA_PROVIDER:"Cat%C3%A1logo+Colectivo+de+la+Red+de+Bibliotecas+de+los+Archivos+Estatales"|&qf=DATA_PROVIDER:"Biblioteca+Virtual+del+Patrimonio+Bibliogr%C3%A1fico"|&qf=TYPE:IMAGE|&qf=DATA_PROVIDER:"Biblioteca+Virtual+del+Ministerio+de+Defensa"'
+			// }, { 
+				// img : "featured-art.jpg", txt : "Treasures of Art"},{ img : "featured-past.jpg", txt: "Treasures of the Past"},{ img :"featured-nature.jpg", txt : "Treasures of Nature"}]
+// 
+// 
+		// require("/helpers/LocalStorage").setObject("featured-items",{ items : featured_items});		
+// 
+		// addFeaturedArticles.call(this,feature_view,perform_pre_determined_search,ximg_left,ximg_right);
+		
+		var srchval = search.value;
+		//alert(srchval);
+		xsearch.value = srchval;
+		
+		// xsearch.addEventListener("click", function() {
+			// x.close();
+			// lock_displaySearchForce = false;
+			// require("/helpers/LocalStorage").setString("search-string",xsearch.value);
+			// require("/helpers/LocalStorage").setString("yr-string","");
+			// require("/helpers/LocalStorage").setString("place-string","");
+			// require("/helpers/LocalStorage").setString("type-string","");
+			// search2.call(this);
+		// });
+		xsearch.addEventListener("return", perform_search);
+//		ximg1.addEventListener("click", perform_search);
+		
+//		x.addEventListener('click', close_displaySearchForce);
+		
+		x.open();
+
+		if (require("/helpers/LocalStorage").getString("search-message") != "") {
+			require("/ui/common/growl/fn").growl(require("/helpers/LocalStorage").getString("search-message"),mainviewR_close);
+		}
+		
+		
+		
+	};
+	
+	var addFeaturedArticles = function(feature_view,perform_pre_determined_search,ximg_left,ximg_right) {
+		var search_views = [];
 		var featured_items_object = require("/helpers/LocalStorage").getObject("featured-items");
 		if (!featured_items_object || featured_items_object == null) featured_items_object = {items:[]};
-		featured_items = featured_items_object.items;
+		var featured_items = featured_items_object.items;
 
-		var featured_items = [{ 
-				img : "featured-maps.jpg", 
-				txt : "Maps and Plans",
-				query : '&qf=DATA_PROVIDER:"Cat%C3%A1logo+Colectivo+de+la+Red+de+Bibliotecas+de+los+Archivos+Estatales"|&qf=DATA_PROVIDER:"Biblioteca+Virtual+del+Patrimonio+Bibliogr%C3%A1fico"|&qf=TYPE:IMAGE|&qf=DATA_PROVIDER:"Biblioteca+Virtual+del+Ministerio+de+Defensa"'
-			}, { 
-				img : "featured-art.jpg", txt : "Treasures of Art"},{ img : "featured-past.jpg", txt: "Treasures of the Past"},{ img :"featured-nature.jpg", txt : "Treasures of Nature"}]
 		
 		var num_items = featured_items.length;
 		var search_square_x3 = null;
@@ -1090,18 +1306,30 @@ function fn() {
 		}
 		
 
+		// var normal_searches_view = Ti.UI.createScrollableView({
+			// views : search_views,
+			// pagingControlColor : "#777",
+			// backgroundColor : "#777",
+			// pagingControlHeight : 20,
+			// top:350,
+			// showPagingControl:true,
+			// height : 320
+		// });
+// 
 		var normal_searches_view = Ti.UI.createScrollableView({
 			views : search_views,
 			pagingControlColor : "#777",
 			backgroundColor : "#777",
 			pagingControlHeight : 20,
-			top:350,
+			top:0,
 			showPagingControl:true,
 			height : 320
 		});
 
 		
-		xview.add(normal_searches_view);
+		feature_view.add(normal_searches_view);
+
+
 		var show_correct_navigation_arrows = function() {
 			if (normal_searches_view.currentPage > 0) {
 				ximg_left.visible = true;
@@ -1131,28 +1359,8 @@ function fn() {
 			ximg_left.visible = false;
 			normal_searches_view.scrollToView(normal_searches_view.currentPage-1);
 		}
-		ximg_left.addEventListener('click',navigation_arrow_left);
-		
-		var srchval = search.value;
-		//alert(srchval);
-		xsearch.value = srchval;
-		
-		// xsearch.addEventListener("click", function() {
-			// x.close();
-			// lock_displaySearchForce = false;
-			// require("/helpers/LocalStorage").setString("search-string",xsearch.value);
-			// require("/helpers/LocalStorage").setString("yr-string","");
-			// require("/helpers/LocalStorage").setString("place-string","");
-			// require("/helpers/LocalStorage").setString("type-string","");
-			// search2.call(this);
-		// });
-		xsearch.addEventListener("return", perform_search);
-//		ximg1.addEventListener("click", perform_search);
-		
-//		x.addEventListener('click', close_displaySearchForce);
-		
-		x.open();
-	};
+		ximg_left.addEventListener('click',navigation_arrow_left);		
+	}
 //	self.addEventListener('click', displayhelp);
 	Titanium.App.addEventListener("display-search-force",displaySearchForce);
 	

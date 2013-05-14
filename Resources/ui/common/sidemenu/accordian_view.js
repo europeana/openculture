@@ -14,6 +14,7 @@ exports.createView = function(obj) {
 	});
 	var headerview = Ti.UI.createView({
 		height : 50,
+		xlink : 1,
 		backgroundColor : "#ccc"
 	});
 
@@ -46,7 +47,16 @@ exports.createView = function(obj) {
 			} else if (typeof content == "object") {
 				mainview.add(content);
 			} else if (typeof content == "function") {
-				mainview.add(content.call(this,(obj.parameters) ? obj.parameters : obj ));
+				var spin = Ti.UI.createActivityIndicator({
+				});
+				mainview.add(spin);
+				spin.show();
+				var contentfn = function() {
+					var newContent = content.call(this,(obj.parameters) ? obj.parameters : obj );
+					mainview.add(newContent);
+					mainview.remove(spin);
+				}
+				setTimeout(contentfn,1);
 			} else {
 				alert(typeof content);
 			}
@@ -73,6 +83,7 @@ exports.createView = function(obj) {
 	}
 	
 	var toggle = function(e) {
+		if (!e || !e.source || !e.source.xlink) return;
 		if (isopen()) {
 			if (animated == true) slideclose.call(); else close();
 		} else {

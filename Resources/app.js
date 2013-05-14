@@ -13,6 +13,9 @@ var globals = require('/ui/common/globals');
 if (Ti.Platform.osname === 'ipad') {
 	var ApplicationWindow = require('/ui/ios/ApplicationWindow');
 	new ApplicationWindow().open();
+	
+
+	require("/helpers/flurry").log("ApplicationStart",{ "osname": Ti.Platform.osname });
 
 	require("/ui/common/globals").set("deviceToken","");
 	

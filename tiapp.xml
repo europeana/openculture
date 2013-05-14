@@ -61,5 +61,7 @@
         <module platform="iphone" version="1.1">dk.napp.social</module>
         <module platform="iphone" version="0.6.0">com.glimworm.gyro213</module>
         <module platform="commonjs" version="2.3.1">ti.cloud</module>
+        <module platform="iphone" version="1.0">de.marcelpociot.twitter</module>
+        <module platform="iphone" version="1.3.0">ti.flurry</module>
     </modules>
 </ti:app>
