@@ -4,7 +4,7 @@ var css = require('/ui/common/css');
 function fn() {
 
 	var curr_event = "";
-	var MAXITEMS = 150;
+	var MAXITEMS = 100;
 	
 	var self = Titanium.UI.createWindow({
     	navBarHidden: true,
@@ -355,7 +355,7 @@ function fn() {
 		});
 		subviewR.add(subviewR2);
 		
-		subviewR2.add(smh.H1("Matches For:"));
+		subviewR2.add(smh.H1("Matches for:"));
 
 
 		var srch = require("/helpers/LocalStorage").getString("search-string");
@@ -400,7 +400,7 @@ function fn() {
 
 		
 		subviewR2.add(smh.spacer());
-		subviewR2.add(smh.H1("Refine you results:"));
+		subviewR2.add(smh.H1("Refine your results:"));
 		var addmorekeywords = smh.sectionhead("Add more keywords");
 		addmorekeywords.fireEvent("open",{});
 		subviewR2.add(addmorekeywords);
@@ -828,8 +828,8 @@ function fn() {
 		
 		var ajax = require("/helpers/ajax");
 		ajax.getdata({
-			url : "http://jon651.glimworm.com/europeana/eu.php?action=json-srch&query="+query+"&page="+pg+"&srch="+srch+"&type="+Ti.Network.encodeURIComponent(type),
-//			url : "http://jon651.glimworm.com/europeana/eu.php?action=json-srch-rijksmuseum&srch="+srch+"&type="+type,
+			url : "http://aws1b.glimworm.com/europeana/eu.php?action=json-srch&query="+query+"&page="+pg+"&srch="+srch+"&type="+Ti.Network.encodeURIComponent(type),
+//			url : "http://aws1b.glimworm.com/europeana/eu.php?action=json-srch-rijksmuseum&srch="+srch+"&type="+type,
 			fn : function(e) {
 				require("/helpers/LocalStorage").setObject("search",e.data.items);
 				require("/helpers/LocalStorage").setObject("types",e.data.types);
@@ -851,16 +851,17 @@ function fn() {
 		search.value='';
 	});
 	search.addEventListener("return", function() {
-		var srchrealval = search.getValue().replace(" ","_");
-		srchrealval = srchrealval.replace(" ","_");
-		srchrealval = srchrealval.replace(" ","_");
-		srchrealval = srchrealval.replace(" ","_");
-		srchrealval = srchrealval.replace(" ","_");
+		var srchrealval = search.getValue();
+		// srchrealval = srchrealval.replace(" ","_");
+		// srchrealval = srchrealval.replace(" ","_");
+		// srchrealval = srchrealval.replace(" ","_");
+		// srchrealval = srchrealval.replace(" ","_");
 
 		require("/helpers/LocalStorage").setString("search-string",srchrealval);
 		require("/helpers/LocalStorage").setString("yr-string","");
 		require("/helpers/LocalStorage").setString("place-string","");
 		require("/helpers/LocalStorage").setString("type-string","");
+		require("/helpers/LocalStorage").setString("query-string","");
 		require("/helpers/LocalStorage").setString("page","0");
 		if (mainviewL.xopen == true) {
 			mainviewL.xopen = false;
@@ -876,6 +877,7 @@ function fn() {
 		require("/helpers/LocalStorage").setString("yr-string","");
 		require("/helpers/LocalStorage").setString("place-string","");
 		require("/helpers/LocalStorage").setString("type-string","");
+		require("/helpers/LocalStorage").setString("query-string","");
 		require("/helpers/LocalStorage").setString("page","0");
 		search2.call(this);
 	};
@@ -1011,7 +1013,7 @@ function fn() {
 		if (!items || items == null) items = [];
 		
 		if (items == null || items == ""){
-			alert('Your personal museum is empty');
+			alert('Your favourites will appear here');
 			return
 		};
 		
@@ -1020,7 +1022,7 @@ function fn() {
 		close_displaySearchForce();
 		b1.setEnabled(false);
 		require("/helpers/flurry").log("display_favourites",{ });
-		
+		bb1.index = 2;
 		done();
 	
 		var itemClass = require("/ui/common/itemView");
@@ -1055,7 +1057,7 @@ function fn() {
 		var x = Ti.UI.createWindow({
 		});
 		x.add(Ti.UI.createView({
-			top:0,left:0,height:Ti.UI.FILL,width:Ti.UI.FILL,backgroundColor:"#333333",opacity:0.4
+			top:0,left:0,height:Ti.UI.FILL,width:Ti.UI.FILL,backgroundColor:"#333333",opacity:0.2
 		}));
 		x.add(Ti.UI.createImageView({
 			top:0,left:0,height:Ti.UI.FILL,width:Ti.UI.FILL,
@@ -1116,27 +1118,30 @@ function fn() {
 			autocorrect : false,
 			autocapitalization : false,
 			clearButtonMode : 1,
-			width : 860,
+			left:(1024-860)/2,
+			width : (860 - 50)-2,
 			borderRadius : 5,
 			backgroundColor : "#ffffff",
 			borderColor : "#777777",
 			paddingLeft : 20,
 			borderWidth : 1,
-			hintText : "search a selection from our collections in Europeana",
+			hintText : "Search a selection of Europeana's collections",
 			color : "#676767",
 			value : "",
 			font : {
 				fontFamily : "arial",
-				fontSize : 24
+				fontSize : 20
 			}
 		});
 		xview.add(xsearch);
-		// var ximg1 = Ti.UI.createImageView({
-			 // top:228,
-			 // right:24,
-			 // image:'/images/srch-but.png'
-		// });
-		// xview.add(ximg1);
+		var ximg1 = Ti.UI.createImageView({
+			 top:247,
+			 width : 60,
+			 touchEnabled : false,
+			 right:(1024-860)/2,
+			 image:'/images/srch-but-white.png'
+		});
+		xview.add(ximg1);
 		var ximg_left = Ti.UI.createImageView({
 			 top:428,
 			 left:10,
@@ -1199,7 +1204,7 @@ function fn() {
 		
 		var ajax = require("/helpers/ajax");
 		ajax.getdata({
-			url : "http://jon651.glimworm.com/europeana/eu.php?action=get-featured",
+			url : "http://aws1b.glimworm.com/europeana/eu.php?action=get-featured",
 			index : 2,
 			fn : function(e) {
 				Ti.API.debug(e.data.items);
@@ -1281,7 +1286,8 @@ function fn() {
 				left : 5
 			});
 			var ximg2 = Ti.UI.createImageView({
-				 image:"http://jon651.glimworm.com/europeana/featured_items/"+featured_items[i].img
+				xindex : i+1,
+				image:"http://aws1b.glimworm.com/europeana/featured_items/"+featured_items[i].img
 			});
 			search_square.add(ximg2);
 			
@@ -1298,7 +1304,8 @@ function fn() {
 			});
 			search_square.add(square_underlay);
 			search_square.add(square_text);
-			square_text.addEventListener('click',perform_pre_determined_search);
+			ximg2.addEventListener('singletap',perform_pre_determined_search);
+//			square_text.addEventListener('click',perform_pre_determined_search);
 			search_square_x3.add(search_square);
 		}
 		if (search_square_x3 != null) {

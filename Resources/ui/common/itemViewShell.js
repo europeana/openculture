@@ -66,7 +66,7 @@ function fn(type,cnt) {
 			} catch (e) {}
 
 
-			self.ximage = "http://jon651.glimworm.com/europeana/timthumb.php?w=350&h=250&a=t&q=50&src="+item.enclosure;
+			self.ximage = "http://aws1b.glimworm.com/europeana/timthumb.php?w=350&h=250&a=t&q=20&src="+item.enclosure;
 			self.ximage_backup = item.enclosure;
 			self.xinview = 0;
 
@@ -85,11 +85,20 @@ function fn(type,cnt) {
 				borderColor:'#777',borderWidth:0
 			})
 			var offscreen = function() {
-				if (img.xinview == 1) img.image = "/images/10x10.gif";
+				if (img.xinview == 1) {
+					img.image = "/images/10x10.gif";
+					self.borderWidth = 0;
+					self.backgroundColor = "#000000";
+				}
 				img.xinview = 0;
 			}
 			var onscreen = function() {
-				if (img.xinview == 0) img.image = self.ximage;
+				if (img.xinview == 0) {
+					img.image = self.ximage;
+					self.borderWidth = 1;
+					self.borderColor = "#333333";
+					self.backgroundColor = "#222222";
+				}
 				img.xinview = 1;
 			}
 			self.addEventListener("offscreen",offscreen);
@@ -114,6 +123,11 @@ function fn(type,cnt) {
 				img.image = self.ximage_backup;
 //				E.source.borderColor = "#0000ff";
 			});
+			img.addEventListener("load", function(E) {
+				self.borderWidth = 0;
+				self.backgroundColor = "#000000";
+			});
+
 			
 			var rt = Titanium.UI.createView({
 				right:0,top:0,
@@ -163,7 +177,7 @@ function fn(type,cnt) {
 	} else {
 		var self = Titanium.UI.createView({
 			left:20,top:20,
-			width:250, height:120,backgroundColor : "transparent", borderColor : "#00f", borderWidth:0
+			width:250, height:120,backgroundColor : "transparent", borderColor : "#000", borderWidth:0
 		})
 		function clearthisB(e) {
 			try {
@@ -212,7 +226,7 @@ function fn(type,cnt) {
 				self.remove(self.children[0]);
 			} catch (e) {}
 			
-			self.ximage = "http://jon651.glimworm.com/europeana/timthumb.php?w=250&h=250&a=t&q=50&src="+item.enclosure;
+			self.ximage = "http://aws1b.glimworm.com/europeana/timthumb.php?w=250&h=250&a=t&q=20&src="+item.enclosure;
 			self.ximage_backup = item.enclosure;
 			self.xinview = 0;
 			
@@ -237,6 +251,8 @@ function fn(type,cnt) {
 //				img.borderWidth = 1;
 				if (img.xinview == 1) {
 					img.image = "/images/10x10.gif";
+					self.borderWidth = 0;
+					self.backgroundColor = "#000000";
 //					img.borderWidth = 3;
 				}
 //				img.borderColor = "#ff0000";
@@ -246,6 +262,9 @@ function fn(type,cnt) {
 //				img.borderWidth = 1;
 				if (img.xinview == 0) {
 					img.image = self.ximage;
+					self.borderWidth = 1;
+					self.borderColor = "#333333";
+					self.backgroundColor = "#222222";
 //					img.borderWidth = 3;
 				}
 //				img.borderColor = "#00ff00";
@@ -258,6 +277,10 @@ function fn(type,cnt) {
 				self.ximage = self.ximage_backup;
 				img.image = self.ximage_backup;
 //				E.source.borderColor = "#0000ff";
+			});
+			img.addEventListener("load", function(E) {
+				self.borderWidth = 0;
+				self.backgroundColor = "#000000";
 			});
 
 			// var img = Titanium.UI.createWebView({

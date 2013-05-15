@@ -58,14 +58,19 @@ function fn(identifier,cnt,typ) {
 	var bbselect = function(e) {
 		var tab = e.index;
 		if (tab == 0) {
-			winclose();			
+			winclose();
+			setTimeout(function() {
+				Titanium.App.fireEvent("display-search-force",{});
+			},500);	
 		}
 		if (tab == 1) {
 			winclose();			
 		}
 		if (tab == 2) {
 			winclose();	
-			Titanium.App.fireEvent("redisplay-personal",{});			
+			setTimeout(function() {
+				Titanium.App.fireEvent("redisplay-personal",{});			
+			},100);	
 		}
 		if (tab == 3) {
 			//require("/helpers/LocalStorage").setObject("personal",[]);
@@ -261,7 +266,7 @@ function fn(identifier,cnt,typ) {
 			};
 //alert("f");			
 			ajax.getdata({
-				url : "http://jon651.glimworm.com/europeana/eu.php",
+				url : "http://aws1b.glimworm.com/europeana/eu.php",
 				data : _data,
 				fn : function(e1) {
 					Titanium.API.info(e1);
@@ -455,6 +460,7 @@ function fn(identifier,cnt,typ) {
 		
 		var fullthingy = "http://nl.wikipedia.org/wiki/Special:Search?search="+Ti.Network.encodeURIComponent(searchtitle)+"&go=Go";
 		var fullthingy = wikipediasearch;
+		var fullthingy = googlesearch;
 		
 		//alert(searchtitlez);
 //alert("i");		
@@ -693,7 +699,7 @@ function fn(identifier,cnt,typ) {
 			};
 //alert("k");			
 			ajax.getdata({
-				url : "http://jon651.glimworm.com/europeana/eu.php",
+				url : "http://aws1b.glimworm.com/europeana/eu.php",
 				data : _data,
 				fn : function(e1) {
 					Titanium.API.info(e1);
@@ -756,7 +762,8 @@ function fn(identifier,cnt,typ) {
 		
 		var bar = Titanium.UI.iOS.createToolbar({
 			top:0,right:0,left:0,height:Ti.UI.SIZE,
-			items : [bgb,bgf,search,bgo,bgemp11,bgyu,bgemp1,bgfli,bgemp2,bggoo,bgemp3,bgpin,bgemp4,bgc],
+//			items : [bgb,bgf,search,bgo,bgemp11,bgyu,bgemp1,bgfli,bgemp2,bggoo,bgemp3,bgpin,bgemp4,bgc],
+			items : [bgb,bgf,search,bgo,bgemp11,bggoo,bgemp1,bgyu,bgemp2,bgfli,bgemp3,bgpin,bgemp4,bgc],
 			barColor : "#000000",
 			borderTop:true,
 		    borderBottom:false
@@ -840,7 +847,7 @@ function fn(identifier,cnt,typ) {
 	
 //alert("l");	
 	ajax.getdata({
-		url : "http://jon651.glimworm.com/europeana/eu.php?action=json-get&identifier="+identifier,
+		url : "http://aws1b.glimworm.com/europeana/eu.php?action=json-get&identifier="+identifier,
 		fn : function(e) {
 			Ti.API.info(e);
 			searchtitle = e.data[0].ccsearchterm;
@@ -934,6 +941,7 @@ function fn(identifier,cnt,typ) {
 				});
 				var row1 = Ti.UI.createTableViewRow({
 					height:Ti.UI.SIZE,
+					selectionStyle : 0,
 					layout:'vertical'
 				});
 				var rowv1 = Ti.UI.createView({
@@ -959,9 +967,9 @@ function fn(identifier,cnt,typ) {
 					text:Currenttitle1,
 					color:"#fff",
 					font : {
-						fontSize : 12,
+						fontSize : 14,
 						fontFamily : "arial",
-						fontWeight: "bold"
+						fontWeight: "normal"
 					},
 					height:Ti.UI.SIZE,
 					left:17,right:15,top:5
@@ -988,6 +996,7 @@ function fn(identifier,cnt,typ) {
 					var button = ExtraMeta[i];
 					var row1 = Ti.UI.createTableViewRow({
 						height:Ti.UI.SIZE,
+						selectionStyle : 0,
 						borderWidth : BW,
 						layout:'vertical'
 					});
@@ -999,6 +1008,11 @@ function fn(identifier,cnt,typ) {
 						width:425,
 //						layout: 'vertical'
 					});
+					var lblrow5wrap = Ti.UI.createView({
+						height : Ti.UI.SIZE,
+						layout : 'horizontal',
+						left:17,top:0, width : 110
+					});
 					var lblrow5 = Ti.UI.createLabel({
 						text:button.label,
 						height : Ti.UI.SIZE,
@@ -1009,15 +1023,29 @@ function fn(identifier,cnt,typ) {
 							fontFamily : "arial",
 							fontWeight: "bold"
 						},
-						left:17,top:0, width : 110
+						width : Ti.UI.SIZE, 
+						top: 0,
+						left: 0
 					});
+					lblrow5wrap.add(lblrow5);
 					var fam = "arial";
 					var txt = button.value;
 					var siz = 14;
+					var xxlink = "";
+					var connect = "n";
+					if (txt.indexOf("|") > -1) {
+						var txt2 = txt.split("|");
+						if (txt2.length > 1) xxlink = txt2[1];						
+						txt = txt2[0];
+					}
 					if (txt.indexOf("§") == 0) {
 						txt = txt.substring(1);
 						fam = "icomoon";
 						siz = 18;
+					}
+					if (txt.indexOf("con:") == 0) {
+						txt = txt.substring(4);
+						connect = "y";
 					}
 					var lblrow4 = Ti.UI.createLabel({
 						text: txt,
@@ -1032,8 +1060,19 @@ function fn(identifier,cnt,typ) {
 						left:130,top:0, width : 270
 //						left:10,top:8
 					});
-					rowv1.add(lblrow5);
+					if (xxlink != "") row1.xurl = xxlink;
+					rowv1.add(lblrow5wrap);
 					rowv1.add(lblrow4);
+					if (connect == "y") {
+						lblrow5wrap.add(Ti.UI.createImageView({
+							left:4,
+							top:0,
+							image : '/images/buttons/logo-connect.png',
+							height : 16,
+							width : 16
+						}));
+					}
+					
 					row1.add(rowv1);
 					sec1.add(row1);
 				}
@@ -1043,6 +1082,7 @@ function fn(identifier,cnt,typ) {
 					//button.url
 					var row1 = Ti.UI.createTableViewRow({
 						height:Ti.UI.SIZE,
+						selectionStyle : 0,
 						xsurl : button.url,
 						layout:'vertical'
 					});
@@ -1106,6 +1146,7 @@ function fn(identifier,cnt,typ) {
 						if (links[l].type == vals[i]) {
 							cnt++;
 							var row = Ti.UI.createTableViewRow({
+								selectionStyle : 0,
 								xurl : links[l].url
 							});
 							var rv = Ti.UI.createView({
