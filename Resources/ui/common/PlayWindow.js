@@ -1528,6 +1528,9 @@ function fn(identifier,cnt,typ) {
 	};
 //	self.addEventListener('click', displayhelp);
 	Titanium.App.addEventListener("display1-main-help",displayhelp1);
+	self.addEventListener('close', function() {
+		Titanium.App.removeEventListener("display1-main-help",displayhelp1);
+	});
 	//setTimeout(displayhelp1,1000);
 	
 	var uuid = require("/ui/common/globals").getuuid();
