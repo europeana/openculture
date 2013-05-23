@@ -5,8 +5,8 @@ The data format that has to be returned for the search screen to work is a json 
 <pre>
 
 {
-    items =     [
-                {
+items = [
+        {
             description = "";
             enclosure = "http://europeanastatic.eu/api/image?uri=http%3A%2F%2Fdata.rbge.org.uk%2Fimages%2F501745%2F-1&size=LARGE&type=IMAGE";
             guid = "http://www.europeana.eu/portal/record/11616/E01A01251B8D468E5F3E6F26B0BAA52E0FF2B465.html?utm_source=api&utm_medium=api&utm_campaign=ZHKKYAIMYT";
