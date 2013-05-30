@@ -3,7 +3,7 @@ muse-platform
 
 The documentation for this project is in the wiki.  Please follow this link
 
-* [Wiki](/wiki/)
+* [Wiki](https://github.com/europeana/openculture/wiki/ )
 
 In order to use the project:
 
