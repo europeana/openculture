@@ -79,7 +79,7 @@ function fn() {
 	});
 	var getNodeByTitle = function(title,fn) {
 		ajax.getdata({
-			url : "http://aws2.glimworm.com/api.php",
+			url : "http://europeanaapp.glimworm.com/api.php",
 			data : {action:"console-add-node",title:title,link:title,type:"person"},
 			fn : function(e) {
 				fn.call(this,e.data);
@@ -89,7 +89,7 @@ function fn() {
 	}
 	var getRelationships = function() {
 		ajax.getdata({
-			url : "http://aws2.glimworm.com/api.php",
+			url : "http://europeanaapp.glimworm.com/api.php",
 			data : {
 				action:"json-get-rel-out",
 				from:require("/helpers/LocalStorage").getString("myself")

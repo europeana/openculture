@@ -1,0 +1,38 @@
+[{ 
+	"img" : "featured-maps.jpg", 
+	"txt" : "Maps and Plans",
+	"query2" : "0",
+	"hiddenquery" : "",
+	"hiddenquery" : "&qf=DATA_PROVIDER:\"Cat%C3%A1logo+Colectivo+de+la+Red+de+Bibliotecas+de+los+Archivos+Estatales\"&qf=DATA_PROVIDER:\"Biblioteca+Virtual+del+Patrimonio+Bibliogr%C3%A1fico\"&qf=TYPE:IMAGE&qf=DATA_PROVIDER:\"Biblioteca+Virtual+del+Ministerio+de+Defensa\"",
+	"query" : "",
+	"hide" : "RIGHTS,DATA_PROVIDER,PROVIDER,TYPE",
+	"oldquery" : "&qf=DATA_PROVIDER:\"Cat%C3%A1logo+Colectivo+de+la+Red+de+Bibliotecas+de+los+Archivos+Estatales\"|&qf=DATA_PROVIDER:\"Biblioteca+Virtual+del+Patrimonio+Bibliogr%C3%A1fico\"|&qf=TYPE:IMAGE|&qf=DATA_PROVIDER:\"Biblioteca+Virtual+del+Ministerio+de+Defensa\""
+},{ 
+	"img" : "featured-art.jpg", 
+	"query2" : "1",
+	"query" : "",
+	"hiddenquery" : "&qf=TYPE:IMAGE&qf=DATA_PROVIDER:\"Rijksmuseum\"",
+	"hide" : "RIGHTS,DATA_PROVIDER,PROVIDER,TYPE",
+	"txt" : "Treasures of Art"
+},{ 
+	"img" : "featured-past.jpg", 
+	"query2" : "2",
+	"query" : "",
+	"hiddenquery" : "&qf=TYPE:IMAGE&qf=DATA_PROVIDER:\"Институт+за+балканистика+с+Център+по+тракология\"&qf=DATA_PROVIDER:\"Central+Library+of+Bulgarian+Academy+of+Sciences\"&qf=DATA_PROVIDER:\"Museu+Nacional+de+Arqueologia\"",
+	"hide" : "RIGHTS,DATA_PROVIDER,PROVIDER,TYPE",
+	"txt" : "Treasures of the Past"
+},{ 
+	"img" :"featured-nature.jpg", 
+	"query2" : "3",
+	"query" : "",
+	"hiddenquery" : "&qf=TYPE:IMAGE&qf=DATA_PROVIDER:\"The+Royal+Botanic+Garden+Edinburgh\"&qf=DATA_PROVIDER:\"University+of+Tartu,+Natural+History+Museum\"&qf=DATA_PROVIDER:\"Museum+of+Geology,+University+of+Tartu\"",	
+	"hide" : "RIGHTS,DATA_PROVIDER,PROVIDER,TYPE",
+	"txt" : "Treasures of Nature"
+},{
+	"img" :"featured-past2.jpg",
+	"query2" : "4",
+	"query" : "",
+	"hiddenquery" : "&qf=TYPE:IMAGE&qf=DATA_PROVIDER:\"The+National+Library+of+Poland+-+Biblioteka+Narodowa\"&qf=DATA_PROVIDER:\"Biblioteca+Valenciana+Digital\"&qf=DATA_PROVIDER:\"Fondo+Fotográfico+de+la+Universidad+de+Navarra\"",
+	"hide" : "RIGHTS,DATA_PROVIDER,PROVIDER,TYPE",
+	"txt" : "Images of the Past"
+}]

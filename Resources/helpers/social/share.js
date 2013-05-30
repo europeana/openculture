@@ -96,7 +96,7 @@ exports.tweet = function(message, image, url, onlytest) {
 	 * usage : 
 	 * 
 	 * include : dk.napp.social v1.1 upwards
-	 * include : com.glimworm.gyro213 v0.6 upwards
+	 * include : de.marcelpociot.twitter v1.0 upwards
 	 * 
 	 * require("/helpers/social/share").tweet(twitconf.default_text,"",twitconf.default_link);
 	 * 
@@ -186,7 +186,7 @@ exports.ShareButton = function( message, image, url) {
 	 * usage : 
 	 * 
 	 * include : dk.napp.social v1.1 upwards
-	 * include : com.glimworm.gyro213 v0.6 upwards
+	 * include : de.marcelpociot.twitter v1.0 upwards
 	 * 
 	 * require("/helpers/social/share").ShareButton(twitconf.default_text,"",twitconf.default_link).show();
 	 * 

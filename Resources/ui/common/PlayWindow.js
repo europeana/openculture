@@ -258,7 +258,7 @@ function fn(identifier,cnt,typ) {
 		}
 		var addlinkfn = function() {
 			var _data = {
-				action : "json-addlink-rijksmuseum",
+				action : "json-addlink",
 				a : identifier,
 				b : "",
 				type : "comment",
@@ -266,7 +266,7 @@ function fn(identifier,cnt,typ) {
 			};
 //alert("f");			
 			ajax.getdata({
-				url : "http://aws1b.glimworm.com/europeana/eu.php",
+				url : "http://europeanaapp.glimworm.com/europeana/eu.php",
 				data : _data,
 				fn : function(e1) {
 					Titanium.API.info(e1);
@@ -691,15 +691,15 @@ function fn(identifier,cnt,typ) {
 				return;
 			}
 			var _data = {
-				action : "json-addlink-rijksmuseum",
+				action : "json-addlink",
 				a : identifier,
 				b : search.value,
 				type : TYP,
 				comment : srch.value
 			};
-//alert("k");			
+			
 			ajax.getdata({
-				url : "http://aws1b.glimworm.com/europeana/eu.php",
+				url : "http://europeanaapp.glimworm.com/europeana/eu.php",
 				data : _data,
 				fn : function(e1) {
 					Titanium.API.info(e1);
@@ -847,7 +847,7 @@ function fn(identifier,cnt,typ) {
 	
 //alert("l");	
 	ajax.getdata({
-		url : "http://aws1b.glimworm.com/europeana/eu.php?action=json-get&identifier="+identifier,
+		url : "http://europeanaapp.glimworm.com/europeana/eu.php?action=json-get&identifier="+identifier,
 		fn : function(e) {
 			Ti.API.info(e);
 			searchtitle = e.data[0].ccsearchterm;
@@ -1462,7 +1462,7 @@ function fn(identifier,cnt,typ) {
 					var ss = s.split("/");
 					var myid = ss[ss.length-1];
 					ajax.getdata({
-						url : "http://aws2.glimworm.com/api.php?action=json-path&from="+myid+"&to="+nodenum,
+						url : "http://europeanaapp.glimworm.com/api.php?action=json-path&from="+myid+"&to="+nodenum,
 						fn : function(e1) {
 							Titanium.API.info(e1);
 							var txt1 = Titanium.UI.createLabel({

@@ -52,7 +52,7 @@ function fn(from,TYPE) {
 			fld2c.url = TO;
 		} else {
 			ajax.getdata({
-				url : "http://aws2.glimworm.com/api.php",
+				url : "http://europeanaapp.glimworm.com/api.php",
 				data : {action:"console-get-node",title:TO},
 				fn : function(e) {
 					Titanium.API.info(e);
@@ -109,10 +109,10 @@ function fn(from,TYPE) {
 	})
 	var browse = function() {
 		var TO = fld2.getValue();
-		if (TO.indexOf("http://aws2.glimworm.com") == 0) {
+		if (TO.indexOf("http://europeanaapp.glimworm.com") == 0) {
 			// add link
 			ajax.getdata({
-				url : "http://aws2.glimworm.com/api.php",
+				url : "http://europeanaapp.glimworm.com/api.php",
 				data : {action:"console-add-link",from:from, to:TO, type: _type.getValue()},
 				fn : function(e) {
 					winclose();
@@ -123,7 +123,7 @@ function fn(from,TYPE) {
 			// add item
 			//console-add-node
 			ajax.getdata({
-				url : "http://aws2.glimworm.com/api.php",
+				url : "http://europeanaapp.glimworm.com/api.php",
 				data : {action:"console-add-node",title:TO, lnk:TO, type: _type.getValue()},
 				fn : function(e) {
 					Titanium.API.info(e);

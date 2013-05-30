@@ -487,180 +487,6 @@ function fn() {
 		
 		var rows = [];
 		var section = null;
-		
-		
-/*		
-		var type = require("/helpers/LocalStorage").getString("type-string");
-		if (!type || type == null) type = "";
-		var type_parts = type.split("|");
-		for (var i=0; i < type_parts.length; i++) {
-			var row = Titanium.UI.createTableViewRow({
-				xlink : "remove-searchterm",
-				xindex : i,
-				xvisible : 1,
-				backgroundColor:"#000",
-				color : "#ccc",
-				height : 32,
-			})
-			var lbl = Titanium.UI.createLabel({
-				text : breadcrum_description(type_parts[i]),
-				xlink : "remove-searchterm",
-				xindex : i,
-				color : "#ccc",
-				height : 'auto',
-				textAlign: "left",
-				left:15,
-				font : {
-					fontSize : 16,
-					fontFamily : "arial"
-				}
-			});
-			row.add(lbl);
-			rows.push(row);
-		}
-
-		var row = Titanium.UI.createTableViewRow({
-			xlink : "ignore",
-			xindex : i,
-			xvisible : 1,
-			backgroundColor:"#000",
-			color : "#777",
-			height : 120,
-		})
-		var lbl = Titanium.UI.createLabel({
-			text : "refine",
-			xlink : "ignore",
-			xindex : i,
-			color : "#777",
-			top : 10,
-			height : 'auto',
-			font : {
-				fontSize : 16,
-				fontFamily : "arial"
-			}
-		});
-		row.add(lbl);
-		var extrasearch = Ti.UI.createTextField({
-			borderColor : "#777",
-			left : 20, right : 20,
-			top : 40,
-			height:30,
-			clearButtonMode : 1,
-			backgroundColor : "#fff",
-			value : ""
-		});
-		row.add(extrasearch);
-		var addExtraSearchTerm = function() {
-			var term = extrasearch.getValue();
-			if (term != "") {
-				term = "&qf="+Ti.Network.encodeURIComponent(term);
-				addSearchTerm(term);
-			}
-		}
-		extrasearch.addEventListener('return',addExtraSearchTerm);
-		rows.push(row);
-
-		
-		for (var i=0; i < places.length; i++) {
-			if (places[i].indexOf("#") == 0) {
-				if (section != null) rows.push(section);
-				var secv = Ti.UI.createView({
-					height : 30,
-					backgroundColor : "#777",
-					xindex : rows.length
-				});
-				secv.add(Ti.UI.createLabel({
-					color : "#000",
-					height : Ti.UI.SIZE,
-					textAlign: "left",
-					width:425,
-					name : "sec"+rows.length,
-					left:15,
-					top:7,
-					xindex : rows.length,
-					font : {
-						fontSize : 16,
-						fontFamily : "arial"
-					},
-					color : "#fff",
-					text : L(places[i])
-				}));
-				section = Ti.UI.createTableViewSection({
-					headerView : secv
-				});
-				secv.addEventListener("click", function(e) {
-					// Ti.API.debug(e);
-					// Ti.API.debug(e.source);
-					// Ti.API.debug(e.source.xindex);
-					// var idx = Number(e.source.xindex);
-					// var sec_index = tabR.getIndexByName("sec"+idx);
-					// Ti.API.debug("sec_index "+ sec_index);
-// 					
-// 					
-					// var data = tabR.data;
-					// var sec = data[idx];
-					// Ti.API.debug(sec);
-					// var rows = sec.getRows(); 
-					// Ti.API.debug(rows);
-					// for (var i=0; i < rows.length; i++) {
-						// if (rows[i].xvisible == 1) {
-							// rows[i].xvisible = 0;
-							// rows[i].hight = 5;
-							// rows[i].setVisible(false);
-							// Ti.API.debug(i+") set to 5 ("+rows[i].xname+")");
-							// Ti.API.debug(i+") set to 5 ("+rows[i].name+")");
-							// var row_index = tabR.getIndexByName(rows[i].name);
-							// Ti.API.debug(i+") set to 5 ["+row_index+"]");
-							// tabR.deleteRow(row_index);
-						// } else {
-							// rows[i].xvisible = 1;							
-							// rows[i].hight = 50;
-							// rows[i].setVisible(true);
-							// Ti.API.debug(i+") set to 50 ("+rows[i].xname+")");
-							// Ti.API.debug(i+") set to 50 ("+rows[i].name+")");
-							// var row_index = tabR.getIndexByName(rows[i].name);
-							// Ti.API.debug(i+") set to 5 ["+row_index+"]");
-						// }
-					// }
-				});
-			} else {
-				var place = places[i].split("|");
-				var row = Titanium.UI.createTableViewRow({
-					xlink : place[0],
-					xvisible : 1,
-					xname : place[1],
-					name: 'row'+i,
-					backgroundColor:"#000",
-					color : "#000",
-					height : 32,
-				})
-				var lbl = Titanium.UI.createLabel({
-					text : place[1],
-					xlink : place[0],
-					color : "#777",
-					height : Ti.UI.SIZE,
-					textAlign: "left",
-					width:425,
-					left:15,
-					top:7,
-					font : {
-						fontSize : 16,
-						fontFamily : "arial"
-					},
-					color : "#777"
-				});
-				row.add(lbl);
-
-				if (section == null) {
-					rows.push(row);
-				} else {
-					section.add(row);
-				}
-			}
-		}
-		if (section != null) rows.push(section);
-		tabR.setData(rows);	
-*/
 	}
 
 
@@ -828,9 +654,11 @@ function fn() {
 		
 		var ajax = require("/helpers/ajax");
 		ajax.getdata({
-			url : "http://aws1b.glimworm.com/europeana/eu.php?action=json-srch&query="+query+"&page="+pg+"&srch="+srch+"&type="+Ti.Network.encodeURIComponent(type),
-//			url : "http://aws1b.glimworm.com/europeana/eu.php?action=json-srch-rijksmuseum&srch="+srch+"&type="+type,
+			url : "http://europeanaapp.glimworm.com/europeana/eu.php?action=json-srch&query="+query+"&page="+pg+"&srch="+srch+"&type="+Ti.Network.encodeURIComponent(type),
+//			url : "http://europeanaapp.glimworm.com/europeana/eu.php?action=json-srch-rijksmuseum&srch="+srch+"&type="+type,
 			fn : function(e) {
+				Ti.API.info(e.data);
+				
 				require("/helpers/LocalStorage").setObject("search",e.data.items);
 				require("/helpers/LocalStorage").setObject("types",e.data.types);
 				require("/helpers/LocalStorage").setString("totalResults",e.data.totalResults);
@@ -1204,7 +1032,7 @@ function fn() {
 		
 		var ajax = require("/helpers/ajax");
 		ajax.getdata({
-			url : "http://aws1b.glimworm.com/europeana/eu.php?action=get-featured",
+			url : "http://europeanaapp.glimworm.com/europeana/eu.php?action=get-featured",
 			index : 2,
 			fn : function(e) {
 				Ti.API.debug(e.data.items);
@@ -1287,7 +1115,7 @@ function fn() {
 			});
 			var ximg2 = Ti.UI.createImageView({
 				xindex : i+1,
-				image:"http://aws1b.glimworm.com/europeana/featured_items/"+featured_items[i].img
+				image:"http://europeanaapp.glimworm.com/europeana/featured_items/"+featured_items[i].img
 			});
 			search_square.add(ximg2);
 			

@@ -8,6 +8,21 @@
  * - Require and open our top-level UI component
  *  
  */
+
+
+/** This file is part of muse-opensource
+  *
+  *      @desc Main admin code
+  *   @package muse-open-source
+  *    @author Jonathan Carter <jc@glimworm.com>
+  * @copyright 2013 glimworm IT BV
+  *   @license http://www.opensource.org/licenses/gpl-2.0.php GPLv2
+  *   @license http://www.opensource.org/licenses/lgpl-2.1.php LGPLv2
+  *      @link http://www.muse-opensource.org
+  */
+
+
+
 var globals = require('/ui/common/globals');
 //bootstrap and check dependencies
 if (Ti.Platform.osname === 'ipad') {

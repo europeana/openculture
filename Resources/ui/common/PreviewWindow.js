@@ -52,7 +52,7 @@ function fn(identifier) {
 	_data.action = "json-get";
 	
 	ajax.getdata({
-		url : "http://aws2.glimworm.com/api.php",
+		url : "http://europeanaapp.glimworm.com/api.php",
 		data : _data,
 		fn : function(e) {
 			Titanium.API.info(e);
@@ -90,7 +90,7 @@ function fn(identifier) {
 					
 					
 					ajax.getdata({
-						url : "http://aws2.glimworm.com/api.php?action=json-path&from=37777&to="+nodenum,
+						url : "http://europeanaapp.glimworm.com/api.php?action=json-path&from=37777&to="+nodenum,
 						fn : function(e1) {
 							Titanium.API.info(e1);
 							var txt1 = Titanium.UI.createLabel({

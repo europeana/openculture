@@ -1,0 +1,451 @@
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rm="http://rijksmuseum.nl/collection" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+<responseDate>2012-12-12T08:46:51Z</responseDate>
+<request xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:europeana="http://www.europeana.eu/schemas/ese/" verb="ListRecords" metadataPrefix="oai_dc" set="">
+https://www.rijksmuseum.nl/api/oai/c9a1be67-e911-41b9-9484-5591d1a7355d/
+</request>
+<ListRecords xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:europeana="http://www.europeana.eu/schemas/ese/">
+<record>
+<header>
+<identifier>oai:rijksmuseum.nl/collection:SK-A-4878</identifier>
+<datestamp>2012-10-26T09:44:37Z</datestamp>
+</header>
+<metadata>
+<oai_dc:dc>
+<dc:format>
+https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4878
+</dc:format>
+<dc:format>https://www.rijksmuseum.nl/nl/collectie/SK-A-4878</dc:format>
+<dc:identifier>SK-A-4878</dc:identifier>
+<dc:identifier>RM0001.COLLECT.2</dc:identifier>
+<dc:language>Dutch</dc:language>
+<dc:publisher>Rijksmuseum</dc:publisher>
+<dc:rights>http://creativecommons.org/publicdomain/zero/1.0/</dc:rights>
+<dc:date>1644 - 1648</dc:date>
+<dc:description>
+Een jonge vrouw haar handen warmend boven gloeiende kolen in een aardewerken vuurtest. Waarschijnlijk een allegorie op het seizoen Winter. De vrouw draagt een witte muts, oorbellen en een parelsnoer.
+</dc:description>
+<dc:format>hoogte 97 CMcmcm</dc:format>
+<dc:format>breedte 81 CMcmcm</dc:format>
+<dc:format>diepte 8 CMcmcm</dc:format>
+<dc:format>materiaal: olieverf</dc:format>
+<dc:format>materiaal: doek</dc:format>
+<dc:creator>schilder: Everdingen, Caesar Boëtius van</dc:creator>
+<dc:coverage>Nederland</dc:coverage>
+<dc:type>schilderij</dc:type>
+<dc:title>
+Een jonge vrouw haar handen warmend boven een vuurtest, mogelijk een allegorie op de Winter
+</dc:title>
+<dc:coverage>tweede kwart 17e eeuw</dc:coverage>
+<dc:subject>Iconclasscode: 41B211</dc:subject>
+<dc:subject>Iconclasscode: 23D41</dc:subject>
+<dc:contributor>
+Aankoop met steun van de Vereniging Rembrandt, mede dankzij het Prins Bernhard Fonds
+</dc:contributor>
+</oai_dc:dc>
+</metadata>
+</record>
+<record>
+<header>
+<identifier>oai:rijksmuseum.nl/collection:SK-A-4877</identifier>
+<datestamp>2012-10-26T09:44:38Z</datestamp>
+</header>
+<metadata>
+<oai_dc:dc>
+<dc:format>
+https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4877
+</dc:format>
+<dc:format>https://www.rijksmuseum.nl/nl/collectie/SK-A-4877</dc:format>
+<dc:identifier>SK-A-4877</dc:identifier>
+<dc:identifier>RM0001.COLLECT.5</dc:identifier>
+<dc:language>Dutch</dc:language>
+<dc:publisher>Rijksmuseum</dc:publisher>
+<dc:rights>http://creativecommons.org/publicdomain/zero/1.0/</dc:rights>
+<dc:date>1857 - 1857</dc:date>
+<dc:description>
+Portret van Jacob Maris op twintigjarige leeftijd, de broer van de schilder. Alleen het hoofd, naar links omhoogkijkend.
+</dc:description>
+<dc:format>drager: hoogte 40 CMcmcm</dc:format>
+<dc:format>drager: breedte 33 CMcmcm</dc:format>
+<dc:format>materiaal: papier</dc:format>
+<dc:format>materiaal: olieverf</dc:format>
+<dc:format>materiaal: hout</dc:format>
+<dc:creator>schilder: Maris, Matthijs</dc:creator>
+<dc:coverage/>
+<dc:type>schilderij</dc:type>
+<dc:title>Portret van Jacob Maris</dc:title>
+<dc:coverage>derde kwart 19e eeuw</dc:coverage>
+<dc:subject>Maris, Jacob</dc:subject>
+</oai_dc:dc>
+</metadata>
+</record>
+<record>
+<header>
+<identifier>oai:rijksmuseum.nl/collection:SK-A-4881</identifier>
+<datestamp>2012-10-26T09:44:38Z</datestamp>
+</header>
+<metadata>
+<oai_dc:dc>
+<dc:format>
+https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4881
+</dc:format>
+<dc:format>https://www.rijksmuseum.nl/nl/collectie/SK-A-4881</dc:format>
+<dc:identifier>SK-A-4881</dc:identifier>
+<dc:identifier>RM0001.COLLECT.9</dc:identifier>
+<dc:language>Dutch</dc:language>
+<dc:publisher>Rijksmuseum</dc:publisher>
+<dc:rights>http://creativecommons.org/publicdomain/zero/1.0/</dc:rights>
+<dc:date>1675 - 1685</dc:date>
+<dc:description>
+Portret van een jonge man uit de familie Van Alphen, waarschijnlijk Simon van Alphen. Kniestuk, staande geleund tegen een boom. Gebarend met de linkerhand, de rechterhand in de zij. Op de achtergrond een landschap met een waterval.
+</dc:description>
+<dc:format>drager: hoogte 71.5 CMcmcm</dc:format>
+<dc:format>drager: breedte 57.2 CMcmcm</dc:format>
+<dc:format>materiaal: olieverf</dc:format>
+<dc:format>materiaal: doek</dc:format>
+<dc:creator>schilder: Maes, Nicolaes</dc:creator>
+<dc:coverage/>
+<dc:type>schilderij</dc:type>
+<dc:title>
+Portret van een jonge man, waarschijnlijk Simon van Alphen (1650-1730).
+</dc:title>
+<dc:coverage>vierde kwart 17e eeuw</dc:coverage>
+<dc:subject>Alphen, Simon van</dc:subject>
+<dc:subject>Iconclasscode: 61B2</dc:subject>
+<dc:subject>Iconclasscode: 25H216</dc:subject>
+</oai_dc:dc>
+</metadata>
+</record>
+<record>
+<header>
+<identifier>oai:rijksmuseum.nl/collection:RP-P-1992-35</identifier>
+<datestamp>2012-10-26T09:44:38Z</datestamp>
+</header>
+<metadata>
+<oai_dc:dc>
+<dc:format>
+https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-P-1992-35
+</dc:format>
+<dc:format>
+https://www.rijksmuseum.nl/nl/collectie/RP-P-1992-35
+</dc:format>
+<dc:identifier>RP-P-1992-35</dc:identifier>
+<dc:identifier>RM0001.COLLECT.21</dc:identifier>
+<dc:language>Dutch</dc:language>
+<dc:publisher>Rijksmuseum</dc:publisher>
+<dc:rights>http://creativecommons.org/publicdomain/zero/1.0/</dc:rights>
+<dc:date>1555 - 1555</dc:date>
+<dc:date>1556 - 1556</dc:date>
+<dc:description>
+Keizer Karel V zit op een troon, met een adelaar tussen zijn voeten. De adelaar heeft in zijn snavel een ring waaraan touwen zijn bevestigd waarmee de overwonnen vijanden van de keizer gebonden zijn. Links van de troon staan: Frans I, koning van Frankrijk, paus Clemens VII en de Turkse vorst Süleyman I. Aan de rechterkant staan de Duitse protestante vorsten Filips I, landgraaf van Hessen, Maurits, de keurvorst van Saksen en Willem II, hertog van Gelre, Kleef, Gulik en Berg. De prent heeft een Latijns, Spaans en Frans onderschrift en maakt deel uit van een twaalfdelige serie over de overwinningen van Karel V.
+</dc:description>
+<dc:format>plaatrand: hoogte 156 MMmmmm</dc:format>
+<dc:format>plaatrand: breedte 232 MMmmmm</dc:format>
+<dc:format>materiaal: papier</dc:format>
+<dc:format>materiaal: dekverf</dc:format>
+<dc:format>techniek: graveren (drukprocedé)</dc:format>
+<dc:format>techniek: etsen</dc:format>
+<dc:format>techniek: witte dekverf</dc:format>
+<dc:format>techniek: penseel in blauw</dc:format>
+<dc:creator>
+vermeld op object prentmaker: Coornhert, Dirck Volckertsz
+</dc:creator>
+<dc:coverage>Haarlem</dc:coverage>
+<dc:creator>naar ontwerp van: Heemskerck, Maarten van</dc:creator>
+<dc:coverage>Haarlem</dc:coverage>
+<dc:creator>uitgever: Cock, Hieronymus</dc:creator>
+<dc:coverage>Antwerpen</dc:coverage>
+<dc:type>prent</dc:type>
+<dc:type>historieprent</dc:type>
+<dc:title>
+Keizer Karel V omgeven door zijn overwonnen tegenstanders ()
+</dc:title>
+<dc:title>Overwinningen van Karel V (serietitel)</dc:title>
+<dc:title>
+Divi Caroli. V. imp. opt. max. victoriae, ex multis praecipuae (serietitel)
+</dc:title>
+<dc:subject>
+Karel V van Habsburg (Duits keizer en koning van Spanje)
+</dc:subject>
+<dc:subject>
+Frans I van Valois-Angoulême (koning van Frankrijk)
+</dc:subject>
+<dc:subject>Süleyman I de Grote</dc:subject>
+<dc:subject>Clemens VII, paus</dc:subject>
+<dc:subject>Willem II, hertog van Gelre</dc:subject>
+<dc:subject>Filips I de Grootmoedige, landgraaf van Hessen</dc:subject>
+<dc:subject>Maurits, keurvorst van Saksen</dc:subject>
+<dc:subject>Iconclasscode: 44B1212</dc:subject>
+<dc:subject>Iconclasscode: 25F33(EAGLE)(+12)</dc:subject>
+<dc:subject>Iconclasscode: 43A432</dc:subject>
+<dc:contributor>Aankoop uit het F.G. Waller-Fonds</dc:contributor>
+</oai_dc:dc>
+</metadata>
+</record>
+<record>
+<header>
+<identifier>oai:rijksmuseum.nl/collection:RP-P-1992-36</identifier>
+<datestamp>2012-10-26T09:44:40Z</datestamp>
+</header>
+<metadata>
+<oai_dc:dc>
+<dc:format>
+https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-P-1992-36
+</dc:format>
+<dc:format>
+https://www.rijksmuseum.nl/nl/collectie/RP-P-1992-36
+</dc:format>
+<dc:identifier>RP-P-1992-36</dc:identifier>
+<dc:identifier>RM0001.COLLECT.36</dc:identifier>
+<dc:language>Dutch</dc:language>
+<dc:publisher>Rijksmuseum</dc:publisher>
+<dc:rights>http://creativecommons.org/publicdomain/zero/1.0/</dc:rights>
+<dc:date>1555 - 1556</dc:date>
+<dc:description>
+De gevangenname van Frans I, koning van Frankrijk, tijdens de slag bij Pavia in 1525. De koning te paard wordt omringd door drie ridders, eveneens te paard. Op de voorgrond ligt het lichaam van een verslagen ridder. Op de achtergrondtenten en legers met in de verte de stad Pavia. De prent heeft een Latijns, Spaans en Frans onderschrift en maakt deel uit van een twaalfdelige serie over de overwinningen van Karel V.
+</dc:description>
+<dc:format>plaatrand: hoogte 158 MMmmmm</dc:format>
+<dc:format>plaatrand: breedte 233 MMmmmm</dc:format>
+<dc:format>materiaal: papier</dc:format>
+<dc:format>materiaal: dekverf</dc:format>
+<dc:format>techniek: graveren (drukprocedé)</dc:format>
+<dc:format>techniek: etsen</dc:format>
+<dc:format>techniek: witte dekverf</dc:format>
+<dc:format>techniek: penseel in blauw</dc:format>
+<dc:creator>mogelijk prentmaker: Coornhert, Dirck Volckertsz</dc:creator>
+<dc:coverage>Haarlem</dc:coverage>
+<dc:creator>mogelijk prentmaker: Bosch, Cornelis</dc:creator>
+<dc:coverage>Antwerpen</dc:coverage>
+<dc:creator>naar ontwerp van: Heemskerck, Maarten van</dc:creator>
+<dc:coverage>Haarlem</dc:coverage>
+<dc:creator>uitgever: Cock, Hieronymus</dc:creator>
+<dc:coverage>Antwerpen</dc:coverage>
+<dc:type>prent</dc:type>
+<dc:type>historieprent</dc:type>
+<dc:title>
+Gevangename van Frans I tijdens de slag van Pavia ()
+</dc:title>
+<dc:title>Overwinningen van Karel V (serietitel)</dc:title>
+<dc:title>
+Divi Caroli. V. imp. opt. max. victoriae, ex multis praecipuae (serietitel)
+</dc:title>
+<dc:subject>
+Frans I van Valois-Angoulême (koning van Frankrijk)
+</dc:subject>
+<dc:subject>Pavia</dc:subject>
+<dc:contributor>Aankoop uit het F.G. Waller-Fonds</dc:contributor>
+</oai_dc:dc>
+</metadata>
+</record>
+<record>
+<header>
+<identifier>oai:rijksmuseum.nl/collection:RP-P-1992-68</identifier>
+<datestamp>2012-10-26T09:44:40Z</datestamp>
+</header>
+<metadata>
+<oai_dc:dc>
+<dc:format>
+https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-P-1992-68
+</dc:format>
+<dc:format>
+https://www.rijksmuseum.nl/nl/collectie/RP-P-1992-68
+</dc:format>
+<dc:identifier>RP-P-1992-68</dc:identifier>
+<dc:identifier>RM0001.COLLECT.57</dc:identifier>
+<dc:language>Dutch</dc:language>
+<dc:publisher>Rijksmuseum</dc:publisher>
+<dc:rights>http://creativecommons.org/publicdomain/zero/1.0/</dc:rights>
+<dc:date>1553 - 1553</dc:date>
+<dc:description>
+Op een plein in een stad wordt Christus benaderd door een Kanaänitische vrouw. Ze knielt en smeekt hem haar dochter te genezen . Hoewel de apostelen rond Christus aanraden de vrouw weg te sturen, praat Christus met de vrouw en prijst haar standvastig geloof. Daarna roept hij uit dat haar dochter is genezen. (Matteus 15:21-28). De prent toont de twaalf apostelen, Christus, Maria en Maria Magdalena en de overspelige vrouw. In de achtergrond een poort met relief. De prent heeft een onderschrift met referentie naar bijbelplaats.
+</dc:description>
+<dc:format>blad: hoogte 264 MMmmmm</dc:format>
+<dc:format>blad: breedte 280 MMmmmm</dc:format>
+<dc:format>materiaal: papier</dc:format>
+<dc:format>techniek: graveren (drukprocedé)</dc:format>
+<dc:creator>
+vermeld op object prentmaker: Bos, Balthazar van den
+</dc:creator>
+<dc:coverage>Antwerpen</dc:coverage>
+<dc:creator>
+vermeld op object naar ontwerp van: Lombard, Lambert
+</dc:creator>
+<dc:coverage>Luik (stad)</dc:coverage>
+<dc:type>prent</dc:type>
+<dc:title>Christus en vrouw van Kanaän</dc:title>
+<dc:coverage>derde kwart 16e eeuw</dc:coverage>
+<dc:subject>Iconclasscode: 73C431</dc:subject>
+<dc:contributor>Aankoop uit het F.G. Waller-Fonds</dc:contributor>
+</oai_dc:dc>
+</metadata>
+</record>
+<record>
+<header>
+<identifier>oai:rijksmuseum.nl/collection:RP-P-1992-80</identifier>
+<datestamp>2012-10-26T09:44:40Z</datestamp>
+</header>
+<metadata>
+<oai_dc:dc>
+<dc:format>
+https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-P-1992-80
+</dc:format>
+<dc:format>
+https://www.rijksmuseum.nl/nl/collectie/RP-P-1992-80
+</dc:format>
+<dc:identifier>RP-P-1992-80</dc:identifier>
+<dc:identifier>RM0001.COLLECT.70</dc:identifier>
+<dc:language>Dutch</dc:language>
+<dc:publisher>Rijksmuseum</dc:publisher>
+<dc:rights>http://creativecommons.org/publicdomain/zero/1.0/</dc:rights>
+<dc:date>1666 - 1706</dc:date>
+<dc:description>
+In een landschap knielt een vrouw voor een buste van Priapus, aan wie zij een offer brengt. Rechts op de achtergrond lopen twee vrouwen op een weg. Illustratie voor de Ecloga 7 van Virgilius.
+</dc:description>
+<dc:format>plaatrand: hoogte 168 MMmmmm</dc:format>
+<dc:format>plaatrand: breedte 195 MMmmmm</dc:format>
+<dc:format>materiaal: papier</dc:format>
+<dc:format>techniek: etsen</dc:format>
+<dc:format>techniek: à la poupée</dc:format>
+<dc:creator>prentmaker: Call, Jan van (I)</dc:creator>
+<dc:coverage>Noordelijke Nederlanden</dc:coverage>
+<dc:creator>vermeld op object uitgever: Schenk, Pieter (I)</dc:creator>
+<dc:coverage>Amsterdam</dc:coverage>
+<dc:creator>vermeld op object verlener van privilege: onbekend</dc:creator>
+<dc:coverage/>
+<dc:type>prent</dc:type>
+<dc:title>Een vrouw brengt een offer aan Priapus ()</dc:title>
+<dc:title>
+Scènes uit Vergilius dichtbundel Bucolica (serietitel)
+</dc:title>
+<dc:coverage>derde kwart 17e eeuw</dc:coverage>
+<dc:coverage>vierde kwart 17e eeuw</dc:coverage>
+<dc:coverage>eerste kwart 18e eeuw</dc:coverage>
+<dc:subject>Iconclasscode: 92L6</dc:subject>
+<dc:contributor>Aankoop uit het F.G. Waller-Fonds</dc:contributor>
+</oai_dc:dc>
+</metadata>
+</record>
+<record>
+<header>
+<identifier>oai:rijksmuseum.nl/collection:RP-P-1992-70</identifier>
+<datestamp>2012-10-26T09:44:40Z</datestamp>
+</header>
+<metadata>
+<oai_dc:dc>
+<dc:format>
+https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-P-1992-70
+</dc:format>
+<dc:format>
+https://www.rijksmuseum.nl/nl/collectie/RP-P-1992-70
+</dc:format>
+<dc:identifier>RP-P-1992-70</dc:identifier>
+<dc:identifier>RM0001.COLLECT.82</dc:identifier>
+<dc:language>Dutch</dc:language>
+<dc:publisher>Rijksmuseum</dc:publisher>
+<dc:rights>http://creativecommons.org/publicdomain/zero/1.0/</dc:rights>
+<dc:date>1626 - 1626</dc:date>
+<dc:description>
+Allegorie op de vergankelijkheid. Vanitasstilleven met een schedel gekroond met een lauwerkrans, boeken, een zandloper, een gedoofde kaars, een vaas met bloemen en diverse schildersattributen. Op de voorgrond opengeslagen boeken waarin prenten zijn te zien. In het open boek in het midden: Marc 13-13: Wie volstandich[...]sal salig worde. en: Apoc.14: Salich syn de doode[...]volgen haer na. Linksvoor een koperplaatje met afbeelding van Hercules, waarop het monogram van Hendrick Hondius. Onder de gravure een tekst in boekdruk in twee kolommen van elk 32 regels in het Nederlands.
+</dc:description>
+<dc:format>gravure: hoogte 216 MMmmmm</dc:format>
+<dc:format>gravure: breedte 275 MMmmmm</dc:format>
+<dc:format>blad: hoogte 431 MMmmmm</dc:format>
+<dc:format>blad: breedte 285 MMmmmm</dc:format>
+<dc:format>materiaal: papier</dc:format>
+<dc:format>techniek: graveren (drukprocedé)</dc:format>
+<dc:format>techniek: boekdruk</dc:format>
+<dc:creator>
+vermeld op object prentmaker: Hondius, Hendrick (I)
+</dc:creator>
+<dc:coverage/>
+<dc:creator>vermeld op object uitgever: Hondius, Hendrick</dc:creator>
+<dc:coverage>Den Haag</dc:coverage>
+<dc:creator>
+vermeld op object verlener van privilege: Republiek der Zeven Verenigde Nederlanden
+</dc:creator>
+<dc:coverage/>
+<dc:type>prent</dc:type>
+<dc:title>
+Vanitasstilleven met een schedel met lauwerkrans ()
+</dc:title>
+<dc:title>Finis Coronat Opus (titel op object)</dc:title>
+<dc:subject>Iconclasscode: 11R6</dc:subject>
+<dc:subject>Iconclasscode: 23U22</dc:subject>
+<dc:subject>Iconclasscode: 11R71</dc:subject>
+<dc:subject>Iconclasscode: 49M32</dc:subject>
+<dc:subject>Iconclasscode: 48C515</dc:subject>
+<dc:subject>Iconclasscode: 48C534</dc:subject>
+</oai_dc:dc>
+</metadata>
+</record>
+<record>
+<header>
+<identifier>oai:rijksmuseum.nl/collection:BK-NM-4821</identifier>
+<datestamp>2012-10-26T09:44:41Z</datestamp>
+</header>
+<metadata>
+<oai_dc:dc>
+<dc:format>
+https://www.rijksmuseum.nl/assetimage2.jsp?id=BK-NM-4821
+</dc:format>
+<dc:format>https://www.rijksmuseum.nl/nl/collectie/BK-NM-4821</dc:format>
+<dc:identifier>BK-NM-4821</dc:identifier>
+<dc:identifier>RM0001.COLLECT.93</dc:identifier>
+<dc:language>Dutch</dc:language>
+<dc:publisher>Rijksmuseum</dc:publisher>
+<dc:rights>http://creativecommons.org/publicdomain/zero/1.0/</dc:rights>
+<dc:date>1589 - 1589</dc:date>
+<dc:description>
+Stortebeker in de vorm van een kanon van steengoed. Bruingestippeld met blauwe vlekken. Gedateerd 1589 en de inscriptie "IESVS CHRISTVS".
+</dc:description>
+<dc:format>hoogte 9 CMcmcm</dc:format>
+<dc:format>lengte 33.5 CMcmcm</dc:format>
+<dc:format>diepte 7.5 CMcmcm</dc:format>
+<dc:format>materiaal: steengoed</dc:format>
+<dc:format>materiaal: glazuur</dc:format>
+<dc:creator>pottenbakker: anoniem</dc:creator>
+<dc:coverage>Raeren</dc:coverage>
+<dc:type>stortebeker</dc:type>
+<dc:title>Stortebeker in de vorm van een kanon</dc:title>
+<dc:coverage>vierde kwart 16e eeuw</dc:coverage>
+<dc:subject>Iconclasscode: 45C16(CANNON)</dc:subject>
+</oai_dc:dc>
+</metadata>
+</record>
+<record>
+<header>
+<identifier>oai:rijksmuseum.nl/collection:BK-NM-10025</identifier>
+<datestamp>2012-10-26T09:44:41Z</datestamp>
+</header>
+<metadata>
+<oai_dc:dc>
+<dc:format>
+https://www.rijksmuseum.nl/assetimage2.jsp?id=BK-NM-10025
+</dc:format>
+<dc:format>
+https://www.rijksmuseum.nl/nl/collectie/BK-NM-10025
+</dc:format>
+<dc:identifier>BK-NM-10025</dc:identifier>
+<dc:identifier>RM0001.COLLECT.95</dc:identifier>
+<dc:language>Dutch</dc:language>
+<dc:publisher>Rijksmuseum</dc:publisher>
+<dc:rights>http://creativecommons.org/publicdomain/zero/1.0/</dc:rights>
+<dc:date>ca. 1600 - ca. 1610</dc:date>
+<dc:description>
+Kruik met oor van steengoed. Op de cilindervormige buik een band met drie medaillons, in het middelste een pelikaan haar jongen voedend. Langs de bovenkant een rand met opschrift en het jaartal 1600. Op de hals vier mascarons.
+</dc:description>
+<dc:format>hoogte 22.2 CMcmcm</dc:format>
+<dc:format>diameter 12.5 CMcmcm</dc:format>
+<dc:format>materiaal: steengoed</dc:format>
+<dc:format>materiaal: glazuur</dc:format>
+<dc:creator>: anoniem</dc:creator>
+<dc:coverage>Raeren</dc:coverage>
+<dc:type>kruik</dc:type>
+<dc:title>Kruik met oor, met jaartal 1600</dc:title>
+<dc:coverage>eerste kwart 17e eeuw</dc:coverage>
+<dc:subject>Iconclasscode: 48A98211</dc:subject>
+</oai_dc:dc>
+</metadata>
+</record>
+<resumptionToken>fHx8b2FpX2RjfGNvbGxlY3Rpb24uOTV8MTE3</resumptionToken>
+</ListRecords>
+</OAI-PMH>

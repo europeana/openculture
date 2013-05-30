@@ -18,18 +18,18 @@
     <icon>appicon.png</icon>
     <persistent-wifi>false</persistent-wifi>
     <prerendered-icon>true</prerendered-icon>
-    <statusbar-style>default</statusbar-style>
+    <statusbar-style>opaque</statusbar-style>
     <statusbar-hidden>false</statusbar-hidden>
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
-    <analytics>true</analytics>
+    <analytics>false</analytics>
     <guid>ac98e36e-a052-4ead-bffd-b23a2f58d36f</guid>
     <property name="ti.ui.defaultunit">system</property>
     <ios>
         <min-ios-ver>5.0</min-ios-ver>
         <plist>
             <dict>
-            	<key>CFBundleDisplayName</key>
+                <key>CFBundleDisplayName</key>
                 <string>Open Culture</string>
                 <key>UIPrerenderedIcon</key>
                 <true/>
@@ -63,9 +63,9 @@
     </mobileweb>
     <modules>
         <module platform="iphone" version="1.1">dk.napp.social</module>
-        <module platform="iphone" version="0.6.0">com.glimworm.gyro213</module>
         <module platform="commonjs" version="2.3.1">ti.cloud</module>
         <module platform="iphone" version="1.0">de.marcelpociot.twitter</module>
-        <module platform="iphone" version="1.3.0">ti.flurry</module>
+        <module platform="iphone" version="1.1.1">com.onecowstanding.flurry</module>
+        <module platform="android" version="1.1.1">com.onecowstanding.flurry</module>
     </modules>
 </ti:app>

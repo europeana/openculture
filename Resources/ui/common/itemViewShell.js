@@ -66,7 +66,7 @@ function fn(type,cnt) {
 			} catch (e) {}
 
 
-			self.ximage = "http://aws1b.glimworm.com/europeana/timthumb.php?w=350&h=250&a=t&q=20&src="+item.enclosure;
+			self.ximage = "http://europeanaapp.glimworm.com/europeana/timthumb.php?w=350&h=250&a=t&q=20&src="+item.enclosure;
 			self.ximage_backup = item.enclosure;
 			self.xinview = 0;
 
@@ -226,7 +226,7 @@ function fn(type,cnt) {
 				self.remove(self.children[0]);
 			} catch (e) {}
 			
-			self.ximage = "http://aws1b.glimworm.com/europeana/timthumb.php?w=250&h=250&a=t&q=20&src="+item.enclosure;
+			self.ximage = "http://europeanaapp.glimworm.com/europeana/timthumb.php?w=250&h=250&a=t&q=20&src="+item.enclosure;
 			self.ximage_backup = item.enclosure;
 			self.xinview = 0;
 			
