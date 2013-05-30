@@ -17,7 +17,7 @@ function fn(identifier,cnt,typ) {
 
 	var self = Titanium.UI.createWindow({
     	navBarHidden: true,
-    	backgroundColor:"#000"
+    	backgroundColor:css.DARKBACKGROUND
 	});
 	var table;
 	var lbl122 = "";
@@ -48,7 +48,7 @@ function fn(identifier,cnt,typ) {
 	var b99 = Titanium.UI.createButtonBar({
 //	    labels:['Search', 'Personal Museum','clear','me','pin'],
 	    labels:['Home','Search results', 'Your Favourites', 'Help'],
-	    backgroundColor:'#000000',
+	    backgroundColor:css.DARKBACKGROUND,
 	    top:50,
 	    style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
 	    height:30,
@@ -109,7 +109,7 @@ function fn(identifier,cnt,typ) {
 	var topbar = Titanium.UI.iOS.createToolbar({
 		top:0,right:0,left:0,height:40,
 		items : [b1,b99,b99emp,blogo,b9emp,bbb1],
-		barColor : "#000000",
+		barColor : css.DARKBACKGROUND,
 		borderTop:false,
 	    borderBottom:true
 	})	
@@ -124,10 +124,10 @@ function fn(identifier,cnt,typ) {
 		clearButtonMode : 1,
 		width : 200,
 		borderRadius : 5,
-		backgroundColor : "#fff",
-		borderColor : "#777777",
+		backgroundColor : css.VERYLIGHTCOLOUR,
+		borderColor : css.LIGHTCOLOUR,
 		borderWidth : 1,
-		color : "#777777",
+		color : css.LIGHTCOLOUR,
 		value : require("/helpers/LocalStorage").getString("search-string"),
 		font : {
 			fontFamily : "SinhalaSangamMN",
@@ -205,7 +205,7 @@ function fn(identifier,cnt,typ) {
 		v.add(Ti.UI.createView({
 			width : Ti.UI.FILL,
 			height : Ti.UI.FILL,
-			backgroundColor : "#000",
+			backgroundColor : css.DARKBACKGROUND,
 			opacity : 0.5
 		}));
 		var v1 = Ti.UI.createView({
@@ -215,7 +215,7 @@ function fn(identifier,cnt,typ) {
 		var v2 = Ti.UI.createView({
 			width : Ti.UI.FILL,
 			height : Ti.UI.FILL,
-			backgroundColor : "#fff"
+			backgroundColor : css.VERYLIGHTCOLOUR
 		});
 		v2.add(Ti.UI.createLabel({
 			text : 'Post a comment',
@@ -237,7 +237,7 @@ function fn(identifier,cnt,typ) {
 				fontSize : 22,
 				fontFamily : "arial"
 			},
-			backgroundColor : '#ffffff',color:'#777',borderColor:'#ccc',borderWidth:1
+			backgroundColor : css.VERYLIGHTCOLOUR,color:css.LIGHTCOLOUR,borderColor:'#ccc',borderWidth:1
 		});
 		v2.add(srch);
 		var addlink_btn = Ti.UI.createLabel({
@@ -246,7 +246,7 @@ function fn(identifier,cnt,typ) {
 				fontSize : 22,
 				fontFamily : "arial"
 			},
-			color : "#fff",
+			color : css.VERYLIGHTCOLOUR,
 			borderRadius : 10,
 			textAlign : 'center',
 			text : 'Send',
@@ -266,7 +266,7 @@ function fn(identifier,cnt,typ) {
 			};
 //alert("f");			
 			ajax.getdata({
-				url : "http://europeanaapp.glimworm.com/europeana/eu.php",
+				url : require("/etc/config").api,
 				data : _data,
 				fn : function(e1) {
 					Titanium.API.info(e1);
@@ -299,7 +299,7 @@ function fn(identifier,cnt,typ) {
 		var bar = Titanium.UI.iOS.createToolbar({
 			top:0,right:0,left:0,height:40,
 			items : [spacer0,bgc],
-			barColor : "#000000",
+			barColor : css.DARKBACKGROUND,
 			borderTop:true,
 		    borderBottom:false
 		});
@@ -330,7 +330,7 @@ function fn(identifier,cnt,typ) {
 		var vminus1 = Ti.UI.createWindow({
 			width : '100%',
 			height : '1000%',
-			backgroundColor: "#000",
+			backgroundColor: css.DARKBACKGROUND,
 			opacity: 0.7
 		});
 		
@@ -352,7 +352,7 @@ function fn(identifier,cnt,typ) {
 			height: 30,
 			autocapitalization : 0,
 			autocorrect : false,
-			backgroundColor : '#ffffff'
+			backgroundColor : css.VERYLIGHTCOLOUR
 		});
 		var bgo = Ti.UI.createButton({
 			image : 'images/glyphicons_212_right_go_arrow.png'
@@ -404,7 +404,7 @@ function fn(identifier,cnt,typ) {
 		var bar = Titanium.UI.iOS.createToolbar({
 			top:0,right:0,left:0,height:Ti.UI.SIZE,
 			items : [bgb,bgf,bgemp11,bgc],
-			barColor : "#000000",
+			barColor : css.DARKBACKGROUND,
 			borderTop:true,
 		    borderBottom:false
 		    
@@ -470,7 +470,7 @@ function fn(identifier,cnt,typ) {
 		var vminus1 = Ti.UI.createWindow({
 			width : '100%',
 			height : '100%',
-			backgroundColor: "#000",
+			backgroundColor: css.DARKBACKGROUND,
 			opacity: 0.7
 		});
 		
@@ -492,7 +492,7 @@ function fn(identifier,cnt,typ) {
 			height: 30,
 			autocapitalization : 0,
 			autocorrect : false,
-			backgroundColor : '#ffffff'
+			backgroundColor : css.VERYLIGHTCOLOUR
 		});
 		var bgo = Ti.UI.createButton({
 			image : 'images/glyphicons_212_right_go_arrow.png'
@@ -562,7 +562,7 @@ function fn(identifier,cnt,typ) {
 		var v2 = Ti.UI.createView({
 			width : Ti.UI.FILL,
 			height : Ti.UI.FILL,
-			backgroundColor : "#fff"
+			backgroundColor : css.VERYLIGHTCOLOUR
 		});
 		v2.add(Ti.UI.createLabel({
 			text : "Final step, please describe the connection you're making",
@@ -581,8 +581,8 @@ function fn(identifier,cnt,typ) {
 				fontFamily : "arial"
 			},
 			paddingLeft : 20,
-			backgroundColor : '#fff',
-			color:'#777',
+			backgroundColor : css.VERYLIGHTCOLOUR,
+			color:css.LIGHTCOLOUR,
 			borderColor : "#ccc",
 			borderWidth : 1
 		});
@@ -604,12 +604,12 @@ function fn(identifier,cnt,typ) {
 			TYP = xval;
 			for (var i=0; i < valarray.length; i++) {
 				if (valarray[i].xval == xval) {
-					valarray[i].color = "#fff"
-					valarray[i].backgroundColor = "#5184CC"
+					valarray[i].color = css.VERYLIGHTCOLOUR;
+					valarray[i].backgroundColor = "#5184CC";
 					
 				} else {
-					valarray[i].color = "#111"
-					valarray[i].backgroundColor = "#eee"
+					valarray[i].color = css.VERYLIGHTCOLOUR;
+					valarray[i].backgroundColor = "#eee";
 				}
 			}
 		}
@@ -676,7 +676,7 @@ function fn(identifier,cnt,typ) {
 				fontFamily : "arial"
 			},
 			borderRadius : 0,
-			color : "#fff",
+			color : css.VERYLIGHTCOLOUR,
 			text : '  Add Link ',
 			backgroundColor : '#5184CC'
 		});
@@ -699,7 +699,7 @@ function fn(identifier,cnt,typ) {
 			};
 			
 			ajax.getdata({
-				url : "http://europeanaapp.glimworm.com/europeana/eu.php",
+				url : require("/etc/config").api,
 				data : _data,
 				fn : function(e1) {
 					Titanium.API.info(e1);
@@ -764,7 +764,7 @@ function fn(identifier,cnt,typ) {
 			top:0,right:0,left:0,height:Ti.UI.SIZE,
 //			items : [bgb,bgf,search,bgo,bgemp11,bgyu,bgemp1,bgfli,bgemp2,bggoo,bgemp3,bgpin,bgemp4,bgc],
 			items : [bgb,bgf,search,bgo,bgemp11,bggoo,bgemp1,bgyu,bgemp2,bgfli,bgemp3,bgpin,bgemp4,bgc],
-			barColor : "#000000",
+			barColor : css.DARKBACKGROUND,
 			borderTop:true,
 		    borderBottom:false
 		    
@@ -831,7 +831,7 @@ function fn(identifier,cnt,typ) {
 	var botbar = Titanium.UI.iOS.createToolbar({
 		bottom:0,right:0,height:40,
 		items : [],
-		barColor : "#000000",
+		barColor : css.DARKBACKGROUND,
 		borderTop:true,
 	    borderBottom:false
 	})	
@@ -847,7 +847,7 @@ function fn(identifier,cnt,typ) {
 	
 //alert("l");	
 	ajax.getdata({
-		url : "http://europeanaapp.glimworm.com/europeana/eu.php?action=json-get&identifier="+identifier,
+		url : require("/etc/config").api+"?action=json-get&identifier="+identifier,
 		fn : function(e) {
 			Ti.API.info(e);
 			searchtitle = e.data[0].ccsearchterm;
@@ -865,7 +865,7 @@ function fn(identifier,cnt,typ) {
 			Ti.API.debug(e);
 			var img = Titanium.UI.createImageView({
 				left:0,top:40,height:200,right:0,
-				backgroundColor:"#000",
+				backgroundColor:css.DARKBACKGROUND,
 				image : e.data[0].img	//.thumbsrc
 			});
 			
@@ -885,19 +885,19 @@ function fn(identifier,cnt,typ) {
 			});
 			var view22 = Titanium.UI.createView({
 				top:50,right:5,left:600,width:420, height:700,
-				borderColor:'#000',borderRadius:5,borderWidth:1
+				borderColor:css.DARKBACKGROUND,borderRadius:5,borderWidth:1
 			});
 			var view2 = Titanium.UI.createView({
 				top:0,left:0,bottom:0,right:0,height:630
 			});
 			var view4 = Titanium.UI.createView({
-				top:635,left:0,bottom:0,right:0,backgroundColor:"#000"
+				top:635,left:0,bottom:0,right:0,backgroundColor:css.DARKBACKGROUND
 				
 			});
 			
 			table = Ti.UI.createTableView({
-				backgroundColor : "#000",
-				separatorColor : "#000"
+				backgroundColor : css.DARKBACKGROUND,
+				separatorColor : css.DARKBACKGROUND
 			});
 			view2.add(table);
 			
@@ -921,7 +921,7 @@ function fn(identifier,cnt,typ) {
 				
 				var secv1 = Ti.UI.createView({
 						height : 30,
-						backgroundColor : "#777"
+						backgroundColor : css.LIGHTCOLOUR
 				});
 				secv1.add(Ti.UI.createLabel({
 					height : Ti.UI.SIZE,
@@ -933,7 +933,7 @@ function fn(identifier,cnt,typ) {
 						fontSize : 16,
 						fontFamily : "arial"
 					},
-					color : "#fff",
+					color : css.VERYLIGHTCOLOUR,
 					text : 'ABOUT'
 				}));
 				var sec1 = Ti.UI.createTableViewSection({
@@ -945,7 +945,7 @@ function fn(identifier,cnt,typ) {
 					layout:'vertical'
 				});
 				var rowv1 = Ti.UI.createView({
-					backgroundColor : "#000",
+					backgroundColor : css.DARKBACKGROUND,
 					height : Ti.UI.SIZE,
 					top:10, bottom:10,
 					width:425,
@@ -953,7 +953,7 @@ function fn(identifier,cnt,typ) {
 				});
 				var lblrow1=Ti.UI.createLabel({
 					text:Currenttitle,
-					color:"#fff",
+					color:css.VERYLIGHTCOLOUR,
 					font : {
 						fontSize : 24,
 						fontFamily : "arial",
@@ -965,7 +965,7 @@ function fn(identifier,cnt,typ) {
 				
 				var lblrow2=Ti.UI.createLabel({
 					text:Currenttitle1,
-					color:"#fff",
+					color:css.VERYLIGHTCOLOUR,
 					font : {
 						fontSize : 14,
 						fontFamily : "arial",
@@ -977,7 +977,7 @@ function fn(identifier,cnt,typ) {
 				
 				var lblrow3=Ti.UI.createLabel({
 					text:Currenttitle2,
-					color:"#fff",
+					color:css.VERYLIGHTCOLOUR,
 					font : {
 						fontSize : 14,
 						fontFamily : "arial"
@@ -1001,7 +1001,7 @@ function fn(identifier,cnt,typ) {
 						layout:'vertical'
 					});
 					var rowv1 = Ti.UI.createView({
-						backgroundColor : "#000",
+						backgroundColor : css.DARKBACKGROUND,
 						height : Ti.UI.SIZE,
 						borderWidth : BW,
 						top:4, bottom:4,
@@ -1016,7 +1016,7 @@ function fn(identifier,cnt,typ) {
 					var lblrow5 = Ti.UI.createLabel({
 						text:button.label,
 						height : Ti.UI.SIZE,
-						color:"#fff",
+						color:css.VERYLIGHTCOLOUR,
 						borderWidth : BW,
 						font : {
 							fontSize : 15,
@@ -1051,7 +1051,7 @@ function fn(identifier,cnt,typ) {
 						text: txt,
 						//html:"<b>"+button.value+"</b>",
 						height : Ti.UI.SIZE,
-						color:"#fff",
+						color:css.VERYLIGHTCOLOUR,
 						borderWidth : BW,
 						font : {
 							fontSize : siz,
@@ -1087,7 +1087,7 @@ function fn(identifier,cnt,typ) {
 						layout:'vertical'
 					});
 					var rowv1 = Ti.UI.createView({
-						backgroundColor : "#fff",
+						backgroundColor : css.VERYLIGHTCOLOUR,
 						height : Ti.UI.SIZE,
 						top:10, bottom:10,
 						width:425,
@@ -1102,7 +1102,7 @@ function fn(identifier,cnt,typ) {
 					});
 					var lblrow4 = Ti.UI.createLabel({
 						text:button.title,
-						color:"#fff",
+						color:css.VERYLIGHTCOLOUR,
 						font : {
 							fontSize : 16,
 							fontFamily : "arial"
@@ -1122,10 +1122,10 @@ function fn(identifier,cnt,typ) {
 				for (var i=0; i < vals.length; i++) {
 					var secv = Ti.UI.createView({
 						height : 30,
-						backgroundColor : "#777"
+						backgroundColor : css.LIGHTCOLOUR
 					});
 					secv.add(Ti.UI.createLabel({
-						color : "#777",
+						color : css.LIGHTCOLOUR,
 						height : Ti.UI.SIZE,
 						textAlign: "left",
 						width:425,
@@ -1135,7 +1135,7 @@ function fn(identifier,cnt,typ) {
 							fontSize : 16,
 							fontFamily : "arial"
 						},
-						color : "#fff",
+						color : css.VERYLIGHTCOLOUR,
 						text : vals[i].toUpperCase()
 					}));
 					var sec = Ti.UI.createTableViewSection({
@@ -1150,14 +1150,14 @@ function fn(identifier,cnt,typ) {
 								xurl : links[l].url
 							});
 							var rv = Ti.UI.createView({
-								backgroundColor : "#000",
+								backgroundColor : css.DARKBACKGROUND,
 								height : Ti.UI.SIZE,
 								top:10, bottom:10,
 								width:425
 							});
 							row.add(rv);
 							rv.add(Ti.UI.createLabel({
-								color : "#fff",
+								color : css.VERYLIGHTCOLOUR,
 								height : Ti.UI.SIZE,
 								textAlign: "left",
 								width:425,
@@ -1199,70 +1199,6 @@ function fn(identifier,cnt,typ) {
 			self.add(view);
 			view22.add(view4);
 			
-			/*var lbl121 = Ti.UI.createLabel({
-				color : "#fff",
-				height : Ti.UI.SIZE,
-				textAlign: "left",
-				width: Ti.UI.SIZE,
-				left:130,
-				top:15,
-				font : {
-					fontSize : 14,
-					fontWeight: "bold",
-					fontFamily : "arial"
-				},
-				text : "favourite"
-				
-			});
-			var lbl122a = Ti.UI.createImageView({
-				image : "/images/arrows.png",
-				left : 10,
-				top:15
-			});
-			var lbl122 = Ti.UI.createLabel({
-				color : "#5183CA",
-				height : Ti.UI.SIZE,
-				textAlign: "left",
-				width: Ti.UI.SIZE,
-				left:40,
-				top:15,
-				font : {
-					fontSize : 14,
-					fontWeight: "bold",
-					fontFamily : "arial"
-				},
-				text : "connect"
-			});
-			var lbl123 = Ti.UI.createLabel({
-				color : "#fff",
-				height : Ti.UI.SIZE,
-				textAlign: "left",
-				width: Ti.UI.SIZE,
-				left:225,
-				top:15,
-				font : {
-					fontSize : 14,
-					fontWeight: "bold",
-					fontFamily : "arial"
-				},
-				text : "comment"
-				
-			});
-			var lbl124 = Ti.UI.createLabel({
-				color : "#fff",
-				height : Ti.UI.SIZE,
-				textAlign: "center",
-				width: Ti.UI.SIZE,
-				left:320,
-				top:15,
-				font : {
-					fontSize : 14,
-					fontWeight: "bold",
-					fontFamily : "arial"
-				},
-				text : "share"
-				
-			});*/
 			
 			var lbl121 = Ti.UI.createImageView({
 				image : "/images/buttons/menu-connect.png",
@@ -1360,7 +1296,7 @@ function fn(identifier,cnt,typ) {
 				scalesPageToFit:true,
 				touchEnabled : true,
 				html : html,
-				backgroundColor:'#000'
+				backgroundColor:css.DARKBACKGROUND
 			});
 			view.add(wv);
 			
@@ -1381,7 +1317,7 @@ function fn(identifier,cnt,typ) {
 				for (var i=0; i < path.length; i++) { matched.push(true) }
 				
 				
-				var lbl0h = Titanium.UI.createLabel({text:" How You Are Connected to "+e.data.title ,backgroundColor:"#333",color:"#fff",left:0,right:0,height:50,top:0,font : {fontFamily : "arial"}});
+				var lbl0h = Titanium.UI.createLabel({text:" How You Are Connected to "+e.data.title ,backgroundColor:"#333",color:css.VERYLIGHTCOLOUR,left:0,right:0,height:50,top:0,font : {fontFamily : "arial"}});
 				view0.add(lbl0h);
 				
 				var lbl0 = Titanium.UI.createLabel({text:"You",height:40,top:5,font : {fontSize:20, fontFamily : "arial"}});

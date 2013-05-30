@@ -45,6 +45,10 @@ exports.FONTFAMILY_NARROW = "Futura-CondensedMedium";
 
 //"HelveticaNeue-CondensedBold";
 
+exports.DARKBACKGROUND = "#000000";
+exports.LIGHTCOLOUR = "#777777";
+exports.VERYLIGHTCOLOUR = "#ffffff";
+
 
 exports.addWinBackground = function(obj) {
 	obj.barColor = "#333";

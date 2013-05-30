@@ -224,8 +224,6 @@ exports.ShareButton = function( message, image, url) {
 		}
 		if (typ == "facebook") {
 			require("/helpers/social/share").facebook(message, image, url);
-			// var _fbc = require("/ui/common/facebook_connect");
-			// _fbc.postdialog();
 		}
 		if (e.index == 2) {
 			return;

@@ -6,7 +6,7 @@ function fn(type,item) {
 	if (type == 2) {
 		var self = Titanium.UI.createView({
 			left:20,top:20,
-			width:350, height:190,backgroundColor : "#000"
+			width:350, height:190,backgroundColor : css.DARKBACKGROUND
 		})
 		
 		var img = Titanium.UI.createImageView({
@@ -36,7 +36,7 @@ function fn(type,item) {
 		    contentWidth:'auto',
 		    contentHeight:'auto',
 			width:350, height:50,
-			backgroundColor:"#000",
+			backgroundColor:css.DARKBACKGROUND,
 			opacity:0.7
 		})
 	
@@ -44,7 +44,7 @@ function fn(type,item) {
 			height:Ti.UI.SIZE,
 			width : 300,
 			left:20,
-			color : "#fff",
+			color : css.VERYLIGHTCOLOUR,
 			text : "C"+item.title,
 			font : {
 				fontFamily : "STHeitiTC-Medium"
@@ -59,7 +59,7 @@ function fn(type,item) {
 	} else {
 		var self = Titanium.UI.createView({
 			left:20,top:20,
-			width:250, height:120,backgroundColor : "#000"
+			width:250, height:120,backgroundColor : css.DARKBACKGROUND
 		})
 		
 		var img = Titanium.UI.createImageView({
@@ -82,14 +82,14 @@ function fn(type,item) {
 		    contentWidth:'auto',
 		    contentHeight:'auto',
 			width:250, height:50,
-			backgroundColor:"#000",
+			backgroundColor:css.DARKBACKGROUND,
 			opacity:0.7
 		})
 	
 		var txt1 = Titanium.UI.createLabel({
 			height:Ti.UI.SIZE,
 			width : 200,
-			color : "#fff",
+			color : css.VERYLIGHTCOLOUR,
 			//text : "B"+item.title,
 			text : item.title,
 			font : {

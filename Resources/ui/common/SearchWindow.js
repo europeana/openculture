@@ -8,7 +8,7 @@ function fn() {
 	
 	var self = Titanium.UI.createWindow({
     	navBarHidden: true,
-    	backgroundColor:"#fff",
+    	backgroundColor:css.VERYLIGHTCOLOUR,
 		backgroundGradient: css.WINGRAD2,
 		tabBarHidden:true
 	});
@@ -31,7 +31,7 @@ function fn() {
 	var add_spinner = function(view,top,left) {
 		
 		var activityIndicator = Ti.UI.createActivityIndicator({
-			color: '#ffffff',
+			color: css.VERYLIGHTCOLOUR,
 			message: 'Loading...',
 			style : Ti.UI.iPhone.ActivityIndicatorStyle.BIG,
 			height:'auto',
@@ -58,7 +58,7 @@ function fn() {
 	var mainview = Titanium.UI.createScrollView({
 		contentHeight:'auto',
 		contentWidth:'auto',
-		top:40,left:0,right:0,height:710,backgroundColor:"#000000"
+		top:40,left:0,right:0,height:710,backgroundColor:css.DARKBACKGROUND
 	});
 
 	mainview.addEventListener('scrollEnd', function(e) {
@@ -88,7 +88,7 @@ function fn() {
 		top:0,left:0,
 		width:3200,
 		height : (420 * (MAXITEMS / 25)) + 20,
-		backgroundColor:"transparent", borderWidth:0, borderColor:"#fff",
+		backgroundColor:"transparent", borderWidth:0, borderColor:css.VERYLIGHTCOLOUR,
 		layout:"horizontal"
 	});
 	var mainviewL = Titanium.UI.createScrollView({
@@ -96,14 +96,14 @@ function fn() {
 		contentWidth:'auto',
 		zIndex:999,
 		xopen : false,
-		top:40,left:-200,width:190,height:659,backgroundColor:"#000"
+		top:40,left:-200,width:190,height:659,backgroundColor:css.DARKBACKGROUND
 	});
 	var tabL = Titanium.UI.createTableView({
 		height : 'auto',
 		left:0, right:0,top:0,
-		color : "#fff",
-		backgroundColor : "#000",
-		separatorColor :"#000",
+		color : css.VERYLIGHTCOLOUR,
+		backgroundColor : css.DARKBACKGROUND,
+		separatorColor :css.DARKBACKGROUND,
 	});
 	mainviewL.add(tabL);
 	tabL.addEventListener("click", function(e) {
@@ -111,31 +111,7 @@ function fn() {
 		search2.call(this);
 	});
 
-	// var refreshyears = function() {
-		// var rows = [];
-		// for (var i=1850; i < 1970; i++) {
-			// var row = Titanium.UI.createTableViewRow({
-				// xlink : i,
-				// backgroundColor:"#000",
-				// color : "#fff",
-				// height : 32,
-			// })
-			// var lbl = Titanium.UI.createLabel({
-				// text : i,
-				// xlink : i,
-				// color : "#fff",
-				// height : 'auto',
-				// font : {
-					// fontSize : 16,
-					// fontFamily : "arial"
-				// }
-			// })
-			// row.add(lbl);
-			// rows.push(row);
-		// }
-		// tabL.setData(rows);	
-	// }
-	// refreshyears();
+
 	
 	var refreshleftlist = function(places) {
 		var rows = [];
@@ -143,14 +119,14 @@ function fn() {
 		for (var i=0; i < places.length; i++) {
 			var row = Titanium.UI.createTableViewRow({
 				xlink : places[i],
-				backgroundColor:"#000",
-				color : "#fff",
+				backgroundColor:css.DARKBACKGROUND,
+				color : css.VERYLIGHTCOLOUR,
 				height : 64,
 			})
 			var lbl = Titanium.UI.createLabel({
 				text : places[i],
 				xlink : places[i],
-				color : "#fff",
+				color : css.VERYLIGHTCOLOUR,
 				height : 'auto',
 				font : {
 					fontSize : 16,
@@ -207,10 +183,10 @@ function fn() {
 	var tabR = Titanium.UI.createTableView({
 		height : 'auto',
 		left:0, right:0,top:600,
-		color : "#777",
-		backgroundColor : "#fff",
-		separatorColor :"#000",
-		borderColor:'#777',
+		color : css.LIGHTCOLOUR,
+		backgroundColor : css.VERYLIGHTCOLOUR,
+		separatorColor :css.DARKBACKGROUND,
+		borderColor:css.LIGHTCOLOUR,
 		borderWidth:1
 	});
 //	mainviewR.add(tabR);
@@ -514,8 +490,6 @@ function fn() {
 		image : "/images/eu/icon-menu.png"
 	})
 	var click = function(e) {
-		// var winClass = require("/ui/common/SearchOptionsWindow");
-		// var win = new winClass();
 		if (mainviewL.xopen == false) {
 			mainviewL.xopen = true;
 			//mainviewL.animate({left:0,duration:500,curve: Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT},function(e){});
@@ -601,7 +575,7 @@ function fn() {
 	var topbar = Titanium.UI.iOS.createToolbar({
 		top:0,right:0,left:0,height:50,
 		items : [b1,bb1,bb1help,b1emp,b1muse,b2emp,bbb1],
-		barColor : "#000000",
+		barColor : css.DARKBACKGROUND,
 		borderTop:false,
 	    borderBottom:true
 	})
@@ -616,10 +590,10 @@ function fn() {
 		paddingLeft : 20,
 		width : 200,
 		borderRadius : 5,
-		backgroundColor : "#fff",
-		borderColor : "#777777",
+		backgroundColor : css.VERYLIGHTCOLOUR,
+		borderColor : css.LIGHTCOLOUR,
 		borderWidth : 1,
-		color : "#777",
+		color : css.LIGHTCOLOUR,
 		value : require("/helpers/LocalStorage").getString("search-string"),
 		font : {
 			fontFamily : "SinhalaSangamMN",
@@ -654,8 +628,7 @@ function fn() {
 		
 		var ajax = require("/helpers/ajax");
 		ajax.getdata({
-			url : "http://europeanaapp.glimworm.com/europeana/eu.php?action=json-srch&query="+query+"&page="+pg+"&srch="+srch+"&type="+Ti.Network.encodeURIComponent(type),
-//			url : "http://europeanaapp.glimworm.com/europeana/eu.php?action=json-srch-rijksmuseum&srch="+srch+"&type="+type,
+			url : require("/etc/config").api+"?action=json-srch&query="+query+"&page="+pg+"&srch="+srch+"&type="+Ti.Network.encodeURIComponent(type),
 			fn : function(e) {
 				Ti.API.info(e.data);
 				
@@ -928,7 +901,7 @@ function fn() {
 		win_displaySearchForce = x;
 		
 		var xview = Ti.UI.createView({
-			top:0,left:0,height:Ti.UI.FILL,width:Ti.UI.FILL,backgroundColor:"#777"
+			top:0,left:0,height:Ti.UI.FILL,width:Ti.UI.FILL,backgroundColor:css.LIGHTCOLOUR
 		});
 		x.add(xview);
 		var ximg = Ti.UI.createImageView({
@@ -949,8 +922,8 @@ function fn() {
 			left:(1024-860)/2,
 			width : (860 - 50)-2,
 			borderRadius : 5,
-			backgroundColor : "#ffffff",
-			borderColor : "#777777",
+			backgroundColor : css.VERYLIGHTCOLOUR,
+			borderColor : css.LIGHTCOLOUR,
 			paddingLeft : 20,
 			borderWidth : 1,
 			hintText : "Search a selection of Europeana's collections",
@@ -987,11 +960,6 @@ function fn() {
 		});
 		xview.add(ximg_right);		
 
-		// xview.add(Ti.UI.createLabel({
-			// text : require("/helpers/LocalStorage").getString("search-message"),
-			// top:320,
-			// color : "#ffffff"
-		// }));
 		
 		var perform_pre_determined_search = function(e) {
 			if (!e.source.xindex) return;
@@ -1032,7 +1000,7 @@ function fn() {
 		
 		var ajax = require("/helpers/ajax");
 		ajax.getdata({
-			url : "http://europeanaapp.glimworm.com/europeana/eu.php?action=get-featured",
+			url : require("/etc/config").api+"?action=get-featured",
 			index : 2,
 			fn : function(e) {
 				Ti.API.debug(e.data.items);
@@ -1126,7 +1094,7 @@ function fn() {
 			
 			var square_text = Ti.UI.createLabel({
 				text : featured_items[i].txt,
-				color : "#fff",
+				color : css.VERYLIGHTCOLOUR,
 				xindex : i+1,
 				bottom : 0, height : 50
 			});
@@ -1141,20 +1109,10 @@ function fn() {
 		}
 		
 
-		// var normal_searches_view = Ti.UI.createScrollableView({
-			// views : search_views,
-			// pagingControlColor : "#777",
-			// backgroundColor : "#777",
-			// pagingControlHeight : 20,
-			// top:350,
-			// showPagingControl:true,
-			// height : 320
-		// });
-// 
 		var normal_searches_view = Ti.UI.createScrollableView({
 			views : search_views,
-			pagingControlColor : "#777",
-			backgroundColor : "#777",
+			pagingControlColor : css.LIGHTCOLOUR,
+			backgroundColor : css.LIGHTCOLOUR,
 			pagingControlHeight : 20,
 			top:0,
 			showPagingControl:true,

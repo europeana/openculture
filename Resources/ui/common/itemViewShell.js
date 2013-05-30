@@ -4,7 +4,6 @@ var css = require('/ui/common/css');
 function fn(type,cnt) {
 	
 	var preview = function(identifier,cnt,typ) {
-//		var winClass = require("/ui/common/PreviewWindow");
 		var winClass = require("/ui/common/PlayWindow");
 		var preview_win = new winClass(identifier,cnt,typ);
 	}
@@ -16,7 +15,7 @@ function fn(type,cnt) {
 	if (type == 2) {
 		var self = Titanium.UI.createView({
 			left:20,top:20,
-			width:350, height:190,backgroundColor : "transparent", borderColor : "#000", borderWidth:0
+			width:350, height:190,backgroundColor : "transparent", borderColor : css.DARKBACKGROUND, borderWidth:0
 		})
 		function clearthisA(e) {
 			try {
@@ -82,13 +81,13 @@ function fn(type,cnt) {
 				xguid : item.guid,
 				xindent: item.id,
 				xtyp: item.type,
-				borderColor:'#777',borderWidth:0
+				borderColor:css.LIGHTCOLOUR ,borderWidth:0
 			})
 			var offscreen = function() {
 				if (img.xinview == 1) {
 					img.image = "/images/10x10.gif";
 					self.borderWidth = 0;
-					self.backgroundColor = "#000000";
+					self.backgroundColor = css.DARKBACKGROUND;
 				}
 				img.xinview = 0;
 			}
@@ -104,28 +103,16 @@ function fn(type,cnt) {
 			self.addEventListener("offscreen",offscreen);
 			self.addEventListener("onscreen",onscreen);
 
-			// var img = Titanium.UI.createWebView({
-				// left:0,top:0,
-				// width:350,
-				// height:350,
-				// html : "<html><head></head><body TOPMARGIN='0' LEFTMARGIN='0' MARGINHEIGHT='0' MARGINWIDTH='0'><img src='"+item.enclosure+"' style='border:0;padding:0;margin:0;' width='350'></body></html>",
-				// xcnt : cnt,
-				// xguid : item.guid,
-				// xindent: item.id,
-				// xtyp: item.type,
-				// borderColor:'#777',borderWidth:1
-			// })
 
 			img.addEventListener("click",click);
 			img.addEventListener("error", function(E) {
 				Ti.API.info(self.ximage_backup);
 				self.ximage = self.ximage_backup;
 				img.image = self.ximage_backup;
-//				E.source.borderColor = "#0000ff";
 			});
 			img.addEventListener("load", function(E) {
 				self.borderWidth = 0;
-				self.backgroundColor = "#000000";
+				self.backgroundColor = css.DARKBACKGROUND;
 			});
 
 			
@@ -133,7 +120,7 @@ function fn(type,cnt) {
 				right:0,top:0,
 				width:100, height:200,
 				//backgroundColor : "#666"
-				backgroundColor : "#000"
+				backgroundColor : css.DARKBACKGROUND
 			})
 		
 			
@@ -143,7 +130,7 @@ function fn(type,cnt) {
 			    contentHeight:'auto',
 				width:350, height:50,
 				//backgroundColor:"#ddd",
-				backgroundColor:"#000",
+				backgroundColor:css.DARKBACKGROUND,
 				opacity:0.7
 			})
 		
@@ -151,7 +138,7 @@ function fn(type,cnt) {
 				height:Ti.UI.SIZE,
 				width : 300,
 				left:20,
-				color : "#fff",
+				color : css.VERYLIGHTCOLOUR,
 				//text : "A"+item.title,
 				text : item.title,
 				font : {
@@ -160,7 +147,7 @@ function fn(type,cnt) {
 			});
 			
 			var self2 = Titanium.UI.createView({
-				left:0,right:0,width:350, height:190,backgroundColor : "#000"
+				left:0,right:0,width:350, height:190,backgroundColor : css.DARKBACKGROUND
 			})			
 			self2.add(img);
 //			self2.add(rt);
@@ -177,7 +164,7 @@ function fn(type,cnt) {
 	} else {
 		var self = Titanium.UI.createView({
 			left:20,top:20,
-			width:250, height:120,backgroundColor : "transparent", borderColor : "#000", borderWidth:0
+			width:250, height:120,backgroundColor : "transparent", borderColor : css.DARKBACKGROUND, borderWidth:0
 		})
 		function clearthisB(e) {
 			try {
@@ -236,7 +223,7 @@ function fn(type,cnt) {
 				height:250,
 				xinview : 0,
 				//backgroundColor : "#eee",
-				backgroundColor : "#000",
+				backgroundColor : css.DARKBACKGROUND,
 				image : '/images/10x10.gif',
 				defaultImage :  '/images/10x10.gif',
 //				image: item.enclosure,
@@ -245,14 +232,14 @@ function fn(type,cnt) {
 				xindent: item.id,
 				xtyp: item.type,
 				xguid : item.guid,
-				borderColor:'#000',borderWidth:0
+				borderColor:css.DARKBACKGROUND,borderWidth:0
 			});
 			var offscreen = function() {
 //				img.borderWidth = 1;
 				if (img.xinview == 1) {
 					img.image = "/images/10x10.gif";
 					self.borderWidth = 0;
-					self.backgroundColor = "#000000";
+					self.backgroundColor = css.DARKBACKGROUND;
 //					img.borderWidth = 3;
 				}
 //				img.borderColor = "#ff0000";
@@ -276,25 +263,12 @@ function fn(type,cnt) {
 				Ti.API.info(self.ximage_backup);
 				self.ximage = self.ximage_backup;
 				img.image = self.ximage_backup;
-//				E.source.borderColor = "#0000ff";
 			});
 			img.addEventListener("load", function(E) {
 				self.borderWidth = 0;
-				self.backgroundColor = "#000000";
+				self.backgroundColor = css.DARKBACKGROUND;
 			});
 
-			// var img = Titanium.UI.createWebView({
-				// left:0,top:0,
-				// width:250,
-				// height:250,
-				// html : "<html><head></head><body TOPMARGIN='0' LEFTMARGIN='0' MARGINHEIGHT='0' MARGINWIDTH='0'><img src='"+item.enclosure+"' style='border:0;padding:0;margin:0;' width='250'></body></html>",
-				// xcnt : cnt,
-				// xguid : item.guid,
-				// xindent: item.id,
-				// xtyp: item.type,
-				// borderColor:'#777',borderWidth:1
-			// })
-			
 			
 			img.addEventListener("click",click);
 			
@@ -304,7 +278,7 @@ function fn(type,cnt) {
 			    contentHeight:'auto',
 				width:250, height:50,
 				///backgroundColor:"#ddd",
-				backgroundColor:"#000",
+				backgroundColor:css.DARKBACKGROUND,
 //				opacity:0.9
 				opacity:0.7
 			})
@@ -312,7 +286,7 @@ function fn(type,cnt) {
 			var txt1 = Titanium.UI.createLabel({
 				height:Ti.UI.SIZE,
 				width : 200,
-				color : "#fff",
+				color : css.VERYLIGHTCOLOUR,
 				text : item.title,
 				font : {
 					fontFamily : "arial"
@@ -320,7 +294,7 @@ function fn(type,cnt) {
 			});
 			
 			var self2 = Titanium.UI.createView({
-				left:0,right:0,top:0,bottom:0,backgroundColor : "#000", opacity:0
+				left:0,right:0,top:0,bottom:0,backgroundColor : css.DARKBACKGROUND, opacity:0
 			})			
 			self2.add(img);
 			self2.add(txt);
