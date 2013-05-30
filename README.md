@@ -21,8 +21,8 @@ prerequisits
 * server with php / mysql (free)
 * 4 x titanium components which are all free (you can remove the flurry code if you don't have or want a flurry account):
 <pre>
-        <module platform="iphone" version="1.1">dk.napp.social</module>
-        <module platform="iphone" version="1.0">de.marcelpociot.twitter</module>
-        <module platform="iphone" version="1.1.1">com.onecowstanding.flurry</module>
-        <module platform="android" version="1.1.1">com.onecowstanding.flurry</module>
+        module platform="iphone" version="1.1">dk.napp.social
+        module platform="iphone" version="1.0">de.marcelpociot.twitter
+        module platform="iphone" version="1.1.1">com.onecowstanding.flurry
+        module platform="android" version="1.1.1">com.onecowstanding.flurry
 </pre>
