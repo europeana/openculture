@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <deployment-targets>
+        <target device="tizen">false</target>
         <target device="mobileweb">true</target>
         <target device="iphone">true</target>
         <target device="ipad">true</target>
-        <target device="android">false</target>
+        <target device="android">true</target>
         <target device="blackberry">false</target>
     </deployment-targets>
-    <sdk-version>2.1.4.GA</sdk-version>
+    <sdk-version>3.1.4</sdk-version>
     <id>com.glimworm.app.europeana</id>
     <name>europeana</name>
-    <version>1.0</version>
+    <version>2.0</version>
     <publisher>jc</publisher>
     <url>http://</url>
-    <description>not specified </description>
+    <description>not specified</description>
     <copyright>2013 by jc</copyright>
     <icon>appicon.png</icon>
     <persistent-wifi>false</persistent-wifi>
@@ -44,15 +45,50 @@
     </ios>
     <iphone>
         <orientations device="iphone">
+            <orientation>Ti.UI.PORTRAIT</orientation>
+            <orientation>Ti.UI.UPSIDE_PORTRAIT</orientation>
             <orientation>Ti.UI.LANDSCAPE_LEFT</orientation>
             <orientation>Ti.UI.LANDSCAPE_RIGHT</orientation>
         </orientations>
         <orientations device="ipad">
             <orientation>Ti.UI.LANDSCAPE_LEFT</orientation>
             <orientation>Ti.UI.LANDSCAPE_RIGHT</orientation>
+            <orientation>Ti.UI.PORTRAIT</orientation>
+            <orientation>Ti.UI.UPSIDE_PORTRAIT</orientation>
         </orientations>
     </iphone>
-    <android xmlns:android="http://schemas.android.com/apk/res/android"/>
+    <android xmlns:android="http://schemas.android.com/apk/res/android">
+        <manifest>
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+			<compatible-screens>
+				<!-- see http://stackoverflow.com/questions/11691775/why-my-app-is-not-showing-up-on-tablets-in-google-play -->
+			    <!--no small size screens -->
+			
+			    <!--all normal size screens -->
+			
+			    <!-- all large size screens -->
+			    <screen android:screenSize="large" android:screenDensity="ldpi" />
+			    <screen android:screenSize="large" android:screenDensity="mdpi" />
+			    <screen android:screenSize="large" android:screenDensity="hdpi" />
+			    <screen android:screenSize="large" android:screenDensity="xhdpi" />
+			
+			    <!-- all xlarge size screens -->
+			    <screen android:screenSize="xlarge" android:screenDensity="ldpi" />
+			    <screen android:screenSize="xlarge" android:screenDensity="mdpi" />
+			    <screen android:screenSize="xlarge" android:screenDensity="hdpi" />
+			    <screen android:screenSize="xlarge" android:screenDensity="xhdpi" />
+			
+			    <!-- Special case for Nexus 7 -->
+			    <screen android:screenSize="large" android:screenDensity="213" />
+			
+			</compatible-screens>
+
+
+
+
+        </manifest>
+    </android>
     <mobileweb>
         <precache/>
         <splash>
@@ -62,10 +98,9 @@
         <theme>default</theme>
     </mobileweb>
     <modules>
-        <module platform="iphone" version="1.1">dk.napp.social</module>
-        <module platform="commonjs" version="2.3.1">ti.cloud</module>
-        <module platform="iphone" version="1.0">de.marcelpociot.twitter</module>
         <module platform="iphone" version="1.1.1">com.onecowstanding.flurry</module>
         <module platform="android" version="1.1.1">com.onecowstanding.flurry</module>
+        <module platform="iphone" version="1.7.0">dk.napp.social</module>
     </modules>
+    <property name="ti.deploytype">test</property>
 </ti:app>
