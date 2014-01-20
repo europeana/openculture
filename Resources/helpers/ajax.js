@@ -7,13 +7,13 @@ function ajax(xhr_index) {
 exports.ajax = ajax;
 exports.getxhr = function(num) {
 	return this.xhr[num];
-}
+};
 exports.getxhr = function(num, xhr) {
 	this.xhr[num] = num;
-}
+};
 exports.destroyxhr = function(num) {
 	this.xhr[num] = null;
-}
+};
 
 exports.getdata = function(obj) {
 
@@ -97,25 +97,29 @@ exports.getdata = function(obj) {
 	xhr.setTimeout(x_timeout);
 	xhr.onerror = function(e) {
 		Titanium.API.debug("error");
+		Titanium.API.debug(e);
+		Titanium.API.debug(e.source);
+		Titanium.API.debug(e.source.url);
 		if (!obj.hideErrors) {
 			alert(e.error);
+			alert(obj.url);
 		}
-		this.xhr[obj.index] = null;
+//		this.xhr[obj.index] = null;
 		if (obj.err) obj.err(e);
 //		if (obj.image) ind.destroy();
 		if (!obj.hideIndicator) Ti.App.fireEvent("hide_indicator");
 	};
 	xhr.onreadystatechange = function(e) {
 		//actIndMsg.text = "ready state change ("+(actIndMsgCnt++)+")";
-	}
+	};
 	xhr.onsendstream = function(e) {
 //		if (obj.image) ind.value = e.progress ;
 		//actIndMsg.text = "sendstream ("+(actIndMsgCnt++)+")";
-	}
+	};
 	xhr.ondatastream = function(e) {
 		Titanium.API.debug(e);
 		//actIndMsg.text = "datastream ("+(actIndMsgCnt++)+")";
-	}
+	};
 	xhr.open(x_method,obj.url,x_asynchronous);
 	xhr.send(obj.data);
 };

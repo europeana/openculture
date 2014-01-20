@@ -1,10 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-	<string name="#DATA_PROVIDER">By Data Providor</string>
-	<string name="#LANGUAGE">By Language</string>
-	<string name="#YEAR">By Year</string>
-	<string name="#PROVIDER">By Providor</string>
-	<string name="#COUNTRY">By Country</string>
-	<string name="#RIGHTS">By Rights</string>
-	<string name="#TYPE">By Type</string>
+	<string name="lang">nl</string>
+	<string name="sechead_DATA_PROVIDER">Op data aanbieder</string>
+	<string name="sechead_LANGUAGE">Op taal</string>
+	<string name="sechead_YEAR">Op jaar</string>
+	<string name="sechead_PROVIDER">Op aanbieder</string>
+	<string name="sechead_COUNTRY">Op land</string>
+	<string name="sechead_RIGHTS">Op rechten</string>
+	<string name="sechead_TYPE">Op type</string>
+	<string name="sidenav_info">info</string>
+	<string name="sidenav_favourite">Favoriet</string>
+	<string name="sidenav_connect">Koppelen</string>
+	<string name="sidenav_comment">Schrijf een reactie</string>
+	<string name="sidenav_share">Deel</string>
+	<string name="post_a_comment">Reageer</string>
+	<string name="What">Wat</string>
+	<string name="Where">Waar</string>
+	<string name="When">Wanneer</string>
+	<string name="Who">Wie</string>
+	<string name="General_link">Algemene link</string>
+	<string name="what">Wat</string>
+	<string name="where">Waar</string>
+	<string name="when">Wanneer</string>
+	<string name="who">Wie</string>
+	<string name="general_link">Algemene link</string>
+	<string name="comment">Schrijf een reactie</string>
+	<string name="add_comment_window_head">Voeg je reactie toe</string>
+	<string name="Add_Link">Voeg link toe</string>
+	<string name="pin_to_pinterest">Pin op Pinterest</string>
+	<string name="What_do_you_want_to_say">Wat wil je zeggen?</string>
+	<string name="Almost_there">Selecteer een categorie voor je connectie</string>
+	<string name="Final_step">De laatste stap, beschrijf alsjeblieft je connectie</string>
+	<string name="add_link_error">Geef een omschrijving en geef aan wat het omschrijft (WAT, WAAR, WANNEER, WIE, ALGEMEEN) voordat je de link toevoegt.</string>
+	<string name="sidemenu_Home">Home</string>
+	<string name="sidemenu_Results">zoekresultaten</string>
+	<string name="sidemenu_Favourutes">Je favorieten</string>
+	<string name="sidemenu_Help">Help</string>
+	<string name="Help">Help</string>
+	<string name="search_hint">Verken een gedeelte van Europeana’s collecties</string>
+	<string name="Send">Verzenden</string>
+	<!-- new -->
+	<string name="sechead_BYTYPE">Op type</string>
+	<string name="Refine_your_results">Verfijn uw resultaten</string>
+	<string name="Add_more_keywords">Meer zoekwoorden toe te voegen</string>
+	<string name="Matches_for">Overeenkomsten voor</string>
+	<string name="share_on_facebook">Delen op Facebook</string>
+	<string name="share_on_twitter">Delen op Twitter</string>
+	<string name="pin_on_pinterest">Pin op Pinterest</string>
+	<string name="share_option_cancel">Annuleren</string>
+	<string name="share_option_title">Delen</string>
+	<string name="Refine">Verfijnen</string>
+	<string name="sechead_queryset">Thema</string>
+	<!-- v1.4.x -->
+	<string name="close_app">Close App</string>
+	<string name="locale_message">The Language on the device has changed, the application needs to close and restart</string>
+	<string name="locale_title">Language Change Detected</string>
+	<string name="translate">translate</string>
+	<string name="translate_text">Automatically translating your search will result in better results, however it will take longer</string>
+	<string name="sidenav_download">download</string>
+	<string name="Photo_Gallery">Foto Galerie</string>
+	<string name="Image_saved">Afbeelding is gedowndload</string>
+	<string name="Error_saving_image">Er is een fout opgetreden tijdens het downloaden van de afbeelding</string>
+	<string name="download_message">Wilt u de afbeelding opslaan</string>
+	<string name="download_title">Afbeelding opslaan</string>
+	<string name="Confirm">OK</string>
+	<string name="Cancel">Annuleren</string>
+	<string name="Load_More">Laad meer</string>
+	<!-- end -->
 </resources>

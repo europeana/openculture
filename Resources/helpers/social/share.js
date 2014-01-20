@@ -17,7 +17,7 @@ exports.iosversion = function(){
         return Number(major);
     }
     return 0;
-}
+};
 
 exports.facebook = function(message, image, url, onlytest,appid) {
 
@@ -39,7 +39,7 @@ exports.facebook = function(message, image, url, onlytest,appid) {
 			type: "text/plain" 
 		});
 	
-		intent.putExtra(Ti.Android.EXTRA_TEXT, message);
+		intent.putExtra(Ti.Android.EXTRA_TEXT, message + " " + url);
 		intent.addCategory(Ti.Android.CATEGORY_DEFAULT);
 		Ti.Android.currentActivity.startActivity(intent);	
 
@@ -88,7 +88,7 @@ exports.facebook = function(message, image, url, onlytest,appid) {
 		}
 		if (onlytest) return false;
 	}
-}
+};
 
 exports.tweet = function(message, image, url, onlytest) {
 	
@@ -104,15 +104,24 @@ exports.tweet = function(message, image, url, onlytest) {
 
 	if (Ti.Platform.osname === 'android') {
 		if (onlytest) return false;
-		
+
+				
 		var intent = Ti.Android.createIntent({
 			action: Ti.Android.ACTION_SEND,
+//			packageName : "com.twitter.android",
 			type: "text/plain" 
 		});
-	
-		intent.putExtra(Ti.Android.EXTRA_TEXT, message);
+		
+		intent.putExtra(Ti.Android.EXTRA_SUBJECT, message + " " + url);
+		intent.putExtra(Ti.Android.EXTRA_TEXT, message + " " + url);
+		intent.putExtraUri(Ti.Android.EXTRA_STREAM,url);
 		intent.addCategory(Ti.Android.CATEGORY_DEFAULT);
-		Ti.Android.currentActivity.startActivity(intent);	
+		try {
+			Ti.Android.currentActivity.startActivity(intent);	
+		} catch (E) {
+			intent.packageName = "";			
+			Ti.Android.currentActivity.startActivity(intent);	
+		}
 
 	} else {
 		var version = this.iosversion();
@@ -178,7 +187,7 @@ exports.tweet = function(message, image, url, onlytest) {
 		}
 		if (onlytest) return false;
 	}
-}
+};
 
 exports.ShareButton = function( message, image, url) {
 	

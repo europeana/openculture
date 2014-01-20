@@ -48,6 +48,7 @@ exports.FONTFAMILY_NARROW = "Futura-CondensedMedium";
 exports.DARKBACKGROUND = "#000000";
 exports.LIGHTCOLOUR = "#777777";
 exports.VERYLIGHTCOLOUR = "#ffffff";
+exports.POPUPBACKGROUND = "#ffffff";
 
 
 exports.addWinBackground = function(obj) {

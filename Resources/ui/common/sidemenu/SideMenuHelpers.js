@@ -1,15 +1,18 @@
 exports.config = {
-	width : 400,
+	width : (Ti.Platform.osname === 'iphone') ? 320 : 400,
 	tab1 : 20,
 	tab2 : 40,
 	tab3 : 70,
-	tab4 : 340,
-	tab5 : 360,
-	tab6 : 380,
+	tab3a : 180,	// for small side main menu
+	tab4 : (Ti.Platform.osname === 'iphone') ? 260 : 340,
+	tab5 : (Ti.Platform.osname === 'iphone') ? 280 : 360,
+	tab6 : (Ti.Platform.osname === 'iphone') ? 300 : 380,
+	menu_tab1 : 10,
+	menu_tab2 : 40,
 	bgc : "#333333",
 	borderWidth : 0,	// make 1 for debug
 	fontfamily : 'arial',
-	fontfamilyicons : "icomoon",	//'icomoon',
+	fontfamilyicons : (Ti.Platform.osname == 'android') ? "europeana": "icomoon",	//'icomoon',
 	fontcolor : "#ffffff",
 	fontcolor_filters : "#cccccc",
 	fontcolor_normal : "#ffffff",
@@ -28,7 +31,7 @@ exports.config = {
 		height : 40,
 		bgc : "#ffffff"
 	}
-}
+};
 
 exports.basicView = function() {	// basic view
 	return Ti.UI.createView({
@@ -40,19 +43,19 @@ exports.basicView = function() {	// basic view
 		borderWidth : this.config.borderWidth,
 		borderColor : "#00cc00"
 	});
-}
+};
 exports.font = function(SIZE) {
 	return {
 		fontSize : SIZE,
 		fontFamily : this.config.fontfamily
-	}
-}
+	};
+};
 exports.fonticons = function(SIZE) {
 	return {
 		fontSize : SIZE,
 		fontFamily : this.config.fontfamilyicons
-	}
-}
+	};
+};
 
 exports.H1 = function(TEXT) {	// heading 1
 	var self = this.basicView();
@@ -69,7 +72,7 @@ exports.H1 = function(TEXT) {	// heading 1
 		font : this.font(this.config.fontsize.h1)
 	}));
 	return self;
-}
+};
 
 exports.H2 = function(TEXT) {	// heading 1
 	var self = this.basicView();
@@ -81,7 +84,7 @@ exports.H2 = function(TEXT) {	// heading 1
 		font : this.font(this.config.fontsize.h2)
 	}));
 	return self;
-}
+};
 
 
 exports.textbox = function(TEXTBOX) {	// textbox 1
@@ -95,7 +98,7 @@ exports.textbox = function(TEXTBOX) {	// textbox 1
 	TEXTBOX.paddingLeft = 20;
 	self.add(TEXTBOX);
 	return self;
-}
+};
 
 
 exports.spacer = function() {	// spacer line
@@ -109,7 +112,11 @@ exports.spacer = function() {	// spacer line
 		height : 1
 	}));
 	return self;
-}
+};
+
+
+
+
 
 exports.matchingLine = function(TEXT,XLINK,XINDEX) {	// heading 1
 	var self = this.basicView();
@@ -140,8 +147,58 @@ exports.matchingLine = function(TEXT,XLINK,XINDEX) {	// heading 1
 		color : this.config.fontcolor_filters,
 		font : this.fonticons(this.config.fontsize.iconminus)
 	}));
+	self.xlink = XLINK;
+	self.xindex = XINDEX;
 	return self;
-}
+};
+
+exports.arrow = function(CHAR) {
+	var arrow = Ti.UI.createLabel({
+		text : CHAR,
+		top : 0,
+		left : this.config.menu_tab1,
+		xlink : 1,
+		touchEnabled : true,
+		textAlign : 'left',
+		width : (this.config.tab2 - this.config.tab1),
+		color : this.config.fontcolor_normal,
+		font : this.fonticons(this.config.fontsize.normal)
+	});
+	return(arrow);
+};
+exports.mainmenuitem = function(TEXT,CHAR) {	// heading 1
+	var self = this.basicView();
+	self.top = 6;
+	self.bottom = 6;
+	// the text
+	self.add(Ti.UI.createLabel({
+		text : TEXT,
+		top : 0,
+		xlink : 1,
+		touchEnabled : true,
+		left : this.config.menu_tab2,
+		height : Ti.UI.SIZE,
+		width : Ti.UI.SIZE,
+		color : this.config.fontcolor_normal,
+		font : this.font(this.config.fontsize.normal)
+	}));
+
+	// the (-) symbol
+	var arrow = Ti.UI.createLabel({
+		text : CHAR,
+		top : 0,
+		left : this.config.menu_tab1,
+		xlink : 1,
+		touchEnabled : true,
+		textAlign : 'left',
+		width : (this.config.tab2 - this.config.tab1),
+		color : this.config.fontcolor_normal,
+		font : this.fonticons(this.config.fontsize.normal)
+	});
+	self.add(arrow);
+	return self;
+};
+
 
 exports.sectionhead = function(TEXT) {	// heading 1
 	var self = this.basicView();
@@ -155,7 +212,8 @@ exports.sectionhead = function(TEXT) {	// heading 1
 		touchEnabled : true,
 		left : this.config.tab2,
 		height : Ti.UI.SIZE,
-		width : Ti.UI.SIZE,
+		width : Ti.UI.FILL,
+		textAlign : "left",
 		color : this.config.fontcolor_normal,
 		font : this.font(this.config.fontsize.normal)
 	}));
@@ -176,7 +234,7 @@ exports.sectionhead = function(TEXT) {	// heading 1
 	self.addEventListener("open",function() {	arrow.text = "j"; })
 	self.addEventListener("close",function() {	arrow.text = "i"; })
 	return self;
-}
+};
 
 
 exports.option = function(TEXT,XLINK,XNAME) {	// heading 1
@@ -187,7 +245,10 @@ exports.option = function(TEXT,XLINK,XNAME) {	// heading 1
 	self.add(Ti.UI.createLabel({
 		text : TEXT,
 		top : 0,
-		touchEnabled : false,
+//		touchEnabled : false,
+		xlink : XLINK,
+		xname : XNAME,
+		touchEnabled : true,
 		left : this.config.tab3,
 		height : Ti.UI.SIZE,
 		width : (this.config.tab6 - this.config.tab3),
@@ -209,7 +270,7 @@ exports.option = function(TEXT,XLINK,XNAME) {	// heading 1
 		font : this.fonticons(this.config.fontsize.iconplus)
 	}));
 	return self;
-}
+};
 
 exports.pagination = function(PG,MAX) {
 	var self = this.basicView();
@@ -274,4 +335,4 @@ exports.pagination = function(PG,MAX) {
 
 	return self;
 	
-}
+};

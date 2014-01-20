@@ -2,7 +2,7 @@ exports.config = {
 	Flurry : null
 }
 
-exports.log = function (event, obj) {
+exports.log = function (event, obj, detail) {
 	/*
 	 *  example usage
 	 * 
@@ -30,4 +30,16 @@ exports.log = function (event, obj) {
 		this.config.Flurry.startSession('BHYJ6HRTFND3F9NKXYDJ');		/* <-- PUT YOUR API KEY HERE */
 	}
     this.config.Flurry.logEvent(event, obj);
-}
+    
+	var xhr = Titanium.Network.createHTTPClient({ 
+		timeout: 10000 
+	}); 
+	if (detail && detail != "") {
+		xhr.open('GET',require("/etc/config").api+"?action=log&event="+event+"&details="+detail); 
+	} else {
+		xhr.open('GET',require("/etc/config").api+"?action=log&event="+event); 
+	}
+	xhr.send();							
+    
+    
+};

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="lang">fr</string>
+	<string name="sechead_DATA_PROVIDER">Fournisseur de données</string>
+	<string name="sechead_LANGUAGE">Choisir une langue</string>
+	<string name="sechead_YEAR">Par année</string>
+	<string name="sechead_PROVIDER">Par fournisseur</string>
+	<string name="sechead_COUNTRY">Par pays</string>
+	<string name="sechead_RIGHTS">Par droits</string>
+	<string name="sechead_TYPE">Par type</string>
+	<string name="sidenav_info">Information</string>
+	<string name="sidenav_favourite">Favoris</string>
+	<string name="sidenav_connect">Connecter</string>
+	<string name="sidenav_comment">Commenter</string>
+	<string name="sidenav_share">Partager</string>
+	<string name="post_a_comment">Publier un commentaire</string>
+	<string name="What">Quoi</string>
+	<string name="Where">Où</string>
+	<string name="When">Quand</string>
+	<string name="Who">Qui</string>
+	<string name="General_link">Lien général</string>
+	<string name="what">Quoi</string>
+	<string name="where">Où</string>
+	<string name="when">Quand</string>
+	<string name="who">Qui</string>
+	<string name="general_link">Lien général </string>
+	<string name="comment">Commenter</string>
+	<string name="add_comment_window_head">Ajouter un commentaire</string>
+	<string name="Add_Link">Ajouter un lien</string>
+	<string name="pin_to_pinterest">Epingler sur Pinterest</string>
+	<string name="What_do_you_want_to_say">Que voulez-vous dire?</string>
+	<string name="Almost_there">Sélectionnez maintenant une catégorie pour vote connexion</string>
+	<string name="Final_step">Enfin, décrivez la connexion que vous établissez. </string>
+	<string name="add_link_error">Ecrivez une description and indiquez l’objet de la description (Quoi, Où, Quand, Qui, Général) avant d’ajouter un lien.</string>
+	<string name="sidemenu_Home">Accueil</string>
+	<string name="sidemenu_Results">Les résultats de votre recherche</string>
+	<string name="sidemenu_Favourutes">Vos féavoris</string>
+	<string name="sidemenu_Help">Aide</string>
+	<string name="Help">Aide</string>
+	<string name="search_hint">Chercher une sélection de collections de Europeana</string>
+	<string name="Send">Envoyer</string>
+	<!-- new -->
+	<string name="sechead_BYTYPE">Par type</string>
+	<string name="Refine_your_results">Affiner vos résultats</string>
+	<string name="Add_more_keywords">Ajouter des mots clés</string>
+	<string name="Matches_for">Correspondance pour</string>
+	<string name="share_on_facebook">Partager sur Facebook</string>
+	<string name="share_on_twitter">Partager sur Twitter</string>
+	<string name="pin_on_pinterest">Epingler sur Pinterest</string>
+	<string name="share_option_cancel">Annuler</string>
+	<string name="share_option_title">Partager</string>
+	<string name="Refine">Affiner</string>
+	<string name="sechead_queryset">Thème</string>
+	<!-- v1.4.x -->
+	<string name="close_app">Fermer l’application</string>
+	<string name="locale_message">La langue de votre appareil a changé, l’application a besoin d’être fermée et redémarrée.</string>
+	<string name="locale_title">Changement de langue détecté</string>
+	<string name="translate">Traduire</string>
+	<string name="translate_text">Traduire automatiquement vos recherches donne de meilleurs résultats.</string>
+	<string name="sidenav_download">Télécharger</string>
+	<string name="Photo_Gallery">Galerie photo</string>
+	<string name="Image_saved">Image téléchargée</string>
+	<string name="Error_saving_image">Erreur survenue pendant le téléchargement de l’image</string>
+	<string name="download_message">Voulez-vous enregistrer l’image?</string>
+	<string name="download_title">Enregistrer l'image</string>
+	<string name="Confirm">Confirmer</string>
+	<string name="Cancel">Annuler</string>
+	<string name="Load_More">Charger plus</string>
+	<!-- end -->
+</resources>

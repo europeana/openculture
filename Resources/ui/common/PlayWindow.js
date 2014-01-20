@@ -849,6 +849,8 @@ function fn(identifier,cnt,typ) {
 	ajax.getdata({
 		url : require("/etc/config").api+"?action=json-get&identifier="+identifier,
 		fn : function(e) {
+			Ti.API.debug("BBBBBB GOT DATA");
+			
 			Ti.API.info(e);
 			searchtitle = e.data[0].ccsearchterm;
 			twitter_image = e.data[0].twitter_image;
@@ -1198,6 +1200,7 @@ function fn(identifier,cnt,typ) {
 			
 			self.add(view);
 			view22.add(view4);
+			Ti.API.debug("AAAAAA - 99");
 			
 			
 			var lbl121 = Ti.UI.createImageView({
@@ -1268,6 +1271,7 @@ function fn(identifier,cnt,typ) {
 			
 			html = "<img src='"+ e.data[0].img+"' style='background-color:black;border:0;padding:0;margin:0;' width='100%'>";
 			
+			Ti.API.debug("AAAAAA - 999");
 
 			// self.add(Titanium.UI.createWebView({
 				// left:514,bottom:40,right:0, height:200, url : "http://www.wikipedia.com"
@@ -1374,74 +1378,79 @@ function fn(identifier,cnt,typ) {
 			// })
 			// view.add(txt);
 			
-			for (var i=0; i < e.data.suggestions.length; i++) {
-				var s = e.data.suggestions[i];
-				
-				
-				if (s.indexOf("FOUND NODE ") == 0) {
-					Titanium.API.info(s);
-					var node = s.substring(11);
-					var nodenum = s.substring(54);
-					currentlink = node;
-					Titanium.API.info(nodenum);
-					Titanium.API.info(s);
-					var txt = Titanium.UI.createLabel({
-						bottom:10,
-						height : 20,
-						text : node + " / " + nodenum,
-						font : {fontFamily : "arial"}
-					})
-					view.add(txt);
+			Ti.API.debug("AAAAAA - 9999");
+			if (e.data && e.data.susuggestions) {
+			
+				for (var i=0; i < e.data.suggestions.length; i++) {
+					var s = e.data.suggestions[i];
 					
 					
-					var s = require("/helpers/LocalStorage").getString("myself");
-					var ss = s.split("/");
-					var myid = ss[ss.length-1];
-					ajax.getdata({
-						url : "http://europeanaapp.glimworm.com/api.php?action=json-path&from="+myid+"&to="+nodenum,
-						fn : function(e1) {
-							Titanium.API.info(e1);
-							var txt1 = Titanium.UI.createLabel({
-								bottom:40,
-								height : 150,
-								text : e1.data.txt,
-								font : {fontFamily : "arial"}
-							})
-//							view2.add(txt1);
-							path = e1.data.arr1;
-							
-							displayPath([]);
-
-							// for (var i=0; i < e1.data; i++) {
-								// var path = e1.data[i];
-								// var length = path.length;
-								// for (var j=0; j < path.relationships.length; j++) {
-// 									
+					if (s.indexOf("FOUND NODE ") == 0) {
+						Titanium.API.info(s);
+						var node = s.substring(11);
+						var nodenum = s.substring(54);
+						currentlink = node;
+						Titanium.API.info(nodenum);
+						Titanium.API.info(s);
+						var txt = Titanium.UI.createLabel({
+							bottom:10,
+							height : 20,
+							text : node + " / " + nodenum,
+							font : {fontFamily : "arial"}
+						})
+						view.add(txt);
+						
+						
+						var s = require("/helpers/LocalStorage").getString("myself");
+						var ss = s.split("/");
+						var myid = ss[ss.length-1];
+						ajax.getdata({
+							url : "http://europeanaapp.glimworm.com/api.php?action=json-path&from="+myid+"&to="+nodenum,
+							fn : function(e1) {
+								Titanium.API.info(e1);
+								var txt1 = Titanium.UI.createLabel({
+									bottom:40,
+									height : 150,
+									text : e1.data.txt,
+									font : {fontFamily : "arial"}
+								})
+	//							view2.add(txt1);
+								path = e1.data.arr1;
+								
+								displayPath([]);
+	
+								// for (var i=0; i < e1.data; i++) {
+									// var path = e1.data[i];
+									// var length = path.length;
+									// for (var j=0; j < path.relationships.length; j++) {
+	// 									
+									// }
 								// }
-							// }
-							
-						}
-					});
-				} else if (s.indexOf("TERM") == 0) {
-					var txt = Titanium.UI.createLabel({
-						bottom:10,
-						height : 20,
-						text : s,
-						font : {fontFamily : "arial"}
-					})
-					view.add(txt);
-					
-				} else if (s.indexOf("CON") == 0) {
-					var txt = Titanium.UI.createLabel({
-						bottom:10,
-						height : 20,
-						text : s,
-						font : {fontFamily : "arial"}
-					})
-					view.add(txt);
-					
+								
+							}
+						});
+					} else if (s.indexOf("TERM") == 0) {
+						var txt = Titanium.UI.createLabel({
+							bottom:10,
+							height : 20,
+							text : s,
+							font : {fontFamily : "arial"}
+						})
+						view.add(txt);
+						
+					} else if (s.indexOf("CON") == 0) {
+						var txt = Titanium.UI.createLabel({
+							bottom:10,
+							height : 20,
+							text : s,
+							font : {fontFamily : "arial"}
+						})
+						view.add(txt);
+						
+					}
 				}
 			}
+			Ti.API.debug("AAAAAA - 99999-END");
 			
 		}
 	})
@@ -1471,7 +1480,9 @@ function fn(identifier,cnt,typ) {
 	
 	var uuid = require("/ui/common/globals").getuuid();
 	
+Ti.API.debug("AAAAAA");
 	globals.openmodalfull(self);	
+Ti.API.debug("AAAAAA2");
 	//setTimeout(globals.openmodalfull(self),5000);
 	//alert(self);	
 	

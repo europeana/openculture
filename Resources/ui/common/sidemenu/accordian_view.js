@@ -23,7 +23,7 @@ exports.createView = function(obj) {
 	} else {
 		var headertext = Ti.UI.createLabel({
 			text : obj.headertext
-		})
+		});
 		headerview.add(headertext);
 	}
 	
@@ -33,9 +33,9 @@ exports.createView = function(obj) {
 		width : Ti.UI.FILL,
 		backgroundColor : "#333",
 		xexpanded : 0
-	})
+	});
 	var open = function() {
-		mainview.height = 200;
+		mainview.height = (Ti.Platform.osname === 'android') ? Ti.UI.SIZE : 200;
 		mainview.xexpanded = 1;
 		headerview.fireEvent("open",{});
 		if (content != null) {
@@ -55,7 +55,7 @@ exports.createView = function(obj) {
 					var newContent = content.call(this,(obj.parameters) ? obj.parameters : obj );
 					mainview.add(newContent);
 					mainview.remove(spin);
-				}
+				};
 				setTimeout(contentfn,1);
 			} else {
 				alert(typeof content);
@@ -77,10 +77,10 @@ exports.createView = function(obj) {
 	};
 	var isopen = function() {
 		return (mainview.xexpanded == 1);
-	}
+	};
 	var isclosed = function() {
 		return (mainview.xexpanded == 0);
-	}
+	};
 	
 	var toggle = function(e) {
 		if (!e || !e.source || !e.source.xlink) return;
@@ -89,7 +89,7 @@ exports.createView = function(obj) {
 		} else {
 			if (animated == true) slideopen(); else open();
 		}
-	}
+	};
 	headerview.addEventListener('click',toggle);
 	view.add(headerview);
 	view.add(mainview);
@@ -106,4 +106,4 @@ exports.createView = function(obj) {
 	
 	return self;
 	
-}
+};

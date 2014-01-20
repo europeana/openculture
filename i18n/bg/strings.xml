@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="lang">bg</string>
+	<string name="sechead_DATA_PROVIDER">По доставчик на съдържание</string>
+	<string name="sechead_LANGUAGE">По език</string>
+	<string name="sechead_YEAR">По година</string>
+	<string name="sechead_PROVIDER">По доставчик </string>
+	<string name="sechead_COUNTRY">По страна</string>
+	<string name="sechead_RIGHTS">По права</string>
+	<string name="sechead_TYPE">По вид</string>
+	<string name="sidenav_info">Информация</string>
+	<string name="sidenav_favourite">Предпочитания</string>
+	<string name="sidenav_connect">Свързване</string>
+	<string name="sidenav_comment">Коментар</string>
+	<string name="sidenav_share">Споделяне</string>
+	<string name="post_a_comment">Публикувай коментар</string>
+	<string name="What">Какво</string>
+	<string name="Where">Къде</string>
+	<string name="When">Кога</string>
+	<string name="Who">Кой</string>
+	<string name="General_link">Линк</string>
+	<string name="what">Какво</string>
+	<string name="where">Къде</string>
+	<string name="when">Кога</string>
+	<string name="who">Кой</string>
+	<string name="general_link">Линк</string>
+	<string name="comment">Коментар</string>
+	<string name="add_comment_window_head">Добави коментар</string>
+	<string name="Add_Link">Добави линк</string>
+	<string name="pin_to_pinterest">Добави в Pinterest</string>
+	<string name="What_do_you_want_to_say">Какво искате да споделите?</string>
+	<string name="Almost_there">Моля, изберете категория за Вашата връзка</string>
+	<string name="Final_step">Последно, моля, опишете връзката, която правите</string>
+	<string name="add_link_error">Моля, въведете описание и посочете неговия вид (Какво, Къде, Кога, Кой, Общо) преди да добавите линк</string>
+	<string name="sidemenu_Home">Начална страница</string>
+	<string name="sidemenu_Results">Резултати от търсенето</string>
+	<string name="sidemenu_Favourutes">Вашите предпочитания</string>
+	<string name="sidemenu_Help">Помощ</string>
+	<string name="Help">Помощ</string>
+	<string name="search_hint">Търси по ключова дума в колекциите в Европеана</string>
+	<string name="Send"> Изпрати</string>
+	<!-- new -->
+	<string name="sechead_BYTYPE">По вид</string>
+	<string name="Refine_your_results">Ограничете резултатите</string>
+	<string name="Add_more_keywords">Добави още ключови думи</string>
+	<string name="Matches_for">резултати</string>
+	<string name="share_on_facebook">Сподели във Facebook</string>
+	<string name="share_on_twitter">Сподели във Twitter</string>
+	<string name="pin_on_pinterest">Добави в Pinterest</string>
+	<string name="share_option_cancel">Отказ</string>
+	<string name="share_option_title">Споделяне</string>
+	<string name="Refine">Детайлно търсене</string>
+	<string name="sechead_queryset">тема</string>
+	<!-- v1.4.x -->
+	<string name="close_app">Затвори приложението</string>
+	<string name="locale_message">Езикът на апарата е променен, моля, затворете и рестартирайте приложението.</string>
+	<string name="locale_title">Регистрирана е промяна на езика</string>
+	<string name="translate">Преведи</string>
+	<string name="translate_text">Автоматичният превод на Вашата заявка за търсене ще даде по-добри резултати, но ще отнеме повече време.</string>
+	<string name="sidenav_download">Свали</string>
+	<string name="Photo_Gallery">Фотогалерия</string>
+	<string name="Image_saved">Изображението е свалено</string>
+	<string name="Error_saving_image">Грешка по време на свалянето на изображението</string>
+	<string name="download_message">Желаете ли да запазите изображението?</string>
+	<string name="download_title">Запази изображението</string>
+	<string name="Confirm">Потвърди</string>
+	<string name="Cancel">Анулирай</string>
+	<string name="Load_More">Зареди още</string>
+	<!-- end -->
+</resources>

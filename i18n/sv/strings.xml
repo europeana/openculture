@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="lang">sv</string>
+	<string name="sechead_DATA_PROVIDER">Institution</string>
+	<string name="sechead_LANGUAGE">Språk</string>
+	<string name="sechead_YEAR">Årtal</string>
+	<string name="sechead_PROVIDER">Förmedlande institution</string>
+	<string name="sechead_COUNTRY">Land</string>
+	<string name="sechead_RIGHTS">Upphovsrätt</string>
+	<string name="sechead_TYPE">Mediatyp</string>
+	<string name="sidenav_info">info</string>
+	<string name="sidenav_favourite">favorit</string>
+	<string name="sidenav_connect">länka</string>
+	<string name="sidenav_comment">kommentera</string>
+	<string name="sidenav_share">dela</string>
+	<string name="post_a_comment">Kommentera</string>
+	<string name="What">Vad</string>
+	<string name="Where">Var</string>
+	<string name="When">När</string>
+	<string name="Who">Vem</string>
+	<string name="General_link">Länk till källa</string>
+	<string name="what">Vad</string>
+	<string name="where">Var</string>
+	<string name="when">När</string>
+	<string name="who">Vem</string>
+	<string name="general_link">Länk till källa</string>
+	<string name="comment">Kommentarer</string>
+	<string name="add_comment_window_head">Kommentera</string>
+	<string name="Add_Link">Lägg till</string>
+	<string name="pin_to_pintrest">Dela till Pinterest</string>
+	<string name="What_do_you_want_to_say">Vad vill du lägga till?</string>
+	<string name="Almost_there">Ange en kategori för din länk</string>
+	<string name="Final_step">Beskriv länken</string>
+	<string name="add_link_error">Beskriv relationen (Vad, Var, När, Vem, Allmän) mellan bilden och vad du länkar till</string>
+	<string name="sidemenu_Home">Hem</string>
+	<string name="sidemenu_Results">Sökresultat</string>
+	<string name="sidemenu_Favourutes">Dina favoriter</string>
+	<string name="sidemenu_Help">Hjälp</string>
+	<string name="Help">Hjälp</string>
+	<string name="search_hint">Sök efter fria bilder i Europeana</string>
+	<string name="Send">Skicka</string>
+	<!-- new -->
+	<string name="sechead_BYTYPE">Kategorier</string>
+	<string name="Refine_your_results">Filtrera dina sökresultat</string>
+	<string name="Add_more_keywords">Lägg till flera sökord</string>
+	<string name="Matches_for">Träffar för</string>
+	<string name="share_on_facebook">Facebook</string>
+	<string name="share_on_twitter">Twitter</string>
+	<string name="pin_on_pintrest">Pinterest</string>
+	<string name="share_option_cancel">Avbryt</string>
+	<string name="share_option_title">Dela</string>
+	<string name="Refine">Filter</string>
+	<string name="sechead_queryset">Tema</string>
+	<!-- v1.4.x -->
+	<string name="close_app">Stäng appen</string>
+	<string name="locale_message">Dina språkinställningar har ändrats, appen kommer att stängas och startas om.</string>
+	<string name="locale_title">Språkinställningsförändring upptäckt</string>
+	<string name="translate">Översätt</string>
+	<string name="translate_text">Automatisk översättning av dina sökord ger fler träffar men sökningar tar längre tid</string>
+	<string name="sidenav_download">spara</string>
+	<string name="Photo_Gallery">Bildgalleri</string>
+	<string name="Image_saved">Bild sparad</string>
+	<string name="Error_saving_image">Ett fel inträffade när du sparade bilden. Prova igen!</string>
+	<string name="download_message">Vill du spara bilden?</string>
+	<string name="download_title">Spara bild</string>
+	<string name="Confirm">Bekräfta</string>
+	<string name="Cancel">Avbryt</string>
+	<string name="Load_More">Visa mer</string>
+	<!-- end -->
+</resources>

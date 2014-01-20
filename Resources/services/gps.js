@@ -49,7 +49,7 @@ exports.getLocation = function(fn) {
 	if (versions.isIPhone3_2_Plus()) {
 		//NOTE: starting in 3.2+, you'll need to set the applications
 		//purpose property for using Location services on iPhone
-		Ti.Geolocation.purpose = "GPS demo";
+		Ti.Geolocation.purpose = "Europeana Open Culture";
 	}
 	
 	if (Titanium.Geolocation.locationServicesEnabled==false) {

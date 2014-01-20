@@ -122,7 +122,7 @@ function fn() {
 				backgroundColor:css.DARKBACKGROUND,
 				color : css.VERYLIGHTCOLOUR,
 				height : 64,
-			})
+			});
 			var lbl = Titanium.UI.createLabel({
 				text : places[i],
 				xlink : places[i],
@@ -132,19 +132,19 @@ function fn() {
 					fontSize : 16,
 					fontFamily : "arial"
 				}
-			})
+			});
 			row.add(lbl);
 			rows.push(row);
 		}
 		tabL.setData(rows);	
-	}
+	};
 	refreshleftlist([]);
 	refreshleftlist2 = function()  {
 		var items = require("/helpers/LocalStorage").getObject("creators");
 		var items = require("/helpers/LocalStorage").getObject("dats");
 		if (!items || items == null) items = [];
 		refreshleftlist(items);	
-	}
+	};
 	
 	
 	
@@ -390,7 +390,7 @@ function fn() {
 				term = "&qf="+Ti.Network.encodeURIComponent(term);
 				addSearchTerm(term);
 			}
-		}
+		};
 		extrasearch.addEventListener('return',addExtraSearchTerm);
 
 		subviewR2.add(smh.spacer());
@@ -411,6 +411,7 @@ function fn() {
 			
 			for (var i=0; i < sections[xindex].items.length; i++) {
 				var lbl = smh.option(sections[xindex].items[i].xname,sections[xindex].items[i].xlink,sections[xindex].items[i].xname);
+				Ti.API.debug("XXCONTENT-item"+i);
 				
 //				lbl.xlink = sections[xindex].items[i].xlink;
 //				lbl.xname = sections[xindex].items[i].xname;
@@ -419,18 +420,19 @@ function fn() {
 			}
 			v0.add(v);
 			return v0;
-		}
+		};
 
 		
 		var sections = [];
 		var section_index = -1;
 		
 		for (var i=0; i < places.length; i++) {
+			Ti.API.info("XXCONTENT-place"+i);
 			if (places[i].indexOf("#") == 0) {
 				section_index++;
 				sections[section_index] = {
 					items : []
-				}
+				};
 				var SECHEADTEXT = L(places[i]);
 				if (SECHEADTEXT.indexOf("#") == 0 && SECHEADTEXT.length > 1) SECHEADTEXT = SECHEADTEXT.substring(1);
 				var hv = smh.sectionhead(SECHEADTEXT);
@@ -463,7 +465,7 @@ function fn() {
 		
 		var rows = [];
 		var section = null;
-	}
+	};
 
 
 	refreshplaces("France Belgium".split(" "));	
@@ -478,7 +480,7 @@ function fn() {
 		if (!perpage || perpage == null || perpage == "") perpage = 0;
 
 		refreshplaces(items,Number(totalResults),Number(perpage));	
-	}
+	};
 	
 	
 	self.add(mainviewL);
@@ -518,23 +520,42 @@ function fn() {
 	});
 	
 //	var bb1 = Titanium.UI.createButtonBar({
-	var bb1 = Ti.UI.iOS.createTabbedBar({
-//	    labels:['Home','Search results', 'Your Favourites', 'Help'],
-	    labels:['Home','Search results', 'Your Favourites'],
-		backgroundColor:'#333333',
-	    top:50,
-	    style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
-	    height:30,
-	    width:400
-	});
-	var bb1help = Ti.UI.createButtonBar({
-	    labels:['Help'],
-		backgroundColor:'#333333',
-	    top:50,
-	    style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
-	    height:30,
-	    width:50
-	});
+	if (Ti.Platform.osname === 'android') {
+		var bb1 = Ti.UI.createView({
+			backgroundColor:'#333333',
+		    top:50,
+		    height:30,
+		    width:400
+		});
+	} else {
+		var bb1 = Ti.UI.iOS.createTabbedBar({
+		    labels:['Home','Search results', 'Your Favourites'],
+			backgroundColor:'#333333',
+		    top:50,
+		    style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
+		    height:30,
+		    width:400
+		});
+	}
+	if (Ti.Platform.osname === 'android') {
+		var bb1help = Ti.UI.createButton({
+		    label: 'Help',
+			backgroundColor:'#333333',
+		    top:50,
+		    height:30,
+		    width:50
+		});
+	} else {
+		var bb1help = Ti.UI.createButtonBar({
+		    labels:['Help'],
+			backgroundColor:'#333333',
+		    top:50,
+		    style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
+		    height:30,
+		    width:50
+		});
+		
+	}
 	var bbselect_help = function(e) {
 		var tab = e.index;
 		if (tab == 0) {
@@ -572,13 +593,23 @@ function fn() {
 		image:'images/glyphicons_027_searcht.png'
 	});
 	
-	var topbar = Titanium.UI.iOS.createToolbar({
-		top:0,right:0,left:0,height:50,
-		items : [b1,bb1,bb1help,b1emp,b1muse,b2emp,bbb1],
-		barColor : css.DARKBACKGROUND,
-		borderTop:false,
-	    borderBottom:true
-	})
+	if (Ti.Platform.osname === 'android') {
+		var topbar = Titanium.UI.createView({
+			top:0,right:0,left:0,height:50,
+			barColor : css.DARKBACKGROUND,
+			borderTop:false,
+		    borderBottom:true
+		})
+	} else {
+		var topbar = Titanium.UI.iOS.createToolbar({
+			top:0,right:0,left:0,height:50,
+			items : [b1,bb1,bb1help,b1emp,b1muse,b2emp,bbb1],
+			barColor : css.DARKBACKGROUND,
+			borderTop:false,
+		    borderBottom:true
+		})
+		
+	}
 	
 	var search = Titanium.UI.createTextField({
 		right : 10,

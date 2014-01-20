@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="lang">de</string>
+	<string name="sechead_DATA_PROVIDER">Nach Datenlieferant</string>
+	<string name="sechead_LANGUAGE">Nach Sprache</string>
+	<string name="sechead_YEAR">Nach Jahr</string>
+	<string name="sechead_PROVIDER">Nach Lieferant</string>
+	<string name="sechead_COUNTRY">Nach Land</string>
+	<string name="sechead_RIGHTS">Nach Rechten</string>
+	<string name="sechead_TYPE">Nach Typ</string>
+	<string name="sidenav_info">Information</string>
+	<string name="sidenav_favourite"> Favorit</string>
+	<string name="sidenav_connect">Verbinden</string>
+	<string name="sidenav_comment">Kommentieren</string>
+	<string name="sidenav_share">Teilen</string>
+	<string name="post_a_comment">Kommentar absenden</string>
+	<string name="What">Was</string>
+	<string name="Where">Wo</string>
+	<string name="When">Wann</string>
+	<string name="Who">Wo</string>
+	<string name="General_link">Allgemein Link</string>
+	<string name="what">Was</string>
+	<string name="where">Wo</string>
+	<string name="when">Wann</string>
+	<string name="who">Wo</string>
+	<string name="general_link">Allgemein Link</string>
+	<string name="comment">Kommentar</string>
+	<string name="add_comment_window_head">Kommentar hinzufügen</string>
+	<string name="Add_Link">Link hinzufügen</string>
+	<string name="pin_to_pinterest">Teilen auf Pinterest</string>
+	<string name="What_do_you_want_to_say">Was möchten Sie sagen?</string>
+	<string name="Almost_there">Fast geschafft, bitte Kategorie für Ihre Verbindung auswählen</string>
+	<string name="Final_step">Letzter Schritt, bitte die Verbindung beschreiben, die Sie machen</string>
+	<string name="add_link_error">Sie müssen eine Beschreibung zu schreiben und auch mitteilen, was sie beschreibt (was, wo, wann, wer, allgemein), bevor Sie den Link</string>
+	<string name="sidemenu_Home">Home</string>
+	<string name="sidemenu_Results">Suchergebnisse</string>
+	<string name="sidemenu_Favourutes">Ihre Favoriten</string>
+	<string name="sidemenu_Help">Hilfe</string>
+	<string name="Help">Hilfe</string>
+	<string name="search_hint">Suche eine Auswahl aus Europeana’s Sammlungen</string>
+	<string name="Send">Senden</string>
+	<!-- new -->
+	<string name="sechead_BYTYPE">Nach Typ</string>
+	<string name="Refine_your_results">Verfeinern Sie Ihre Suchergebnisse</string>
+	<string name="Add_more_keywords">Geben Sie Ihr Schlagwort</string>
+	<string name="Matches_for">Spiele für</string>
+	<string name="share_on_facebook">Teilen auf Facebook</string>
+	<string name="share_on_twitter">Teilen auf Twitter</string>
+	<string name="pin_on_pintrest">Teilen auf Pinterest</string>
+	<string name="share_option_cancel">Stornieren</string>
+	<string name="share_option_title">Teilen</string>
+	<string name="Refine">Verfeinern</string>
+	<string name="sechead_queryset">Thema</string>
+	<!-- v1.4.x -->
+	<string name="close_app">App schließen</string>
+	<string name="locale_message">Die Spracheinstellungen auf diesem Gerät wurden geändert, die Anwendung muss geschlossen und neu gestartet werden</string>
+	<string name="locale_title">Änderungen der Spracheinstellungen erkannt</string>
+	<string name="translate">Übersetzen</string>
+	<string name="translate_text">Ihre Suche automatisch zu übersetzen liefert bessere Ergebnisse, dauert aber länger</string>
+	<string name="sidenav_download">Herunterladen</string>
+	<string name="Photo_Gallery">Fotogallerie</string>
+	<string name="Image_saved">Bild heruntergeladen</string>
+	<string name="Error_saving_image">Fehler beim Herunterladen des Bildes</string>
+	<string name="download_message">Möchten Sie das Bild speichern</string>
+	<string name="download_title">Bild speichern</string>
+	<string name="Confirm">Bestätigen</string>
+	<string name="Cancel">Abbrechen</string>
+	<string name="Load_More">Mehr laden</string>
+	<!-- end -->
+</resources>

@@ -25,7 +25,64 @@
 
 var globals = require('/ui/common/globals');
 //bootstrap and check dependencies
-if (Ti.Platform.osname === 'ipad') {
+var LL = function(txt) {
+	try {
+		var rv = L(txt.replace(" ","_"));
+		if (rv == "") return txt;
+		return rv;
+	} catch (E) {
+		return txt;			
+	}
+};
+
+
+if (Ti.Platform.osname === 'android') {
+	
+	var pDPI = Ti.Platform.displayCaps.dpi;
+	var pWidth = (Ti.Platform.displayCaps.platformWidth / pDPI) ;
+	var pHeight = (Ti.Platform.displayCaps.platformHeight / pDPI);
+
+	var diagnonal = Math.sqrt((pWidth * pWidth) + (pHeight * pHeight));
+	Ti.API.debug("jcjcjc diaginal width = "+diagnonal);
+	if (diagnonal < 9) {
+		// require("/etc/config").setformat("phone");
+	}
+	
+	
+	var ApplicationWindow = require('/ui/android/ApplicationWindow');
+	var appwin = new ApplicationWindow();
+	appwin.open();
+
+	var activity = appwin.activity;
+	
+	activity.onPrepareOptionsMenu = function(e){
+		Ti.API.info("jcjc menu pressed []");
+		Ti.App.fireEvent('togglemainviewWrapper',{});
+	};
+	
+	var LOC = Ti.Locale.getCurrentLocale();
+	Ti.App.addEventListener("app:checklocale", function() {
+		if (LOC !== Ti.Locale.getCurrentLocale()) {
+			
+			var dialog = Ti.UI.createAlertDialog({
+			    buttonNames: [LL('close_app')],
+			    message: LL('locale_message'),
+				title: LL('locale_title')
+			});
+			dialog.addEventListener('click', function(e){
+				var intent = Ti.Android.currentActivity.getIntent();
+				Ti.Android.currentActivity.finish();
+		//		Ti.Android.currentActivity.startActivity(intent);
+			});
+			dialog.show();
+		}
+	});
+
+} else if (Ti.Platform.osname === 'ipad' || Ti.Platform.osname === 'iphone') {
+	if (Ti.Platform.osname === 'iphone') {
+		// require("/etc/config").setformat("phone");
+	}
+	
 	var ApplicationWindow = require('/ui/ios/ApplicationWindow');
 	new ApplicationWindow().open();
 	

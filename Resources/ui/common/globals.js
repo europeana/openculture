@@ -12,9 +12,36 @@ exports.globals = {
 	platform : {
 		iphone : (Ti.Platform.osname == 'iphone'),
 		android : (Ti.Platform.osname == 'android'),
-		ipad : (Ti.Platform.osname == 'ipad')
+		ipad : (Ti.Platform.osname == 'ipad'),
+		iphone5 : (Ti.Platform.displayCaps.platformHeight > 500)
 	},
 	RowSelectionStyle : (Ti.Platform.osname == 'iphone') ? Ti.UI.iPhone.TableViewCellSelectionStyle.NONE : "NONE"
+};
+
+exports.isAndroid = function() {
+	return (Ti.Platform.osname == 'android');
+};
+exports.isIOS= function() {
+	return (Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'ipad');
+};
+exports.isIPHONE5= function() {
+	return this.globals.platform.iphone5;
+};
+exports.isIPHONE= function() {
+	return (Ti.Platform.osname == 'iphone');
+};
+exports.isIPAD= function() {
+	return (Ti.Platform.osname == 'ipad');
+};
+exports.ios7 = function() {
+	// iOS-specific test
+	if (Titanium.Platform.name == 'iPhone OS') {
+		var version = Titanium.Platform.version.split(".");
+		var major = parseInt(version[0],10);
+		// Can only test this support on a 3.2+ device
+		if (major >= 7)	return true;
+	}
+	return false;
 };
 
 Titanium.App.addEventListener('state_bg', function(e) {
